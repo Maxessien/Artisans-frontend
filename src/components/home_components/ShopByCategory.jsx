@@ -34,7 +34,7 @@ const ShopByCategory = ({initData}) => {
               </>
             );
           }) : (
-            <div className="py-10 text-lg text-[var(--main-secondary-light)] font-semibold text-xl flex items-center justify-center w-screen">
+            <div className="py-10 text-[var(--main-secondary-light)] font-semibold text-xl flex items-center justify-center w-screen">
               No categories listed
             </div>
           )}

@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import "./scss/app_header_navigation.scss";
 import Link from "next/link";
 
+
 const AppHeaderNavigation = ({ navToggle = ()=>null, signOutFn }) => {
   const { currentSize } = useSelector((state) => state.screenSize);
   const { isLoggedIn, userData } = useSelector((state) => state.userAuth);
@@ -22,15 +23,22 @@ const AppHeaderNavigation = ({ navToggle = ()=>null, signOutFn }) => {
             href={"/shop"}
             className={`header_navigation_links`}
           >
-            Shop
+            About
           </Link>
-          {/* {isLoggedIn && <Link
+          <Link
+            href={"/contact"}
             onClick={() => navToggle(false)}
-            href={`/${userData.userId}/chat`}
             className={`header_navigation_links`}
           >
-            Messages
-          </Link>} */}
+            Become a seller
+          </Link>
+          <Link
+            href={"/contact"}
+            onClick={() => navToggle(false)}
+            className={`header_navigation_links`}
+          >
+            Blog
+          </Link>
           <Link
             href={"/contact"}
             onClick={() => navToggle(false)}
@@ -38,6 +46,7 @@ const AppHeaderNavigation = ({ navToggle = ()=>null, signOutFn }) => {
           >
             Contact
           </Link>
+          
           {currentSize <= 768 && (
             <>
               {isLoggedIn ? (

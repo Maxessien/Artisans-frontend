@@ -32,7 +32,7 @@ const AppHeader = () => {
 
   return (
     <>
-      <header className="w-screen space-y-2 py-3 md:py-5">
+    <header className="w-screen space-y-2 py-10 px-10">
         {/* <div
           className={`flex ${
             currentSize <= 480
@@ -50,21 +50,23 @@ const AppHeader = () => {
           </p>
           {currentSize <= 480 && <Search />}
         </div> */}
-        <AppHeaderMain
-          signOutFn={logOut}
-          navToggle={navigationToggle}
-          navState={showNavigation}
-        />
-        {currentSize <= 768 ? (
-          showNavigation && (
-            <AppHeaderNavigation
-              signOutFn={logOut}
-              navToggle={navigationToggle}
-            />
-          )
-        ) : (
-          <AppHeaderNavigation />
-        )}
+        <div className="flex justify-between h-full align-center">
+          {currentSize <= 768 ? (
+            showNavigation && (
+              <AppHeaderNavigation
+                signOutFn={logOut}
+                navToggle={navigationToggle}
+              />
+            )
+          ) : (
+            <AppHeaderNavigation />
+          )}
+          <AppHeaderMain
+            signOutFn={logOut}
+            navToggle={navigationToggle}
+            navState={showNavigation}
+          />
+        </div>
       </header>
     </>
   );

@@ -5,21 +5,26 @@ import {
   fetchTrendingProducts,
   getProductCategpries,
 } from "../src/utils/productsFectchingHelpers";
+import Hero from "../src/components/home_components/Hero";
+import HeroFooter from "../src/components/home_components/HeroFooter";
 
 export const metadata = {
-  title: "Lasu Mart"
+  title: "Artisans"
 }
 
 const Home = async () => {
   try {
     const trendingProducts = await fetchTrendingProducts();
     const categories = await getProductCategpries();
+    console.log(trendingProducts, categories)
     return (
       <>
         <main>
-          <TrendingProducts initData={trendingProducts} />
+          <Hero />
+          <HeroFooter />
+          {/* <TrendingProducts initData={trendingProducts} />
           <FlashSalesSection />
-          <ShopByCategory initData={categories} />
+          <ShopByCategory initData={categories} /> */}
         </main>
       </>
     );
@@ -28,9 +33,11 @@ const Home = async () => {
     return (
       <>
         <main>
-          <TrendingProducts initData={[]} />
+          <Hero />
+          <HeroFooter />
+          {/* <TrendingProducts initData={[]} />
           <FlashSalesSection />
-          <ShopByCategory initData={[]} />
+          <ShopByCategory initData={[]} /> */}
         </main>
       </>
     );

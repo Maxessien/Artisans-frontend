@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
 import "./scss/app_header_navigation.scss";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 
 const AppHeaderNavigation = ({ navToggle = ()=>null, signOutFn }) => {
   const { currentSize } = useSelector((state) => state.screenSize);
   const { isLoggedIn, userData } = useSelector((state) => state.userAuth);
+  const pathname = usePathname()
   return (
     <>
 {console.log(userData)}
@@ -14,35 +16,35 @@ const AppHeaderNavigation = ({ navToggle = ()=>null, signOutFn }) => {
           <Link
             href={"/"}
             onClick={() => navToggle(false)}
-            className={`header_navigation_links`}
+            className={`header_navigation_links ${pathname === "/" ? "active" : ""}`}
           >
             Home
           </Link>
           <Link
             onClick={() => navToggle(false)}
             href={"/shop"}
-            className={`header_navigation_links`}
+            className={`header_navigation_links ${pathname === "/shop" ? "active" : ""}`}
           >
             About
           </Link>
           <Link
-            href={"/contact"}
+            href={"/sell"}
             onClick={() => navToggle(false)}
-            className={`header_navigation_links`}
+            className={`header_navigation_links ${pathname === "/sell" ? "active" : ""}`}
           >
             Become a seller
           </Link>
           <Link
-            href={"/contact"}
+            href={"/blog"}
             onClick={() => navToggle(false)}
-            className={`header_navigation_links`}
+            className={`header_navigation_links ${pathname === "/blog" ? "active" : ""}`}
           >
             Blog
           </Link>
           <Link
             href={"/contact"}
             onClick={() => navToggle(false)}
-            className={`header_navigation_links`}
+            className={`header_navigation_links ${pathname === "/contact" ? "active" : ""}`}
           >
             Contact
           </Link>

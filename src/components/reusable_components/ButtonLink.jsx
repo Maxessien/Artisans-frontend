@@ -1,10 +1,12 @@
 // import { Circles } from "react-loader-spinner";
 
+import Link from "next/link";
+
 const variantStyles = {
   primary:
     "bg-[var(--main-primary)] text-[var(--text-secondary-light)] hover:bg-[var(--main-primary-light)]",
   secondary:
-    "text-[var(--main-primary)] shadow-[0px_0.4px_10_-6px_black] bg-[var(--red-200)] hover:bg-[var(--text-red-300)]",
+    "text-[var(--main-primary)] shadow-[0px_0.4px_10px_-7.6px_black] bg-[var(--text-secondary)] hover:bg-[var(--text-secondary-light)]",
   tertiary:
     "bg-transparent text-[var(--text-primary-light)] border-[2px] border-[var(--text-primary)] hover:bg-orange-200 border-md border-[var(--text-primary-light)]",
 };
@@ -17,43 +19,27 @@ const sizeStyles = {
 
 const baseStyles = "inline-flex items-center justify-center font-semibold disabled:opacity-[0.7]";
 
-const Button = ({
+const ButtonLink = ({
   children,
-  buttonFn=undefined,
   size = "medium",
   type = "primary",
   rounded = "full",
-  isLoading = false,
   isDisabled = false,
   width = "[max-content]",
   className = "",
-  buttonType="button",
+  href="#"
 }) => {
   const allStyles = `rounded-${rounded} ${baseStyles} ${sizeStyles[size]} ${
     variantStyles[type]
-  } w-${width} ${isDisabled ? "opacity-50 cursor-not-allowed" : ""} ${
-    isLoading ? "cursor-not-allowed" : ""
-  } ${className}`;
+  } w-${width} ${isDisabled ? "opacity-50 cursor-not-allowed" : ""} ${className}`;
 
   return (
     <>
-      <button type={buttonType} disabled={isDisabled} onClick={buttonFn} className={allStyles}>
+      <Link disabled={isDisabled} href={href} className={allStyles}>
         {children}{" "}
-        {/* {isLoading && (
-          <Circles
-            visible={true}
-            width={20}
-            height={20}
-            color={
-              type === "secondary" ? "var(--orange-600)" : "var(--white-300)"
-            }
-            radius={2}
-            wrapperClass="ml-2"
-          />
-        )} */}
-      </button>
+      </Link>
     </>
   );
 };
 
-export default Button;
+export default ButtonLink;

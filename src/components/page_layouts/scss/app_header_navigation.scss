@@ -27,15 +27,16 @@
             width: 90%;
         }
         &_links{
-            font-size: rem(20);
-            font-weight: 600;
-            color: var(--text-primary-light);
+            font-size: rem(18);
+            font-weight: 500;
+            color: var(--main-secondary);
             &:hover{
                 color: var(--main-primary);
             }
         }
         .active{
             color: var(--main-primary);
+            border-bottom: rem(2) solid var(--main-primary);
         }
     }
 }

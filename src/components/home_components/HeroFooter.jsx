@@ -3,11 +3,17 @@ import { FaBoxOpen, FaLock, FaPhone, FaTruck } from "react-icons/fa";
 const HeroFooterCards = ({ icon, title, description }) => {
   return (
     <>
-      <div>
-        {icon}
-        <p>
-          <h3>{title}</h3>
-          <span>{description}</span>
+      <div className="flex grow-0 gap-2">
+        <div className="rounded-full bg-[var(--red-100)] p-3 h-max inline-flex justify-center items-center">
+          {icon}
+        </div>
+        <p className="space-y-2.5">
+          <h3 className="text-xl text-[var(--text-primary)] font-medium">
+            {title}
+          </h3>
+          <span className="text-base text-[var(--main-secondary)] font-medium">
+            {description}
+          </span>
         </p>
       </div>
     </>
@@ -56,26 +62,28 @@ const ReturnParselSvg = () => {
 const HeroFooter = () => {
   return (
     <>
-      <HeroFooterCards
-        title="Fast Delivery"
-        description="3-7 days nationwide."
-        icon={<FaTruck />}
-      />
-      <HeroFooterCards
-        title="Secure Payments"
-        description="Encrypted payment options."
-        icon={<FaLock />}
-      />
-      <HeroFooterCards
-        title="7-days Guarantee"
-        description="Easy returns/exchanges."
-        icon={<ReturnParselSvg />}
-      />
-      <HeroFooterCards
-        title="24/7 Support"
-        description="Anytime assistance."
-        icon={<FaPhone />}
-      />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 lg:grid-cols-4 px-15 lg:px-25 pb-20 justify-center lg:justify-between items-start">
+        <HeroFooterCards
+          title="Fast Delivery"
+          description="3-7 days nationwide."
+          icon={<FaTruck />}
+        />
+        <HeroFooterCards
+          title="Secure Payments"
+          description="Encrypted payment options."
+          icon={<FaLock />}
+        />
+        <HeroFooterCards
+          title="7-days Guarantee"
+          description="Easy returns/exchanges."
+          icon={<ReturnParselSvg />}
+        />
+        <HeroFooterCards
+          title="24/7 Support"
+          description="Anytime assistance."
+          icon={<FaPhone />}
+        />
+      </div>
     </>
   );
 };

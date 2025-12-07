@@ -17,7 +17,7 @@ const sizeStyles = {
   large: "px-6 py-3 text-lg",
 };
 
-const baseStyles = "inline-flex items-center justify-center font-semibold disabled:opacity-[0.7]";
+const baseStyles = "inline-flex items-center justify-center font-normal disabled:opacity-[0.7]";
 
 const ButtonLink = ({
   children,

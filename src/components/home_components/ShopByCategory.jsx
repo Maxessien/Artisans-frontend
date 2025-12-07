@@ -1,43 +1,54 @@
 "use client"
 
-import "./scss/shop_by_category.scss";
-import { useQuery } from "@tanstack/react-query";
-import Loader from "./../reusable_components/Loader";
-import { getProductCategpries } from "../../utils/productsFectchingHelpers";
-
-const ShopByCategory = ({initData}) => {
-  const { data, isPending } = useQuery({
-    queryKey: ["allProductCategories"],
-    queryFn: async()=> await getProductCategpries(),
-    initialData: initData
-  });
-  if (isPending) {
-    return (
-      <>
-        <Loader size="w-screen h-full py-10" />
-      </>
-    );
-  }
+const ShopByCategory = () => {
+  const categoriesData = [
+    {
+      name: "Fashion and Apparel",
+      imageUrl: "fashion-category-bg.png"
+    },
+    {
+      name: "Jewelries and Accessories",
+      imageUrl: "jeweleries-category-bg.png"
+    },
+    {
+      name: "Leather Shoes",
+      imageUrl: "Stunning Handmade Mens brown leather dress shoes, penny loafer shoes for men, Mens shoes 2024 1.png"
+    },
+    {
+      name: "Textile Bags",
+      imageUrl: "green-bag.jpg"
+    },
+    {
+      name: "Hair Accessories",
+      imageUrl: "three-color-bows.jpg"
+    },
+    {
+      name: "Art and Paintings",
+      imageUrl: "woman-art.jpg"
+    },
+    {
+      name: "Pottery and Ceramics",
+      imageUrl: "traditional-vase.jpg"
+    },
+    {
+      name: "Musical Instruments",
+      imageUrl: "standing-talking-drum2.jpg"
+    },
+  ]
   return (
     <>
-	{console.log(data, "comp")}
-      <section className="home_section">
-        <h2 className="home_section_header">Shop by category</h2>
+      <section className="w-full bg-[var(--text-secondary-light)] p-10 lg:p-20 h-[340px] sm:h-[440px] md:h-[480px] lg:h-[520px]">
+        <h2 className="font-normal w-full text-center text-[var(--text-primary)] mb-4 text-2xl">Shop by <span className="text-[var(--main-primary)]">category</span></h2>
 
-        <div className="category_display">
-          {data && data.length > 0 ? data?.map((category, index) => {
+        <div className="overflow-x-auto flex gap-3 h-full py-3">
+          {categoriesData.map(({name, imageUrl})=>{
             return (
-              <>
-                <button key={index} className="category_block">
-                  {category.name}
-                </button>
-              </>
-            );
-          }) : (
-            <div className="py-10 text-[var(--main-secondary-light)] font-semibold text-xl flex items-center justify-center w-screen">
-              No categories listed
-            </div>
-          )}
+              <div className="relative aspect-square h-full">
+                <img className="h-full w-full" src={`designs/${imageUrl}`} alt={`${name} image`} />
+                <p className="absolute bottom-2 left-2 text-sm sm:text-base text-[var(--main-secondary-light)] font-normal">{name}</p>
+              </div>
+            )
+          })}
         </div>
       </section>
     </>

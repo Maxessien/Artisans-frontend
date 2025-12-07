@@ -62,7 +62,7 @@ const ReturnParselSvg = () => {
 const HeroFooter = () => {
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 lg:grid-cols-4 px-15 lg:px-25 pb-20 justify-center lg:justify-between items-start">
+      <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 gap-3 lg:grid-cols-4 px-15 lg:px-25 pb-20 justify-center lg:justify-between items-start">
         <HeroFooterCards
           title="Fast Delivery"
           description="3-7 days nationwide."

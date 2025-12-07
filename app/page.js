@@ -7,6 +7,7 @@ import {
 } from "../src/utils/productsFectchingHelpers";
 import Hero from "../src/components/home_components/Hero";
 import HeroFooter from "../src/components/home_components/HeroFooter";
+import AboutUs from "../src/components/home_components/AboutUs";
 
 export const metadata = {
   title: "Artisans"
@@ -22,6 +23,8 @@ const Home = async () => {
         <main>
           <Hero />
           <HeroFooter />
+          <AboutUs />
+          <ShopByCategory />
           {/* <TrendingProducts initData={trendingProducts} />
           <FlashSalesSection />
           <ShopByCategory initData={categories} /> */}
@@ -35,6 +38,8 @@ const Home = async () => {
         <main>
           <Hero />
           <HeroFooter />
+          <AboutUs />
+          <ShopByCategory />
           {/* <TrendingProducts initData={[]} />
           <FlashSalesSection />
           <ShopByCategory initData={[]} /> */}

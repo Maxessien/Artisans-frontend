@@ -25,8 +25,8 @@ const Hero = () => {
           </div>
           <div className="flex flex-col gap-2 w-[50%]">
             <img className="w-full" src="designs/ankara-group.png" alt="White shoe image" />
-            <div className="w-full min-w-max md:min-w-full flex gap-2 py-4 px-3 bg-[var(--text-secondary-light)]">
-              <img className="h-10" src="designs/faces_different.png" alt="Sponsors images" />
+            <div className="w-full flex flex-wrap gap-2 py-4 px-3 bg-[var(--text-secondary-light)]">
+              <img className="w-1/2" src="designs/faces_different.png" alt="Sponsors images" />
               <p className="flex flex-col gap-1 items-start">
                 <span className="text-base font-semibold text-[var(--text-primary-light)]">1000+</span>
                 <span className="text-sm font-normal text-[var(--main-secondary)]">Items sold out</span>

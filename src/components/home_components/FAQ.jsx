@@ -1,3 +1,5 @@
+﻿"use client"
+
 import { useState } from "react";
 import { MdArrowDropDown } from "react-icons/md";
 // eslint-disable-next-line no-unused-vars
@@ -12,8 +14,8 @@ const FaqDropdown = ({ question, answer }) => {
         className={`flex justify-between gap-2 ${
           expanded
             ? "border-2 border-[var(--main-primary)]"
-            : "bg-[var(--main-secondary)]"
-        } p-3 rounded-md`}
+            : "shadow-[0px_0px_10px_-5px_black]"
+        } p-3 rounded-md w-full`}
       >
         <div>
           <p className="text-lg text-[var(--text-primary)] mb-2 font-normal">
@@ -22,7 +24,7 @@ const FaqDropdown = ({ question, answer }) => {
           {expanded && (
             <AnimatePresence>
               <motion.p
-                className="text-lg text-[var(--text-primary)] font-normal"
+                className="text-base text-[var(--text-primary-light)] font-normal"
                 animate={{ scaleY: [0, 1] }}
                 exit={{ scaleY: [1, 0] }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -33,9 +35,9 @@ const FaqDropdown = ({ question, answer }) => {
           )}
         </div>
         <button
-          className={`p-3 text-base rounded-full ${
+          className={`p-3 h-max text-base rounded-full ${
             expanded
-              ? "bg-[var(--main-secondary-light)]"
+              ? "bg-[var(--text-secondary-light)]"
               : "bg-[--text-secondary-light]"
           }`}
           onClick={() => setExpanded(!expanded)}
@@ -48,19 +50,39 @@ const FaqDropdown = ({ question, answer }) => {
 };
 
 const FAQ = () => {
+  const faqMockDataset = [
+    {
+      question: "How do I place an order?",
+      answer: "Simply browse any product, select your preferred options, and click “Add to Cart”. Then proceed to checkout to complete your purchase."
+    },
+    {
+      question: "Are all products handmade?",
+      answer: "Most products are handmade but a few of them are manufactured with machineries for faster production."
+    },
+    {
+      question: "Are the artisans verified?",
+      answer: "Yes all Artisans are verified."
+    },
+    {
+      question: "Can I track my order?",
+      answer: "Yes, simply navigate to the order section in your account page."
+    },
+  ]
   return (
     <>
       <section className={`${homeSectionPadding} w-full min-w-screen`}>
-        <div className="w-full flex justify-between gap-2">
-          <h2>Frequently Asked Questions</h2>
-          <p>
+        <div className="w-full flex flex-col sm:flex-row items-center sm:utems-stretch justify-between gap-2 mb-5">
+          <h2 className="text-2xl text-[var(--text-primary)] font-normal">Frequently <span className="text-[var(--main-primary)]">Asked Questions</span></h2>
+          <p className="text-lg text-[var(--text-primary)] text-left w-full sm:w-[45%] font-normal">
             Find answers to the most common questions about shopping on our
             platform.
           </p>
         </div>
-        <section>
-          <img src="designs/woman-standing.png" alt="Rep image" />
-          <div></div>
+        <section className="flex flex-col sm:flex-row gap-8 w-full">
+          <img className="w-full sm:w-[50%]" src="designs/woman-standing.png" alt="Rep image" />
+          <div className="w-full sm:w-[50%] flex flex-col gap-3 items-start">
+            {faqMockDataset.map((data)=><FaqDropdown {...data} />)}
+          </div>
         </section>
       </section>
     </>

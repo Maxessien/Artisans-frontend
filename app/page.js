@@ -9,6 +9,7 @@ import AboutUs from "../src/components/home_components/AboutUs";
 import NewArrivals from "./../src/components/home_components/NewArrivals";
 import BestSelling from "../src/components/home_components/BestSelling";
 import Testimonials from "../src/components/home_components/Testimonials";
+import FAQ from "../src/components/home_components/FAQ";
 
 export const metadata = {
   title: "Artisans",
@@ -29,6 +30,7 @@ const Home = async () => {
           <NewArrivals />
           <BestSelling />
           <Testimonials />
+          <FAQ />
         </main>
       </>
     );
@@ -44,6 +46,7 @@ const Home = async () => {
           <NewArrivals />
           <BestSelling />
           <Testimonials />
+          <FAQ />
         </main>
       </>
     );

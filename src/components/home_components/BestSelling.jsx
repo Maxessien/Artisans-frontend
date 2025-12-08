@@ -1,3 +1,5 @@
+"use client"
+
 import { useSelector } from "react-redux";
 import ButtonLink from "../reusable_components/ButtonLink";
 import { HomeProductCards } from "./NewArrivals";
@@ -36,7 +38,7 @@ const BestSelling = () => {
   return (
     <>
       <section className={`${homeSectionPadding} w-full min-w-screen`}>
-        <h2 className="w-full flex justify-between">
+        <h2 className="w-full flex justify-between flex-col gap-2 sm:flex-row items-start mb-6">
           <span className="text-2xl text-[var(--text-primary)] font-normal">
             <span className="text-[var(--main-primary)]">Best Selling</span> Products
           </span>

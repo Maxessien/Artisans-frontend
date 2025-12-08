@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 
+
 @font-face {
   font-family: "Poppins";
   src: url("/fonts/Poppins-VariableFont_wght.ttf") format("truetype");

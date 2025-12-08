@@ -4,7 +4,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { homeSectionPadding } from "./AboutUs";
 import { useSelector } from 'react-redux';
 
-const NewArrivalsCards = ({ name, description, price, images }) => {
+export const HomeProductCards = ({ name, description, price, images }) => {
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -88,7 +88,7 @@ const NewArrivals = () => {
                 if (currentSize < 480 && index + 1 > 4) return
               return (
                 <>
-                <NewArrivalsCards {...data} />
+                <HomeProductCards {...data} />
                 </>
               )
             }

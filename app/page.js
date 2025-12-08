@@ -1,5 +1,3 @@
-import TrendingProducts from "./../src/components/home_components/Trending";
-import FlashSalesSection from "./../src/components/home_components/FlashSalesSection";
 import ShopByCategory from "./../src/components/home_components/ShopByCategory";
 import {
   fetchTrendingProducts,
@@ -9,6 +7,8 @@ import Hero from "../src/components/home_components/Hero";
 import HeroFooter from "../src/components/home_components/HeroFooter";
 import AboutUs from "../src/components/home_components/AboutUs";
 import NewArrivals from "./../src/components/home_components/NewArrivals";
+import BestSelling from "../src/components/home_components/BestSelling";
+import Testimonials from "../src/components/home_components/Testimonials";
 
 export const metadata = {
   title: "Artisans",
@@ -27,9 +27,8 @@ const Home = async () => {
           <AboutUs />
           <ShopByCategory />
           <NewArrivals />
-          {/* <TrendingProducts initData={trendingProducts} />
-          <FlashSalesSection />
-          <ShopByCategory initData={categories} /> */}
+          <BestSelling />
+          <Testimonials />
         </main>
       </>
     );
@@ -43,9 +42,8 @@ const Home = async () => {
           <AboutUs />
           <ShopByCategory />
           <NewArrivals />
-          {/* <TrendingProducts initData={[]} />
-          <FlashSalesSection />
-          <ShopByCategory initData={[]} /> */}
+          <BestSelling />
+          <Testimonials />
         </main>
       </>
     );

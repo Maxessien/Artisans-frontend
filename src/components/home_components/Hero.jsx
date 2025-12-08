@@ -3,7 +3,7 @@ import ButtonLink from "../reusable_components/ButtonLink";
 const Hero = () => {
   return (
     <>
-      <section className={`flex flex-col gap-3 md:gap-0 md:flex-row md:justify-between px-10 pb-20 lg:px-20 max-w-[${1600/16}rem] mx-auto h-max max-h-[${820/16}rem]`}>
+      <section className={`flex flex-col gap-3 md:gap-0 md:flex-row md:justify-between px-5 sm:px-10 md:px-13 pb-20 lg:px-20 max-w-[${1600/16}rem] mx-auto h-max max-h-[${820/16}rem]`}>
         <section className="w-full md:w-[45%] lg:w-[45%] xl:w-[40%]">
           <h2 className="text-2xl font-medium text-[var(--text-primary-light)] md:w-[80%] lg:w-[70%] xl:w-[60%] leading-10">
             Discover Unique, Handcrafted Pieces from Real <span className="text-[var(--main-primary)]">Artisans</span> Near You.
@@ -25,13 +25,14 @@ const Hero = () => {
           </div>
           <div className="flex flex-col gap-2 w-[50%]">
             <img className="w-full" src="designs/ankara-group.png" alt="White shoe image" />
-            <div className="w-full flex flex-wrap gap-2 py-4 px-3 bg-[var(--text-secondary-light)]">
+              <img className="w-full" src="designs/items-sold.png" alt="items sold" />
+            {/* <div className="w-full flex flex-wrap gap-2 py-4 px-3 bg-[var(--text-secondary-light)]">
               <img className="w-1/2" src="designs/faces_different.png" alt="Sponsors images" />
               <p className="flex flex-col gap-1 items-start">
                 <span className="text-base font-semibold text-[var(--text-primary-light)]">1000+</span>
                 <span className="text-sm font-normal text-[var(--main-secondary)]">Items sold out</span>
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

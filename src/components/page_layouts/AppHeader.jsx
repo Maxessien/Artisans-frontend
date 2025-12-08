@@ -32,7 +32,7 @@ const AppHeader = () => {
 
   return (
     <>
-    <header className="w-screen space-y-2 py-10 px-10">
+    <header className="w-screen space-y-2 py-10 px-5 sm:px-10 md:px-13">
         {/* <div
           className={`flex ${
             currentSize <= 480

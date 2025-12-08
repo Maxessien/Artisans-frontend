@@ -8,16 +8,17 @@ import {
 import Hero from "../src/components/home_components/Hero";
 import HeroFooter from "../src/components/home_components/HeroFooter";
 import AboutUs from "../src/components/home_components/AboutUs";
+import NewArrivals from "./../src/components/home_components/NewArrivals";
 
 export const metadata = {
-  title: "Artisans"
-}
+  title: "Artisans",
+};
 
 const Home = async () => {
   try {
     const trendingProducts = await fetchTrendingProducts();
     const categories = await getProductCategpries();
-    console.log(trendingProducts, categories)
+    console.log(trendingProducts, categories);
     return (
       <>
         <main>
@@ -25,6 +26,7 @@ const Home = async () => {
           <HeroFooter />
           <AboutUs />
           <ShopByCategory />
+          <NewArrivals />
           {/* <TrendingProducts initData={trendingProducts} />
           <FlashSalesSection />
           <ShopByCategory initData={categories} /> */}
@@ -40,6 +42,7 @@ const Home = async () => {
           <HeroFooter />
           <AboutUs />
           <ShopByCategory />
+          <NewArrivals />
           {/* <TrendingProducts initData={[]} />
           <FlashSalesSection />
           <ShopByCategory initData={[]} /> */}

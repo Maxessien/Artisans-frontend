@@ -1,108 +1,90 @@
-// import React from 'react'; import { Facebook, Twitter, Instagram } from 'lucide-react'
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import Link from "next/link"
+import Link from "next/link";
+import { FaInstagram, FaFacebookF, FaXTwitter, FaTiktok } from "react-icons/fa6";
 
-const AppFooter = () => {
+export default function AppFooter() {
   return (
-    <footer className="bg-gray-900 text-gray-100 py-12">
-      <div className="w-full mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-        {/* Branding */}{" "}
-        <div>
-          <h2 className="text-2xl font-semibold text-yellow-500">
-            <span className="text-white font-bold text-2xl">
-              Lasu
-            </span>
-            <span className="text-orange-400 font-bold text-2xl">
-              Mart
-            </span>
-          </h2>
-          <p className="mt-2 text-sm text-gray-400">
-            Connecting you with authentic handmade products from talented
-            artisans around the world.
+    <footer className="w-full bg-[var(--text-secondary-light)] text-[var(--text-primary-light)] px-6 md:px-12 lg:px-20 py-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10">
+
+        {/* Brand Section */}
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold">Brand Name</h2>
+          <p className="text-sm leading-relaxed max-w-xs">
+            Discover unique, handmade creations crafted by talented artisans across Nigeria
           </p>
-        </div>
-        {/* Quick Links */}
-        <div>
-          <h3 className="font-semibold mb-4">Quick Links</h3>
-          <ul className="space-y-2">
-            <li>
-              <Link href="/shop" className="hover:text-[var(--orange-400)]">
-                Shop All
-              </Link>
-            </li>
-            <li>
-              <Link href="/categories" className="hover:text-[var(--orange-400)]">
-                Categories
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="hover:text-[var(--orange-400)]">
-                About Us
-              </Link>
-            </li>
-          </ul>
-        </div>
-        {/* Support */}
-        <div>
-          <h3 className="font-semibold mb-4">Support</h3>
-          <ul className="space-y-2">
-            <li>
-              <Link href="/help" className="hover:text-[var(--orange-400)]">
-                Help Center
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:text-[var(--orange-400)]">
-                Contact Us
-              </Link>
-            </li>
-            <li>
-              <Link href="/returns" className="hover:text-[var(--orange-400)]">
-                Returns
-              </Link>
-            </li>
-          </ul>
-        </div>
-        {/* Socials */}
-        <div>
-          <h3 className="font-semibold mb-4">Follow Us</h3>
-          <div className="flex space-x-4">
-            <a
-              href="https://facebook.com"
-              aria-label="Facebook"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[var(--orange-400)] text-white"
-            >
-              <FaFacebook size={24} />
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-4 text-[1.2rem] pt-2">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <FaInstagram className="cursor-pointer" />
             </a>
-            <a
-              href="https://twitter.com"
-              aria-label="Twitter"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[var(--orange-400)] text-white"
-            >
-              <FaTwitter size={24} />
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+              <FaFacebookF className="cursor-pointer" />
             </a>
-            <a
-              href="https://instagram.com"
-              aria-label="Instagram"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[var(--orange-400)] text-white"
-            >
-              <FaInstagram size={24} />
+            <a href="https://www.x.com" target="_blank" rel="noopener noreferrer">
+              <FaXTwitter className="cursor-pointer" />
+            </a>
+            <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
+              <FaTiktok className="cursor-pointer" />
             </a>
           </div>
         </div>
-      </div>
 
-      <div className="mt-10 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
-        © 2024 Artisan. All rights reserved.
+        {/* Quick Links */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+          <ul className="space-y-3 text-sm">
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/about">About Us</Link></li>
+            <li><Link href="/shop">Shop by Category</Link></li>
+            <li><Link href="/new-arrivals">New Arrivals</Link></li>
+            <li><Link href="/best-selling">Best Selling</Link></li>
+            <li><Link href="/contact">Contact Us</Link></li>
+          </ul>
+        </div>
+
+        {/* Customer Support */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Customer Support</h3>
+          <ul className="space-y-3 text-sm">
+            <li><Link href="/faqs">FAQs</Link></li>
+            <li><Link href="/shipping-delivery">Shipping &amp; Delivery</Link></li>
+            <li><Link href="/return-refund">Return &amp; Refund Policy</Link></li>
+            <li><Link href="/track-order">Track Your Order</Link></li>
+            <li><Link href="/help-center">Help Centre / Support</Link></li>
+          </ul>
+        </div>
+
+        {/* Company */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Company</h3>
+          <ul className="space-y-3 text-sm">
+            <li><Link href="/our-artisans">Our Artisans</Link></li>
+            <li><Link href="/become-seller">Become a Seller</Link></li>
+            <li><Link href="/how-it-works">How it Works</Link></li>
+            <li><Link href="/terms-conditions">Terms and Conditions</Link></li>
+            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+          </ul>
+        </div>
+
+        {/* Contact Info */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Contact Info</h3>
+          <p className="text-sm">Email: <a href="mailto:support@brand.com" className="underline">support@brand.com</a></p>
+          <p className="text-sm">Phone: <a href="tel:+234xxxxxxxxx" className="underline">+234 xxx xxx xxx</a></p>
+
+          {/* App Badges */}
+          <div className="pt-4 space-y-3">
+            <div className="w-36 h-12 bg-[var(--text-secondary)] rounded-md flex items-center justify-center text-xs">
+              App Store Badge
+            </div>
+            <div className="w-36 h-12 bg-[var(--text-secondary)] rounded-md flex items-center justify-center text-xs">
+              Google Play Badge
+            </div>
+          </div>
+        </div>
+
       </div>
     </footer>
   );
-};
-
-export default AppFooter;
+}

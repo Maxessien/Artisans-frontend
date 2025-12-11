@@ -24,7 +24,7 @@ const Testimonials = ()=> {
   ];
 
   return (
-    <section className={`w-full ${homeSectionPadding} bg-[var(--text-secondary-light)]`}>
+    <section className={`w-full ${homeSectionPadding}`}>
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-center text-2xl font-normal mb-5">
           What Our <span className="text-[var(--main-primary)]">Client Says</span>

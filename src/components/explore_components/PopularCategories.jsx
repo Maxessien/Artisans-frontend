@@ -38,9 +38,9 @@ const ShopByCategory = () => {
   ];
   return (
     <>
-      <section className="bg-[var(--main-tertiary-light)] w-full py-10 px-5 sm:px-10 md:px-13 lg:p-20 h-[340px] sm:h-[440px] md:h-[480px] lg:h-[520px]">
-        <h2 className="font-normal w-full text-center text-[var(--text-primary)] mb-4 md:text-2xl text-xl">
-          Shop by <span className="text-[var(--main-primary)]">category</span>
+      <section className="w-full py-10 px-5 sm:px-10 md:px-13 lg:p-20 h-[340px] sm:h-[440px] md:h-[480px] lg:h-[520px]">
+        <h2 className="font-normal w-full text-left text-[var(--text-primary)] mb-4 md:text-2xl text-xl">
+          Popular Categories
         </h2>
 
         <div className="overflow-x-auto flex gap-3 h-full py-3">

@@ -70,7 +70,7 @@ const FAQ = () => {
   ]
   return (
     <>
-      <section className={`${homeSectionPadding} w-full min-w-screen`}>
+      <section className={`bg-[var(--main-tertiary-light)] ${homeSectionPadding} w-full min-w-screen`}>
         <div className="w-full flex flex-col sm:flex-row items-center sm:utems-stretch justify-between gap-2 mb-5">
           <h2 className="text-2xl text-[var(--text-primary)] font-normal">Frequently <span className="text-[var(--main-primary)]">Asked Questions</span></h2>
           <p className="text-lg text-[var(--text-primary)] text-left w-full sm:w-[45%] font-normal">

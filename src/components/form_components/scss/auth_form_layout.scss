@@ -3,25 +3,14 @@
 .form_page_section {
   @include flex(center, center, rem(15), column);
   margin: auto;
-  background: var(--text-secondary-light);
   padding: rem(15) rem(20);
-  border-radius: rem(5);
-  box-shadow: 2px 2px 12px -2px black;
   margin-top: rem(25);
   margin-bottom: rem(25);
   max-width: rem(480);
   h1 {
     font-weight: 700;
     font-size: var(--font-3xl);
-    color: var(--text-primary-light);
-  }
-  .link {
-    color: var(--main-primary-light);
-    font-weight: 600;
-    font-size: var(--font-lg);
-    &:hover {
-      color: var(--main-primary);
-    }
+    color: var(--text-primary);
   }
   .line_seperator {
     color: var(--main-secondary-light);

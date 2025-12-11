@@ -1,74 +1,89 @@
 @use "../../../assets/scss_reusable/functions_mixins.scss" as *;
 
-.form{
-    @include flex(stretch, stretch, rem(10), column);
+.form {
+  @include flex(stretch, stretch, rem(10), column);
+  width: 100%;
+  &_labels {
+    @include flex(flex-start, center, rem(5), column);
     width: 100%;
-    &_labels{
-        @include flex(flex-start, center, rem(5), column);
+    &_names {
+      color: var(--text-primary-light);
+      font-size: var(--font-lg);
+      font-weight: 700;
+    }
+    &_inputs {
+      width: 100%;
+      font-size: var(--font-md);
+      font-weight: 400;
+      padding: rem(7) rem(10);
+      box-shadow: 0px 0px 10px -7px black;
+      color: var(--text-primary);
+      border-radius: 9999px;
+      &::placeholder {
+        color: rgb(128, 128, 128);
+      }
+      &:disabled {
+        opacity: 0.6;
+      }
+    }
+    .phone_wrapper {
+      width: 100%;
+      box-shadow: 0px 0px 10px -7px black;
+      border-radius: 9999px;
+      .country_code {
+        padding: rem(5) rem(8);
+        height: 100%;
+        font-size: var(--font-md);
+        font-weight: 500;
+        color: var(--text-primary);
+        width: max-content;
+      }
+      &_input {
         width: 100%;
-        &_names{
-            color: var(--text-primary-light);
-            font-size: var(--font-lg);
-            font-weight: 700;
+        font-size: var(--font-md);
+        font-weight: 400;
+        padding: rem(7) rem(10);
+        color: var(--text-primary);
+        &::placeholder {
+          color: rgb(128, 128, 128);
         }
-        &_inputs{
-            width: 100%;
-            font-size: var(--font-md);
-            font-weight: 500;
-            padding: rem(7) rem(10);
-            box-shadow: inset 0px 0px 5px black;
-            color: var(--text-primar);
-            border-radius: rem(10);
-            z-index: 1;
-            &::placeholder{
-                color: rgb(128, 128, 128);
-            }
-            &:disabled{
-                opacity: 0.6
-            }
+        &:disabled {
+          opacity: 0.6;
         }
-        .country_code{
-            padding: rem(5) rem(8);
-            height: 100%;
-            font-size: var(--font-md);
-            font-weight: 500;
-            box-shadow: inset 0px 0px 5px black;
-            border-radius: rem(10);
-            color: var(--text-primar);
-            width: max-content;
-        }
-        &_error{
-            color: red;
-            font-size: var(--font-sm);
-            font-weight: 500;
-        }
-        div{
-            position: relative;
-            width: 100%;
-            button{
-                position: absolute;
-                top: 50%;
-                right: rem(20);
-                transform: translateY(-50%);
-                cursor: pointer;
-            }
-        }
-    }    
+      }
+    }
+    &_error {
+      color: red;
+      font-size: var(--font-sm);
+      font-weight: 500;
+    }
+    div {
+      position: relative;
+      width: 100%;
+      button {
+        position: absolute;
+        top: 50%;
+        right: rem(20);
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+    }
+  }
   .submit_button {
     @include flex(center, center);
     width: 100%;
     font-size: var(--font-md);
-    font-weight: 600;
+    font-weight: 500;
     padding: rem(10) rem(15);
     background: var(--main-primary);
     color: var(--text-secondary);
-    border-radius: rem(8);
+    border-radius: 9999px;
     margin-top: rem(10);
     &:hover {
       background: var(--main-primary-light);
     }
-    &:disabled{
-        opacity: 0.6;
+    &:disabled {
+      opacity: 0.6;
     }
   }
 }

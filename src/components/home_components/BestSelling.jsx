@@ -37,12 +37,12 @@ const BestSelling = () => {
 
   return (
     <>
-      <section className={`${homeSectionPadding} w-full min-w-screen`}>
-        <h2 className="w-full flex justify-between flex-col gap-2 sm:flex-row items-start mb-6">
-          <span className="text-2xl text-[var(--text-primary)] font-normal">
+      <section className={`bg-[var(--main-tertiary-light)] ${homeSectionPadding} w-full min-w-screen`}>
+        <h2 className="w-full flex justify-between gap-2 items-start mb-6">
+          <span className="md:text-2xl text-xl text-[var(--text-primary)] font-normal">
             <span className="text-[var(--main-primary)]">Best Selling</span> Products
           </span>
-          <ButtonLink>View All</ButtonLink>
+          {currentSize > 480 && <ButtonLink>View All</ButtonLink>}
         </h2>
         <div
           className={`grid ${
@@ -57,6 +57,7 @@ const BestSelling = () => {
             );
           })}
         </div>
+          {currentSize <= 480 && <div className="mt-4 flex justify-center items-center"><ButtonLink>View All</ButtonLink></div>}
       </section>
     </>
   );

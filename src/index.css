@@ -14,7 +14,7 @@ body {
   margin-top: 0;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
-  background: var(--main-tertiary-light);
+  background: var(--text-secondary-light);
 }
 
 main{

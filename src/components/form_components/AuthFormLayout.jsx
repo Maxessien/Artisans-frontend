@@ -1,6 +1,5 @@
 import Link from "next/link";
 import "./scss/auth_form_layout.scss";
-import { FaFacebook, FaGoogle } from "react-icons/fa";
 import { useEffect } from "react";
 import {
   FacebookAuthProvider,
@@ -9,6 +8,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../../firebase/fb_config.js";
 import {toast} from "react-toastify"
+import { FacebookIcon, GoogleIcon } from "../svg_components/FormSvg.jsx";
 
 const AuthFormLayout = ({ children, type }) => {
   useEffect(() => {
@@ -37,22 +37,17 @@ const AuthFormLayout = ({ children, type }) => {
   return (
     <>
       <section className="form_page_section">
-        <h1>{type == "login" ? "Login" : "Sign Up"}</h1>
+        <h1>{type == "login" ? "Welcome Back" : "Create Account"}</h1>
         {children}
-        {type == "login" && (
-          <Link href={"/reset-password"} className="link">
-            Forgot Password?
-          </Link>
-        )}
 
-        <p className="line_seperator">Or continue with</p>
+        <p className="line_seperator"><span></span>Or continue with<span></span></p>
 
         <div className="socials">
           <button onClick={() => googlePopup()}>
-            <FaGoogle /> Continue With Google
+            <GoogleIcon /> Continue With Google
           </button>
           <button onClick={() => facebookSignIn()}>
-            <FaFacebook /> Continue With Facebook
+            <FacebookIcon /> Continue With Facebook
           </button>
         </div>
 

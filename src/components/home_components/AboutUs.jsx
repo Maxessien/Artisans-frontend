@@ -5,7 +5,7 @@ export const homeSectionPadding = "py-10 px-5 sm:px-10 md:px-13 lg:p-20"
 const AboutUs = () => {
   return (
     <>
-      <section className={`bg-[var(--text-secondary-light)] w-full min-w-screen flex flex-col-reverse ${homeSectionPadding} md:flex-row gap-10`}>
+      <section className={`w-full min-w-screen flex flex-col-reverse ${homeSectionPadding} md:flex-row gap-10`}>
         <img className='w-full md:w-1/2' src="designs/about-side-img.png" alt="About us side image" />
         <section className='w-full md:w-1/2'>
           <h2 className='text-2xl text-[--text-primary] w-full text-center md:text-left font-normal mb-2'>About <span className='text-[var(--main-primary)]'>Us</span></h2>

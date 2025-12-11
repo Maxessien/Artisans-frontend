@@ -4,13 +4,16 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import "./scss/auth_form_field.scss";
 import React, { useState } from "react";
+import { MxEye } from "../svg_components/FormSvg";
 
 const AuthFormField = ({
   children,
   email = false,
   password = false,
+  confirmPassword=false,
   submitFunction,
   name = false,
+  storeName=false,
   phone = false,
   hasDefault = false,
   buttonText="",
@@ -73,6 +76,32 @@ const AuthFormField = ({
             )}
           </label>
         )}
+
+        {storeName && (
+          <label className="form_labels" htmlFor="storeName">
+            <p className="form_labels_names">Name</p>
+            <input
+              className="form_labels_inputs"
+              type="text"
+              id="storeName"
+              placeholder="Enter your store name"
+              {...register("name", {
+                required: "This field is required",
+                minLength: {
+                  value: 3,
+                  message: "Name must be at least 3 characters long",
+                },
+                maxLength: {
+                  value: 16,
+                  message: "Name must be below 16 characters long",
+                },
+              })}
+            />
+            {errors.storeName && (
+              <p className="form_labels_error">{errors.storeName.message}</p>
+            )}
+          </label>
+        )}
         {email && (
           <label className="form_labels" htmlFor="email">
             <p className="form_labels_names">Email</p>
@@ -94,10 +123,10 @@ const AuthFormField = ({
         {phone && (
           <label className="form_labels" htmlFor="phone">
             <p className="form_labels_names">phone</p>
-            <div className="flex gap-2">
+            <div className="phone_wrapper">
               <div className="country_code">+234</div>
               <input
-                className="form_labels_inputs"
+                className="phone_wrapper_input"
                 type="phone"
                 id="phone"
                 placeholder="Enter your phone number"
@@ -140,6 +169,36 @@ const AuthFormField = ({
             </div>
             {errors.password && (
               <p className="form_labels_error">{errors.password.message}</p>
+            )}
+          </label>
+        )}
+        {confirmPassword && (
+          <label className="form_labels" htmlFor="confirmPassword">
+            <p className="form_labels_names">Password</p>
+            <div>
+              <input
+                className="form_labels_inputs"
+                type={showPassword ? "text" : "password"}
+                id="confirmPassword"
+                placeholder="Confirm your passsword"
+                {...register("confirmPassword", {
+                  required: "This field is required",
+                  minLength: {
+                    value: 8,
+                    message: "password must be at least 8 characters long",
+                  },
+                })}
+              />
+              <button type="button">
+                {showPassword ? (
+                  <MxEye className="text-xl" onClick={() => setShowPassword(false)} />
+                ) : (
+                  <FaEyeSlash className="text-xl" onClick={() => setShowPassword(true)} />
+                )}
+              </button>
+            </div>
+            {errors.confirmPassword && (
+              <p className="form_labels_error">{errors.confirmPassword.message}</p>
             )}
           </label>
         )}

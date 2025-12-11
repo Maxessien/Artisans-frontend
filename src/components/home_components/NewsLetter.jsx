@@ -12,7 +12,7 @@ const NewsLetter = () => {
         <div
           className={`w-full max-w-[640px] mx-auto flex flex-col gap-4 items-center`}
         >
-          <h2 className="text-2xl text-[var(--text-secondary-light)] font-normal">
+          <h2 className="md:text-2xl text-xl text-[var(--text-secondary-light)] font-normal">
             Subscribe to our{" "}
             <span className="text-[var(--main-primary)]">Newsletter</span>
           </h2>

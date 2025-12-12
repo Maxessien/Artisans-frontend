@@ -3,39 +3,47 @@
 .form_page_section {
   @include flex(center, center, rem(15), column);
   margin: auto;
-  padding: rem(15) rem(20);
-  margin-top: rem(25);
+  padding: rem(0) rem(20);
   margin-bottom: rem(25);
   max-width: rem(480);
   h1 {
-    font-weight: 700;
+    font-weight: 600;
     font-size: var(--font-3xl);
     color: var(--text-primary);
   }
   .line_seperator {
+    @include flex(center, space-between, rem(10));
     color: var(--main-secondary-light);
     font-size: var(--font-md);
     font-weight: 600;
-  }
-  .socials{
-    @include flex(center, center, rem(10), column);
     width: 100%;
-    button{
-        @include flex(center, center, rem(5));
-        font-size: var(--font-md);
-        color: var(--text-primary-light);
-        font-weight: 600;
-        box-shadow: 1px 1px 5px -1.2px black;
-        width: 100%;
-        padding: rem(10) rem(8);
-        border-radius: rem(5);
-        transition: all 150ms linear;
-        &:hover{
-            background: var(--main-tertiary);
-        }
-        &:active{
-            transform: scale(0.95);
-        }
+    span{
+      word-break: keep-all;
+      width: max-content;
+    }
+    div {
+      height: rem(3);
+      width: 20%;
+      background: var(--main-tertiary);
+    }
+  }
+  .socials {
+    @include flex(center, center, rem(15));
+    width: 100%;
+    button {
+      @include flex(center, center, rem(5));
+      font-size: var(--font-2xl);
+      font-weight: 600;
+      box-shadow: 0.6px 0.45px 5px -1.2px black;
+      padding: rem(16);
+      border-radius: 9999px;
+      transition: all 150ms linear;
+      &:hover {
+        background: var(--main-tertiary);
+      }
+      &:active {
+        transform: scale(0.95);
+      }
     }
   }
 }

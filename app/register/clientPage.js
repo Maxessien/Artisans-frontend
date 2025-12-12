@@ -43,10 +43,6 @@ const ClientRegister = () => {
   return (
     <>
       <main>
-        <div>
-          <button>Buyer</button>
-          <button>Seller</button>
-        </div>
         <AuthFormLayout type={"register"}>
           <AuthFormField
             submitFunction={mutateAsync}
@@ -54,16 +50,11 @@ const ClientRegister = () => {
             phone
             password
             name
+            confirmPassword
             buttonText={isPending ? "Signing Up..." : "Sign Up"}
             isSubmitting={isPending}
           />
         </AuthFormLayout>
-        {/* <ToastContainer
-          position="top-center"
-          newestOnTop
-          pauseOnHover
-          theme="colored"
-        /> */}
       </main>
     </>
   );

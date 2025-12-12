@@ -1,7 +1,7 @@
 @use "../../../assets/scss_reusable/functions_mixins.scss" as *;
 
 .form {
-  @include flex(stretch, stretch, rem(10), column);
+  @include flex(stretch, stretch, rem(20), column);
   width: 100%;
   &_labels {
     @include flex(flex-start, center, rem(5), column);
@@ -9,14 +9,15 @@
     &_names {
       color: var(--text-primary-light);
       font-size: var(--font-lg);
-      font-weight: 700;
+      font-weight: 400;
     }
     &_inputs {
       width: 100%;
       font-size: var(--font-md);
       font-weight: 400;
-      padding: rem(7) rem(10);
-      box-shadow: 0px 0px 10px -7px black;
+      padding: rem(16) rem(20);
+      box-shadow: 0px 0px 5px -3.9px black;
+	background: rgba(157, 31, 21, 0.05);
       color: var(--text-primary);
       border-radius: 9999px;
       &::placeholder {
@@ -28,8 +29,10 @@
     }
     .phone_wrapper {
       width: 100%;
-      box-shadow: 0px 0px 10px -7px black;
+      box-shadow: 0px 0px 5px -3.9px black;
+	background: rgba(157, 31, 21, 0.05);
       border-radius: 9999px;
+	@include flex(center, flex-start);
       .country_code {
         padding: rem(5) rem(8);
         height: 100%;
@@ -37,12 +40,14 @@
         font-weight: 500;
         color: var(--text-primary);
         width: max-content;
+	border-right: 2px solid var(--text-primary);
       }
       &_input {
         width: 100%;
         font-size: var(--font-md);
         font-weight: 400;
-        padding: rem(7) rem(10);
+      	border-radius: 0 9999px 9999px 0;
+      	padding: rem(19) rem(20);
         color: var(--text-primary);
         &::placeholder {
           color: rgb(128, 128, 128);

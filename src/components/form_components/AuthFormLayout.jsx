@@ -9,6 +9,7 @@ import {
 import { auth } from "../../../firebase/fb_config.js";
 import {toast} from "react-toastify"
 import { FacebookIcon, GoogleIcon } from "../svg_components/FormSvg.jsx";
+import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 const AuthFormLayout = ({ children, type }) => {
   useEffect(() => {
@@ -40,18 +41,18 @@ const AuthFormLayout = ({ children, type }) => {
         <h1>{type == "login" ? "Welcome Back" : "Create Account"}</h1>
         {children}
 
-        <p className="line_seperator"><span></span>Or continue with<span></span></p>
+        <p className="line_seperator"><div></div><span>Or continue with</span><div></div></p>
 
         <div className="socials">
           <button onClick={() => googlePopup()}>
-            <GoogleIcon /> Continue With Google
+            <GoogleIcon />
           </button>
           <button onClick={() => facebookSignIn()}>
-            <FacebookIcon /> Continue With Facebook
+            <FacebookIcon />
           </button>
         </div>
 
-        <p className="text-lg text-center text-[var(--text-primary-light)] font-semibold">
+        <p className="text-lg text-center text-[var(--text-primary-light)] font-normal">
           {type == "login" ? (
             <>
               Don't have an account

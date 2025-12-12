@@ -9,6 +9,7 @@ import { findError } from "./../../public/fbAuthErrors";
 import AuthFormLayout from "./../../src/components/form_components/AuthFormLayout";
 import AuthFormField from "./../../src/components/form_components/AuthFormField";
 import { FaCheck } from "react-icons/fa";
+import Link from "next/link"
 
 const ClientLogin = () => {
   const router = useRouter();
@@ -35,7 +36,7 @@ const ClientLogin = () => {
     <>
       <main>
         <AuthFormLayout type={"login"}>
-          <h2 className="text-lg text-[var(--main-secondary)] font-normal">
+          <h2 className="text-lg w-full text-center text-[var(--main-secondary)] font-normal">
             Log in to continue shopping
           </h2>
           <AuthFormField
@@ -47,13 +48,13 @@ const ClientLogin = () => {
           >
             <div className="flex justify-between gap-2">
               <label
-                className="flex gap-1.5 justify-start"
+                className="flex gap-1.5 items-center justify-start"
                 htmlFor="rememberMe"
               >
-                <div className="h-6 aspect-square rounded-md border-2 border-black">
+                <div onClick={()=>setRememberMe(!rememberMe)} className="h-5 aspect-square rounded-md border-2 border-black">
                   {rememberMe && (
                     <>
-                      <div className="h-full w-full bg-blue-900 text-[0.4rem] font-bold flex items-center justify-center">
+                      <div className="h-full w-full bg-blue-900 text-[0.75rem] text-white font-bold flex items-center justify-center">
                         <FaCheck />
                       </div>
                     </>
@@ -63,7 +64,6 @@ const ClientLogin = () => {
                   className="hidden"
                   value={rememberMe}
                   ref={rememberMeRef}
-                  onChange={({ target: { value } }) => setRememberMe(value)}
                   id="rememberMe"
                   type="checkbox"
                 />

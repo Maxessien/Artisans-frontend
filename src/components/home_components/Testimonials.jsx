@@ -17,7 +17,7 @@ const Testimonials = ()=> {
     },
     {
       name: "Damola Ogundiran",
-      location: "Portharcourt, Nigeria",
+      location: "Port Harcourt, Nigeria",
       review:
         "Customer support responded immediately when I had questions. Smooth experience from start to finish.",
     },

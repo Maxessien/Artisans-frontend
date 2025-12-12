@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import "./scss/auth_form_field.scss";
 import React, { useState } from "react";
-import { MxEye } from "../svg_components/FormSvg";
 
 const AuthFormField = ({
   children,
   email = false,
   password = false,
-  confirmPassword=false,
+  confirmPassword = false,
   submitFunction,
   name = false,
-  storeName=false,
+  storeName = false,
   phone = false,
   hasDefault = false,
-  buttonText="",
-  isSubmitting=false,
+  buttonText = "",
+  isSubmitting = false,
 }) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: hasDefault
@@ -42,11 +42,14 @@ const AuthFormField = ({
     mode: "onTouched",
   });
 
-  const submitForm = (data)=>{
-    submitFunction(data)
-  }
+  const passwordWatch = watch("password");
+
+  const submitForm = (data) => {
+    submitFunction(data);
+  };
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <>
@@ -132,8 +135,14 @@ const AuthFormField = ({
                 placeholder="Enter your phone number"
                 {...register("phone", {
                   required: "This field is required",
-                  minLength: {value: 10, message: "Phone number must be at least 10 digits"},
-                  maxLength: {value: 15, message: "Phone number cannot be more than 11 digits"},
+                  minLength: {
+                    value: 10,
+                    message: "Phone number must be at least 10 digits",
+                  },
+                  maxLength: {
+                    value: 11,
+                    message: "Phone number cannot be more than 11 digits",
+                  },
                 })}
               />
             </div>
@@ -157,13 +166,27 @@ const AuthFormField = ({
                     value: 8,
                     message: "password must be at least 8 characters long",
                   },
+                  validate: (value) => {
+                    if (
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*._+=-])[A-Za-z0-9!@#$%^&*._+=-]+$/.test(
+                        value
+                      )
+                    ) return "Password must contain one uppercase, lowercase and a special character"
+                      return true;
+                  },
                 })}
               />
               <button type="button">
                 {showPassword ? (
-                  <FaEye className="text-xl" onClick={() => setShowPassword(false)} />
+                  <FaEye
+                    className="text-xl"
+                    onClick={() => setShowPassword(false)}
+                  />
                 ) : (
-                  <FaEyeSlash className="text-xl" onClick={() => setShowPassword(true)} />
+                  <FaEyeSlash
+                    className="text-xl"
+                    onClick={() => setShowPassword(true)}
+                  />
                 )}
               </button>
             </div>
@@ -178,7 +201,7 @@ const AuthFormField = ({
             <div>
               <input
                 className="form_labels_inputs"
-                type={showPassword ? "text" : "password"}
+                type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"
                 placeholder="Confirm your passsword"
                 {...register("confirmPassword", {
@@ -187,23 +210,46 @@ const AuthFormField = ({
                     value: 8,
                     message: "password must be at least 8 characters long",
                   },
+                  validate: (value) => {
+                    if (value !== passwordWatch) return "Must be the same as password";
+                    if (
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*._+=-])[A-Za-z0-9!@#$%^&*._+=-]+$/.test(
+                        value
+                      )
+                    ) return "Password must contain one uppercase, lowercase and a special character"
+                      return true;
+                  },
                 })}
               />
               <button type="button">
-                {showPassword ? (
-                  <MxEye className="text-xl" onClick={() => setShowPassword(false)} />
+                {showConfirmPassword ? (
+                  <FaEye
+                    className="text-xl"
+                    onClick={() => setShowConfirmPassword(false)}
+                  />
                 ) : (
-                  <FaEyeSlash className="text-xl" onClick={() => setShowPassword(true)} />
+                  <FaEyeSlash
+                    className="text-xl"
+                    onClick={() => setShowConfirmPassword(true)}
+                  />
                 )}
               </button>
             </div>
             {errors.confirmPassword && (
-              <p className="form_labels_error">{errors.confirmPassword.message}</p>
+              <p className="form_labels_error">
+                {errors.confirmPassword.message}
+              </p>
             )}
           </label>
         )}
-          {children && React.cloneElement(children, {registerFn: ()=>register(), errorsObj: errors})}
-        <button disabled={isSubmitting} type="submit" className="submit_button">{buttonText}</button>
+        {children &&
+          React.cloneElement(children, {
+            registerFn: () => register(),
+            errorsObj: errors,
+          })}
+        <button disabled={isSubmitting} type="submit" className="submit_button">
+          {buttonText}
+        </button>
       </form>
     </>
   );

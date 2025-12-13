@@ -1,25 +1,28 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { PreviousPage } from "../svg_components/FormSvg";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import Button from "./../reusable_components/Buttons";
-import { authApi } from "../../axiosApiBoilerplates/authApi";
+import { regApi } from "../../axiosApiBoilerplates/regApi";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import { requestOtp } from "../../utils/auth.client";
 
 const DigitCodeVerification = ({
   otpType = "email",
-  numberOfDigits = 4,
+  otpValue,
+  numberOfDigits = 6,
   pageTitle,
   pageDescription,
   otpLifespan,
 }) => {
-  const [focusedInput, setFocusedInput] = useState(1);
   const [timeLeft, setTimeLeft] = useState(otpLifespan);
-  const { idToken } = useSelector((state) => state.userAuth);
-  const { register, handleSubmit } = useForm();
+  const [inputs, setInputs] = useState(Array(numberOfDigits).fill(""));
+  const [isLoading, setIsLoading] = useState(false)
 
-  const router = useRouter();
+  // const router = useRouter();
+
+  const inputsRef = useRef([]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -29,11 +32,14 @@ const DigitCodeVerification = ({
     return () => clearInterval(intervalId);
   }, []);
 
-  const submitOtp = async (data) => {
+  const submitOtp = async (e) => {
+    e.preventDefault();
     try {
-      let otp = "";
-      for (const value in data) otp += value;
-      await authApi(idToken).post("/auth/otp/verify", {
+      setIsLoading(true)
+      const otp = inputs.join("");
+      if (otp?.trim().length < numberOfDigits)
+        throw new Error("incomplete OTP");
+      await regApi.post("/auth/otp/verify", {
         type: otpType,
         otpValue: otp,
       });
@@ -41,54 +47,60 @@ const DigitCodeVerification = ({
     } catch (err) {
       console.log(err);
       toast.error("Invalid OTP");
+    } finally {
+      setIsLoading(false)
     }
   };
 
-  const requestOtp = async (type, value) => {
-    try {
-      await authApi(idToken).post("/auth/otp", { type: type, value: value });
-      toast.success("OTP Sent");
-    } catch (err) {
-      console.log(err);
-      toast.error("Couldn't send OTP, try again later");
-    }
+  const inputOnchangeFn = ({ target: { value } }, index) => {
+    if (value.length > 1) return;
+    const stateCopy = [...inputs];
+    stateCopy[index] = value;
+    console.log(stateCopy, stateCopy.join(""));
+    setInputs(stateCopy);
+    if (value.length === 1 && index + 1 < numberOfDigits)
+      inputsRef.current[index + 1].focus();
   };
 
   return (
     <>
-      <header className="flex flex-col items-start">
-        <div onClick={() => router.back()}>
+      <header className="flex flex-col items-start mb-5">
+        {/* <div onClick={() => router.back()}>
           <PreviousPage />
-        </div>
-        <div className="flex flex-col items-center gap-2">
+        </div> */}
+        <div className="flex flex-col w-full items-center justify-center gap-2">
           <h1 className="text-2xl text-[--text-primary] font-medium">
             {pageTitle}
           </h1>
           {pageDescription?.length > 0 && (
-            <h2 className="text-lg text-[--main-secondary] font-normal">
+            <h2 className="text-base max-w-100 text-center text-[var(--main-secondary)] font-normal">
               {pageDescription}
             </h2>
           )}
         </div>
       </header>
       <form
-        onSubmit={() => handleSubmit(submitOtp)}
-        className="h-full w-full max-w-lg flex flex-col justify-center gap-2.5 mx-auto"
+        onSubmit={(e) => submitOtp(e)}
+        className="h-full w-max flex flex-col justify-center gap-2.5 mx-auto"
       >
-        <div>
+        <div className="flex gap-1.5 justify-center items-center">
           {Array(numberOfDigits)
             .fill("holder")
             .map((_, index) => {
               return (
                 <input
-                  {...register(`digit${index + 1}`)}
-                  autoFocus={index + 1 === focusedInput}
-                  maxLength={1}
-                  onChange={({ target: { value } }) =>
-                    value.length === 1
-                      ? setFocusedInput((state) => state + 1)
-                      : null
-                  }
+                  ref={(el) => (inputsRef.current[index] = el)}
+                  className="h-15 w-15 text-center text-2xl font-semibold text-[var(--text-primary)] rounded-md border-2 border-[var(--text-primary-light)]"
+                  autoFocus={index === 0}
+                  value={inputs[index]}
+                  onChange={(e) => inputOnchangeFn(e, index)}
+                  onKeyDown={({ key, target: { value } }) => {
+                    console.log(value.length)
+                    if (key === "Backspace" && value.length === 0) {
+                      inputOnchangeFn({ target: { value } }, index)
+                      inputsRef.current[index - 1].focus();
+                    }
+                  }}
                   type="number"
                 />
               );
@@ -102,12 +114,28 @@ const DigitCodeVerification = ({
               .padStart(2, 0)}`}
           </p>
         ) : (
-          <Button buttonFn={() => requestOtp()} size="small">
+          <Button
+            width="max"
+            buttonFn={async () => {
+              try {
+                setIsLoading(true)
+                await requestOtp(otpType, otpValue)
+                toast.success("OTP sent")
+              } catch (err) {
+                console.log(err)
+                toast.error("OTP not sent, Try again later")
+              } finally{
+                setIsLoading(false)
+              }
+            }}
+            size="small"
+            isDisabled={isLoading}
+          >
             Resend OTP
           </Button>
         )}
 
-        <Button className="mt-4" buttonType="submit" width="full">
+        <Button isDisabled={isLoading} className="mt-4" buttonType="submit" width="full">
           Submit
         </Button>
       </form>

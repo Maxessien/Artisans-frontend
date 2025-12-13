@@ -20,9 +20,6 @@ const app = initializeApp(firebaseConfig);
 // Auth
 const auth = getAuth(app);
 
-console.log(process.env.NODE_ENV, process.env.NXET_PUBLIC_APP_ENV, "envv")
-if (process.env.NODE_ENV === "development") {
-  connectAuthEmulator(auth, "http://127.0.0.1:9095")
-}
+connectAuthEmulator(auth, "http://127.0.0.1:9099")
 
 export { auth };

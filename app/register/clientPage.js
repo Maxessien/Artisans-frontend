@@ -1,6 +1,6 @@
 "use client";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import AuthFormLayout from "./../../src/components/form_components/AuthFormLayout";
@@ -25,8 +25,7 @@ const ClientRegister = () => {
     try {
       const res = await regApi.post("/auth/register", newUser);
       toast.success(res.data.message);
-
-      console.log(res);
+      router.push(`/verify?type=email&value=${email}`)
       return res.data;
     } catch (err) {
       console.log(err.response?.data?.message || err.message);
@@ -38,7 +37,6 @@ const ClientRegister = () => {
   const { isPending, mutateAsync } = useMutation({
     mutationFn: (data) => registerUser(data),
     mutationKey: ["registerUser"],
-    onSuccess: () => setTimeout(() => router.push("/login"), 2300),
   });
   return (
     <>

@@ -11,11 +11,13 @@ import Loader from "./../src/components/reusable_components/Loader";
 import { regApi } from "../src/axiosApiBoilerplates/regApi";
 import { authApi } from "../src/axiosApiBoilerplates/authApi";
 import { ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function AppClientWrapper({ children }) {
   const [userInfo, setUserInfo] = useState({});
   const { isLoggedIn } = useSelector((state) => state.userAuth);
   const dispatch = useDispatch();
+  const router = useRouter()
 
   const fetchLoggedInUser = async (userId, token) => {
     try {
@@ -49,6 +51,8 @@ export default function AppClientWrapper({ children }) {
         if (user) {
           console.log(user);
           const idToken = await user.getIdToken();
+          const {claims} = await user.getIdTokenResult()
+          if (!claims?.isVerified?.email) router.push(`/verify?type=email&value=${user.email}`)
           setUserInfo({ userId: user.uid, token: idToken });
           dispatch(setUserAuth({ stateProp: "isLoggedIn", value: true }));
           dispatch(setUserAuth({ stateProp: "idToken", value: idToken }));

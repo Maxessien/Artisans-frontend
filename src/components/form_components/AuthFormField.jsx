@@ -243,10 +243,7 @@ const AuthFormField = ({
           </label>
         )}
         {children &&
-          React.cloneElement(children, {
-            registerFn: () => register(),
-            errorsObj: errors,
-          })}
+          React.cloneElement(children)}
         <button disabled={isSubmitting} type="submit" className="submit_button">
           {buttonText}
         </button>

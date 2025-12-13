@@ -1,6 +1,6 @@
 import ClientRegister from "./clientPage"
 import {redirect} from "next/navigation"
-import {getUserServerSide} from "../../src/utils/authHelpers"
+import {getUserServerSide} from "../../src/utils/auth.server"
 
 
 export const metadata = {

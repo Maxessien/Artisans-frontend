@@ -23,7 +23,7 @@ const fetchTrendingProducts = async () => {
   }
 };
 
-const getProductCategpries = async () => {
+const getProductCategories = async () => {
   try {
     const categories = await regApi.get("/category");
 	// console.log(categories, "batttt")
@@ -34,4 +34,5 @@ const getProductCategpries = async () => {
   }
 };
 
-export { fetchTrendingProducts, getProductCategpries, fetchAllProducts };
+export { fetchAllProducts, fetchTrendingProducts, getProductCategories };
+

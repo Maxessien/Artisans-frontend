@@ -3,20 +3,25 @@ import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { authApi } from "../../axiosApiBoilerplates/authApi";
 import { setUserAuth } from "../../store_slices/userAuthSlice";
+import { useEffect } from "react";
 
-const CartListProductCards = ({
+const CartListProductCard = ({
   name,
-  quantity = 1,
+  description,
   price,
-  images,
+  quantity,
+  imageUrl,
   productId,
+  isSelected,
+  setSelectedFn,
 }) => {
-  console.log(productId);
   const { idToken, userData } = useSelector((state) => state.userAuth);
   const dispatch = useDispatch();
   const deleteFromCart = async () => {
     try {
-      const res = await authApi(idToken).delete(`/user/${userData?.userId}/cart/${productId}`);
+      const res = await authApi(idToken).delete(
+        `/user/${userData?.userId}/cart/${productId}`
+      );
       console.log(res);
       dispatch(
         setUserAuth({
@@ -31,16 +36,18 @@ const CartListProductCards = ({
 
   const updateCartQuantity = async (value) => {
     try {
-      const res = await authApi(idToken).post(`/user/${userData?.userId}/cart`, {
-        productId: productId,
-        quantity: value,
-      });
+      const res = await authApi(idToken).post(
+        `/user/${userData?.userId}/cart`,
+        {
+          productId: productId,
+          quantity: value,
+        }
+      );
       console.log(res.data);
       dispatch(
         setUserAuth({
           stateProp: "userData",
           value: res.data,
-      
         })
       );
     } catch (err) {
@@ -48,54 +55,68 @@ const CartListProductCards = ({
     }
   };
 
+  useEffect(()=>{
+    setSelectedFn((state)=> ([...state, {productId, price, quantity, selected: true}]))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const { mutateAsync } = useMutation({ mutationFn: () => deleteFromCart() });
 
   return (
     <>
-      <div className="flex items-start sm:items-center justify-between px-3 py-4 sm:py-1 w-full">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-          <div className="w-23 sm:w-32 md:40 lg:48 xl:56 aspect-square mx-auto">
-            <img
-              src={`${images[0].url}`}
-              alt={`${name} image`}
-              className="object-cover w-full h-full"
-            />
+      <label className="flex justify-start items-center">
+        <input type="checkbox" value={()=>isSelected(productId)} className="hidden" />
+        <div className="h-[14px] w-[14px] flex justify-center items-center border-[var(--main-primary)] border-2">
+          {()=>isSelected(productId) && (
+            <div className="h-3 w-3 bg-[var(--main-primary)]"></div>
+          )}
+        </div>
+        <div className="flex items-center gap-4 p-4 rounded-xl bg-[var(--text-secondary-light)] shadow-sm border">
+          {/* Image */}
+          <img
+            src={imageUrl}
+            alt={name}
+            className="w-20 h-20 rounded-lg object-cover"
+          />
+
+          {/* Info */}
+          <div className="flex-1">
+            <h3 className="text-sm font-semibold text-gray-900">{name}</h3>
+
+            {description && (
+              <p className="text-xs text-gray-500 mt-1">{description}</p>
+            )}
+
+            <p className="text-sm font-bold mt-2">₦{price.toLocaleString()}</p>
           </div>
-          <div className="flex flex-col gap-2 justify-between h-full items-start">
-            <p className="text-lg text-[var(--text-primary)] pl-3 font-semibold">
-              {name}
-            </p>
-            <div className="flex gap-3 items-center justify-center">
-              <div className="flex gap-4 px-3 text-[var(--text-primary)] h-10 rounded-full border-2 border-[var(--main-secondary-light)]">
-                <button
-                  onClick={() => updateCartQuantity(1)}
-                  className="font-bold text-base hover:bg-[var(--main-primary-light)]"
-                >
-                  <FaPlus />
-                </button>
-                <span className="font-bold text-lg flex items-center justify-center">
-                  {quantity}
-                </span>
-                <button className="font-bold text-base hover:bg-[var(--main-primary-light)]">
-                  <FaMinus onClick={() => updateCartQuantity(-1)} />
-                </button>
-              </div>
-              <span className="text-[var(--main-primary)] font-bold text-base">
-                &#8358;{price}
-              </span>
+
+          {/* Quantity controls */}
+          <div className="flex flex-col justify-between items-center">
+            <button onClick={mutateAsync}>
+              <FaTrash color="var(--main-primary)" />
+            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => updateCartQuantity(-1)}
+                className="w-7 h-7 rounded-full bg-gray-200 text-sm font-bold"
+              >
+                <FaMinus />
+              </button>
+
+              <span className="text-sm font-medium">{quantity}</span>
+
+              <button
+                onClick={() => updateCartQuantity(1)}
+                className="w-7 h-7 rounded-full bg-red-600 text-white text-sm font-bold"
+              >
+                <FaPlus />
+              </button>
             </div>
           </div>
         </div>
-
-        <button
-          onClick={() => mutateAsync()}
-          className="text-lg font-bold text-[var(--text-primary-light)]"
-        >
-          <FaTrash />
-        </button>
-      </div>
+      </label>
     </>
   );
 };
 
-export default CartListProductCards;
+export default CartListProductCard;

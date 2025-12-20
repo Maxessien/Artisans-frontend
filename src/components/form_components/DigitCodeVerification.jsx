@@ -26,10 +26,12 @@ const DigitCodeVerification = ({
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTimeLeft((state) => state - 1);
+      if (timeLeft >= 0) setTimeLeft((state) => state - 1);
+      else clearInterval(intervalId)
     }, 1000);
 
     return () => clearInterval(intervalId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submitOtp = async (e) => {

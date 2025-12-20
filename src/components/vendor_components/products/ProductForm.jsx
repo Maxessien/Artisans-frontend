@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -16,7 +16,7 @@ import { authApi } from "../../../axiosApiBoilerplates/authApi";
 import { formatFormData } from "../../../utils/regHelperFns";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
 
 const FormBlocks = ({ children, blockTitle }) => {
   return (
@@ -56,7 +56,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
         params.pid === "new"
           ? "/product/vendor"
           : `/product/vendor/${hasDefault?.productId}`,
-        formData,
+        formData
       );
       hasDefault = product.data;
       reRender((state) => state + 1);
@@ -75,19 +75,25 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
     }
   };
 
-  const deleteImage = async(id)=>{
-    try{
-      await authApi(idToken).delete(`/product/image/${id}`, {params: {productId: hasDefault?.productId, publicId: id}})
-      hasDefault.images = hasDefault.images.filter(({publicId})=>publicId !== id)
+  const deleteImage = async (id) => {
+    try {
+      await authApi(idToken).delete(`/product/image/${id}`, {
+        params: { productId: hasDefault?.productId, publicId: id },
+      });
+      hasDefault.images = hasDefault.images.filter(
+        ({ publicId }) => publicId !== id
+      );
       reRender((state) => state + 1);
-      toast.success("Image deleted")
-    }catch(err){
-      console.log(err)
-      toast.error("Unable to delete image, try again later")
+      toast.success("Image deleted");
+    } catch (err) {
+      console.log(err);
+      toast.error("Unable to delete image, try again later");
     }
-  }
+  };
 
-  const {mutateAsync, isPending} = useMutation({mutationFn: (data)=>submitFn(data)})
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: (data) => submitFn(data),
+  });
 
   return (
     <>
@@ -146,45 +152,52 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
             )}
           </FormWrapper>
         </FormBlocks>
-            <Cards className="flex gap-3 justify-start">
-              {hasDefault?.images?.length > 0 && hasDefault.images.map(({url, publicId})=>{
-                return <div className="flex flex-col gap-2">
+        <Cards className="flex gap-3 justify-start">
+          {hasDefault?.images?.length > 0 &&
+            hasDefault.images.map(({ url, publicId }) => {
+              return (
+                <div className="flex flex-col gap-2">
                   <img className="w-full max-w-20" src={url} />
-                  <Button buttonFn={()=>deleteImage(publicId)} rounded="md" width="full"><FaTrash /> {" "} Remove Image</Button>
+                  <Button
+                    buttonFn={() => deleteImage(publicId)}
+                    rounded="md"
+                    width="full"
+                  >
+                    <FaTrash /> Remove Image
+                  </Button>
                 </div>
-              })}
-            </Cards>
+              );
+            })}
+        </Cards>
 
         <FormBlocks blockTitle="Product Images (select one or more images)">
-	<label className="w-full" htmlFor="file_input">
-          <Cards className="flex flex-col items-center justify-center gap-2">
-            <FaUpload className="text-[var(--text-primary)]" size={45} />
-            <p className="text-base text-[var(--text-primary)] font-semibold">
-              Click to upload Image*
-            </p>
-            <p className="text-base text-[var(--main-secondary)] font-semibold">
-              PNG, JPG or WEBP (max. 5MB)
-            </p>
-            <input
-		id="file_input"
-              type="file"
-              {...register("images", {
-                validate: (value) => {
-                  if (hasDefault?.images > 0 && value?.files > 0)
-                    return "Products need at least one image";
-                  for (const file in value.files) {
-                    if (file.size / (1024 * 1024) > 5)
-                      return "Images must be less than 5Mb";
-                  }
-                  return true;
-                },
-              })}
-            />
-          </Cards>
-	</label>
-            {errors.images && (
-              <FormErrors errorText={errors.images.message} />
-            )}
+          <label className="w-full" htmlFor="file_input">
+            <Cards className="flex flex-col items-center justify-center gap-2">
+              <FaUpload className="text-[var(--text-primary)]" size={45} />
+              <p className="text-base text-[var(--text-primary)] font-semibold">
+                Click to upload Image*
+              </p>
+              <p className="text-base text-[var(--main-secondary)] font-semibold">
+                PNG, JPG or WEBP (max. 5MB)
+              </p>
+              <input
+                id="file_input"
+                type="file"
+                {...register("images", {
+                  validate: (value) => {
+                    if (hasDefault?.images.length < 1 && value?.length < 1)
+                      return "Products need at least one image";
+                    for (const file of value.files) {
+                      if (file.size / (1024 * 1024) > 5)
+                        return "Images must be less than 5Mb";
+                    }
+                    return true;
+                  },
+                })}
+              />
+            </Cards>
+          </label>
+          {errors.images && <FormErrors errorText={errors.images.message} />}
         </FormBlocks>
 
         <FormBlocks blockTitle="Product Status">
@@ -205,8 +218,19 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
         </FormBlocks>
 
         <Cards className="mt-2">
-          <Button isDisabled={isPending} rounded="md" width="full" buttonType="submit">
-            {params.pid === "new" ? (!isPending ? "Add Product" : "Adding...") : (!isPending ? "Update Product" : "Updating...")}
+          <Button
+            isDisabled={isPending}
+            rounded="md"
+            width="full"
+            buttonType="submit"
+          >
+            {params.pid === "new"
+              ? !isPending
+                ? "Add Product"
+                : "Adding..."
+              : !isPending
+              ? "Update Product"
+              : "Updating..."}
           </Button>
         </Cards>
       </form>

@@ -1,5 +1,5 @@
 import AccountNavigation from "../../../src/components/page_layouts/AccountNavigation"
-import { getUserServerSide } from "../../../src/utils/authHelpers"
+import { getUserServerSide } from "../../../src/utils/auth.server"
 
 export const metadata = {
 	title: "Lasu Mart-Account"

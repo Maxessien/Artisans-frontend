@@ -1,14 +1,16 @@
-"use client"
+"use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import CartListProductCards from "./CartListProductCards";
 import { useMutation } from "@tanstack/react-query";
 import { authApi } from "../../axiosApiBoilerplates/authApi";
 import { setUserAuth } from "../../store_slices/userAuthSlice";
 import { toast } from "react-toastify";
+import CartListProductCard from "./CartListProductCards";
+import { useState } from "react";
 
-const CartItems = ({initUserData}) => {
+const CartItems = ({ initUserData }) => {
   const { userData, idToken } = useSelector((state) => state.userAuth);
+  const [selected, setSelected] = useState([])
   const dispatch = useDispatch();
 
   const clearCart = async () => {
@@ -26,7 +28,18 @@ const CartItems = ({initUserData}) => {
     }
   };
 
-  const user = userData ?? initUserData
+  const selectFn = (productId)=>{
+    const newSelected = selected.map((selection)=> {
+      return selection.productId === productId ? {...selection, isSelected: true} : selection
+    })
+    setSelected(newSelected)
+  }
+
+  const isSelected = (productId)=>{
+    return selected.some((selection)=> selection.productId === productId && selection.isSelected)
+  }
+
+  const user = userData ?? initUserData;
 
   const { mutateAsync } = useMutation({ mutationFn: () => clearCart() });
 
@@ -48,22 +61,31 @@ const CartItems = ({initUserData}) => {
           )}
         </header>
         {user?.cart?.length > 0 ? (
-          user?.cart.map(({ name, price, quantity, productId, images }, index) => {
-            return (
-              <>
-                <div className="mb-3">
-                  <CartListProductCards
-                    key={index}
-                    name={name}
-                    quantity={quantity}
-                    price={price}
-                    images={images}
-                    productId={productId}
-                  />
-                </div>
-              </>
-            );
-          })
+          <form>
+            {user?.cart.map(
+              (
+                { name, price, description, quantity, productId, images },
+              ) => {
+                return (
+                  <>
+                  <div onClick={()=>selectFn(productId)}>
+                      <CartListProductCard
+                        name={name}
+                        quantity={quantity}
+                        price={price}
+                        description={description}
+                        imageUrl={images[0].url}
+                        productId={productId}
+                        isSelected={isSelected}
+                        setSelectedFn = {setSelected}
+                      />
+                  </div>
+                  </>
+                );
+              }
+            )}
+
+          </form>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <p className="text-lg text-[var(--text-pimary-light)] font-semibold">

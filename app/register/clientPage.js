@@ -7,10 +7,6 @@ import AuthFormLayout from "./../../src/components/form_components/AuthFormLayou
 import { regApi } from "./../../src/axiosApiBoilerplates/regApi";
 import AuthFormField from "./../../src/components/form_components/AuthFormField";
 
-export const metadata = {
-  title: "Lasu Mart-Register",
-};
-
 const ClientRegister = () => {
   const router = useRouter();
 

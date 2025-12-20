@@ -11,7 +11,7 @@ const VerifyPage = async ({ searchParams }) => {
   )
     return notFound;
 
-  requestOtp(type, value);
+  await requestOtp(type, value);
   return (
     <main className="px-5 h-full">
       <DigitCodeVerification

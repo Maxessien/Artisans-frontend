@@ -1,51 +1,40 @@
 "use client";
 
-import { useSelector } from "react-redux";
 import Button from "../reusable_components/Buttons";
-import { useRouter } from "next/navigation";
 
-const CheckoutSummary = ({initUserData}) => {
-  const { userData } = useSelector((state) => state.userAuth);
+const PriceCalc = (name, price)=>{
+  return (
+    <li className="flex justify-between items-center w-full text-lg text-[var(--main-secondary-light)] font-normal"><span>{name}</span> <span className="text-[var(--text-primary)]">#{price}</span></li>
+  )
+}
 
-  const router = useRouter();
+const CheckoutSummary = ({deliveryFee, selectedProds=[]}) => {
 
-  const user = userData ?? initUserData
-
-  const total =
-    user && user?.cart?.length > 0
-      ? user.cart.reduce((acc, curr) => {
-          return Number(acc) + Number(curr.price) * Number(curr.quantity);
-        }, 0)
-      : null;
+  const subTotal = selectedProds.reduce((prev, curr)=>{
+    if (curr.isSelected) {
+      return (Number(curr.price) * Number(curr.quantity)) + prev
+    } else {
+      return prev
+    }
+  }, 0)
+ 
+  //Function would be defined later
+  const submitOrder = ()=>null
 
   return (
     <>
-      {console.log(total, "tp")}
-      <aside className="w-full px-4 py-3 bg-[var(--text-secondary-light)] rounded-md shadow-[0px_2px_8px_-3px_black]">
-        <h2 className="w-full text-center text-[var(--text-primary-light)] text-xl font-bold">
-          Order Summary
-        </h2>
-
-        {total ? (
-          <>
-            <ul className="flex flex-col justify-start align-start gap-4 my-3 text-lg text-[var(--text-primary)] font-bold">
-              <li>Price: &#8358; {total.toFixed(2)}</li>
-              <li>Charges: 10%</li>
-              <li>
-                Total: &#8358;{" "}
-                {(Number(total) + Number(total) * 0.1).toFixed(2)}
-              </li>
-            </ul>
-            <Button buttonFn={() => router.push(`/${user.userId}/checkout`)} rounded="md">
-              Proceed to Checkout
-            </Button>
-          </>
-        ) : (
-          <p className="py-5 text-center text[var(--text-primary-light)] font-semibold text-base">
-            Empty
-          </p>
-        )}
-      </aside>
+      <div className="w-full">
+        <div className="relative">
+          <input type="text" placeholder="Enter Discount Code" className="w-full px-2 py-3 bg-[var(--main-tertiary-light)] placeholder:px-4 rounded-full" />
+          <button className="font-medium absolute top-3 right-3 text-[var(--main-primary)] text-lg">Apply</button>
+        </div>
+        <ul className="space-y-3 px-2 border-b-[var(--main-secondary-light)] border-b-2">
+          <PriceCalc name={"subTotal"} price={subTotal} />
+          <PriceCalc name={"Delivery Fee"} price={deliveryFee} />
+        </ul>
+        <li className="flex justify-between items-center w-full text-xl text-[var(--main-secondary-light)] font-normal"><span>Total</span> <span>#{subTotal + deliveryFee}</span></li>
+        <Button buttonFn={submitOrder} width="full">Proceed To Checkout</Button>
+      </div>
     </>
   );
 };

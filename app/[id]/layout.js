@@ -1,4 +1,4 @@
-import { getUserServerSide } from "../../src/utils/authHelpers"
+import { getUserServerSide } from '../../src/utils/auth.server';
 import SignOutUser from './../../src/components/reusable_components/SignOutUser';
 
 

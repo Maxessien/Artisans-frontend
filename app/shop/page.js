@@ -49,7 +49,7 @@ const Shop = async ({searchParams}) => {
         params: {
           page: page,
           minPrice: Number(formattedPrice[0]) || 5,
-          maxPrice: Number(formattedPrice[2]) || 500000,
+          maxPrice: Number(formattedPrice[1]) || 500000,
           sortBy: sort || "createdAt",
           order: order || "desc",
           category: cat?.split(" ") ?? false,

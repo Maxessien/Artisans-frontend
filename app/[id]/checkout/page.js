@@ -1,6 +1,6 @@
 import CheckoutForm from "../../../src/components/checkout_components/CheckoutForm";
 import {redirect} from "next/navigation"
-import { getUserServerSide } from "../../../src/utils/authHelpers";
+import { getUserServerSide } from "../../../src/utils/auth.server";
 
 export const metadata = {
 	title: "Lasu Mart-Checkout"

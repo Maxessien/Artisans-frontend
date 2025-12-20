@@ -1,16 +1,16 @@
-import ShopByCategory from "./../src/components/home_components/ShopByCategory";
-import {
-  fetchTrendingProducts,
-  getProductCategpries,
-} from "../src/utils/productsFectchingHelpers";
+import AboutUs from "../src/components/home_components/AboutUs";
+import BestSelling from "../src/components/home_components/BestSelling";
+import FAQ from "../src/components/home_components/FAQ";
 import Hero from "../src/components/home_components/Hero";
 import HeroFooter from "../src/components/home_components/HeroFooter";
-import AboutUs from "../src/components/home_components/AboutUs";
-import NewArrivals from "./../src/components/home_components/NewArrivals";
-import BestSelling from "../src/components/home_components/BestSelling";
-import Testimonials from "../src/components/home_components/Testimonials";
-import FAQ from "../src/components/home_components/FAQ";
 import NewsLetter from "../src/components/home_components/NewsLetter";
+import Testimonials from "../src/components/home_components/Testimonials";
+import {
+    fetchTrendingProducts,
+    getProductCategories,
+} from "../src/utils/productsFectchingHelpers";
+import NewArrivals from "./../src/components/home_components/NewArrivals";
+import ShopByCategory from "./../src/components/home_components/ShopByCategory";
 
 export const metadata = {
   title: "Artisans",
@@ -19,7 +19,7 @@ export const metadata = {
 const Home = async () => {
   try {
     const trendingProducts = await fetchTrendingProducts();
-    const categories = await getProductCategpries();
+    const categories = await getProductCategories();
     console.log(trendingProducts, categories);
     return (
       <>

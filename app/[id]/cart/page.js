@@ -1,6 +1,6 @@
 import CartItems from "../../../src/components/cart_components/CartItems"
 import CheckoutSummary from "../../../src/components/cart_components/CheckoutSummary"
-import { getUserServerSide } from "../../../src/utils/authHelpers";
+import { getUserServerSide } from "../../../src/utils/auth.server";
 
 export const metadata = {
   title: "Lasu Mart-Cart",

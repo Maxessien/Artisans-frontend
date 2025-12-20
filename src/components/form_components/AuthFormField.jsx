@@ -168,7 +168,7 @@ const AuthFormField = ({
                   },
                   validate: (value) => {
                     if (
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*._+=-])[A-Za-z0-9!@#$%^&*._+=-]+$/.test(
+                      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*._+=-])[A-Za-z0-9!@#$%^&*._+=-]+$/.test(
                         value
                       )
                     ) return "Password must contain one uppercase, lowercase and a special character"
@@ -213,7 +213,7 @@ const AuthFormField = ({
                   validate: (value) => {
                     if (value !== passwordWatch) return "Must be the same as password";
                     if (
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*._+=-])[A-Za-z0-9!@#$%^&*._+=-]+$/.test(
+                      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*._+=-])[A-Za-z0-9!@#$%^&*._+=-]+$/.test(
                         value
                       )
                     ) return "Password must contain one uppercase, lowercase and a special character"

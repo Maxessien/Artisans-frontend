@@ -6,7 +6,7 @@ const variantStyles = {
   secondary:
     "text-[var(--main-primary)] shadow-[0px_0.4px_10_-6px_black] bg-[var(--main-primary-lighter)] hover:bg-[var(--text-red-200)]",
   tertiary:
-    "bg-transparent text-[var(--text-primary-light)] border-[2px] border-[var(--text-primary)] hover:bg-orange-200 border-md border-[var(--text-primary-light)]",
+    "bg-transparent text-[var(--main-primary)] border-[2px] border-[var(--main-primary)]",
 };
 
 const sizeStyles = {

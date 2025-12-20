@@ -10,11 +10,11 @@ const formatFormData = (data) => {
   return formData;
 };
 
-const addToCart = async (token, userId, productId) => {
+const addToCart = async (token, userId, productId, quantity=1) => {
   try {
     const res = await authApi(token).post(`user/${userId}/cart`, {
       productId: productId,
-      quantity: 1,
+      quantity: quantity,
     });
     logger.info("Added item to cart", res.data);
     return res.data;

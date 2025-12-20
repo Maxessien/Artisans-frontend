@@ -1,3 +1,5 @@
+import logger from "../../../utils/logger";
+
 const StyledTd = ({ children }) => {
   return (
     <td className="border-r-[var(--main-secondary-light)] border-r-2 p-[10px]">
@@ -21,7 +23,7 @@ const ListProductTable = ({
   createdAt,
   deliveryStatus,
 }) => {
-  console.log(createdAt)
+  logger.info("Rendering list product entry", createdAt)
   const timeStamp = new Date(createdAt);
   return (
     <>

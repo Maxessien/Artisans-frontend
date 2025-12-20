@@ -5,7 +5,7 @@ const ForgotPassword = ()=>{
         <>
         <div className="form_page_section">
             <h1>Forgot Password</h1>
-            <AuthFormField email buttonText="Reset" />
+            <AuthFormField submitFunction={()=>null} email buttonText="Reset" />
         </div>
         </>
     )

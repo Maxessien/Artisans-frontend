@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { authApi } from "../../../axiosApiBoilerplates/authApi";
 import { setUserAuth } from "../../../store_slices/userAuthSlice";
+import logger from "../../../utils/logger";
 import { formStyles } from "./formStyle";
 
 const AccountInfoForm = () => {
@@ -24,13 +25,13 @@ const AccountInfoForm = () => {
   });
 
   const updateAccount = async (data) => {
-    console.log(data);
+    logger.info("Updating account info", data);
     try {
       const updatedUser = await authApi(idToken).post(`/user/${userData.userId}`, data);
       dispatch(setUserAuth({ stateProp: "userData", value: updatedUser.data }));
       return updatedUser.data;
     } catch (err) {
-      console.log(err);
+      logger.error("Failed to update account info", err);
       throw err;
     }
   };

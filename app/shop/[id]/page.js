@@ -1,6 +1,7 @@
-import { regApi } from "../../../src/axiosApiBoilerplates/regApi"
-import CommentsSidebar from "../../../src/components/shop_components/CommentsSidebar"
-import ViewProductInfo from "../../../src/components/shop_components/ViewProductInfo"
+import { regApi } from "../../../src/axiosApiBoilerplates/regApi";
+import CommentsSidebar from "../../../src/components/shop_components/CommentsSidebar";
+import ViewProductInfo from "../../../src/components/shop_components/ViewProductInfo";
+import logger from "../../../src/utils/logger";
 import SimilarProducts from './../../../src/components/shop_components/SimiarProducts';
 
 
@@ -8,7 +9,7 @@ const ViewProductPage = async ({params})=>{
     const idParams = await params
     const product = await regApi.get("/product/single", {params: {id: idParams.id}})
     const similarProducts = null
-    console.log(product)
+    logger.info("Product page data", product)
 
     if (!product) {
         return (

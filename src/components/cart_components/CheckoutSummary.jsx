@@ -16,7 +16,7 @@ const CheckoutSummary = ({deliveryFee, selectedProds=[]}) => {
     } else {
       return prev
     }
-  }, 0)
+  }, 0) || 0
  
   //Function would be defined later
   const submitOrder = ()=>null

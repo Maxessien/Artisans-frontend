@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { FaEye } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import logger from "../../../utils/logger";
 
 const StyledTh = ({ children }) => (
   <th className="text-lg text-[var(--text-primary)] px-2 py-1 font-bold">
@@ -21,7 +22,7 @@ const VendorOrdersTable = ({ ordersData }) => {
   const router = useRouter();
   return (
     <>
-      {console.log(ordersData)}
+      {logger.info("Rendering vendor orders", ordersData)}
       <table className="border-collapse border-2 border-[var(---main-tertiary-light)] rounded-md">
         <thead>
           <tr className="border-b-1 border-b-[var(---main-tertiary-light)]">

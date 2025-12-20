@@ -1,12 +1,13 @@
+import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import Products from "./Products";
-import Button from "../reusable_components/Buttons";
 import {
   nextPage,
   prevPage,
   setPage,
 } from "../../store_slices/productPageSlice";
-import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import logger from "../../utils/logger";
+import Button from "../reusable_components/Buttons";
+import Products from "./Products";
 
 const ShopMain = ({ initialShopData }) => {
   const { currentPage, totalPages } = useSelector((state) => state.productPage);
@@ -32,16 +33,18 @@ const ShopMain = ({ initialShopData }) => {
         {Array(initTotalPages)
           .fill(0)
           .map((_, page) => {
-            console.log(page);
+            logger.info("Rendering pagination page", page + 1);
             return (
-              <Button
-                size="small"
-                className="w-[35px] h-[35px] text-center"
-                type={initCurrentPages === page + 1 ? "primary" : "secondary"}
-                buttonFn={() => dispatch(setPage(page + 1))}
-              >
-                {page + 1}
-              </Button>
+              <div key={page}>
+                <Button
+                  size="small"
+                  className="w-[35px] h-[35px] text-center"
+                  type={initCurrentPages === page + 1 ? "primary" : "secondary"}
+                  buttonFn={() => dispatch(setPage(page + 1))}
+                >
+                  {page + 1}
+                </Button>
+              </div>
             );
           })}
         {initCurrentPages < initTotalPages && (

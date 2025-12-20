@@ -1,11 +1,12 @@
 "use client"
 
-import { useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setUserAuth } from "../../../store_slices/userAuthSlice";
 import { useMutation } from "@tanstack/react-query";
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { authApi } from "../../../axiosApiBoilerplates/authApi";
-import Button from "../../reusable_components/Buttons"
+import { setUserAuth } from "../../../store_slices/userAuthSlice";
+import logger from "../../../utils/logger";
+import Button from "../../reusable_components/Buttons";
 
 const EditProfilePhoto = () => {
   const [imgPreview, setImgPreview] = useState(null);
@@ -27,7 +28,7 @@ const EditProfilePhoto = () => {
       const res = authApi(idToken).post(route, formData);
       dispatch(setUserAuth({ stateProp: "userData", value: res.data }));
     } catch (err) {
-      console.log(err);
+      logger.error("Failed to update profile photo", err);
     } finally {
       setImgPreview(null);
     }

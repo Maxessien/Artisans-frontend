@@ -1,13 +1,14 @@
 "use client";
 
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { auth } from "../../../firebase/fb_config";
+import logger from "../../utils/logger";
 import AppHeaderMain from "./AppHeaderMain";
 import AppHeaderNavigation from "./AppHeaderNavigation";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { signOut } from "firebase/auth";
-import { auth } from "../../../firebase/fb_config";
-import { useRouter } from "next/navigation";
 
 const AppHeader = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const AppHeader = () => {
       await signOut(auth);
       router.replace("/");
     } catch (err) {
-      console.log(err);
+      logger.error("Failed to log out", err);
       toast.error("There was an error logging out, please try again later");
     }
   };

@@ -1,14 +1,15 @@
 import { regApi } from "../axiosApiBoilerplates/regApi";
+import logger from "./logger";
 
 const requestOtp = async (type, value) => {
   try {
-    console.log("otp sent")
+    logger.info("OTP request initiated");
     await regApi.post("/auth/otp", { type: type, value: value });
     return { success: true };
   } catch (err) {
-    console.log(err);
+    logger.error("OTP request failed", err);
     throw err;
   }
 };
 
-export {requestOtp}
+export { requestOtp };

@@ -3,7 +3,7 @@ import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { authApi } from "../../axiosApiBoilerplates/authApi";
 import { setUserAuth } from "../../store_slices/userAuthSlice";
-import { useEffect } from "react";
+import logger from "../../utils/logger";
 
 const CartListProductCard = ({
   name,
@@ -13,7 +13,6 @@ const CartListProductCard = ({
   imageUrl,
   productId,
   isSelected,
-  setSelectedFn,
 }) => {
   const { idToken, userData } = useSelector((state) => state.userAuth);
   const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const CartListProductCard = ({
       const res = await authApi(idToken).delete(
         `/user/${userData?.userId}/cart/${productId}`
       );
-      console.log(res);
+      logger.info("Deleted from cart", res);
       dispatch(
         setUserAuth({
           stateProp: "userData",
@@ -30,7 +29,7 @@ const CartListProductCard = ({
         })
       );
     } catch (err) {
-      console.log(err);
+      logger.error("Failed deleting from cart", err);
     }
   };
 
@@ -43,7 +42,7 @@ const CartListProductCard = ({
           quantity: value,
         }
       );
-      console.log(res.data);
+      logger.info("Updated cart quantity", res.data);
       dispatch(
         setUserAuth({
           stateProp: "userData",
@@ -51,14 +50,9 @@ const CartListProductCard = ({
         })
       );
     } catch (err) {
-      console.log(err);
+      logger.error("Failed updating cart quantity", err);
     }
   };
-
-  useEffect(()=>{
-    setSelectedFn((state)=> ([...state, {productId, price, quantity, selected: true}]))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const { mutateAsync } = useMutation({ mutationFn: () => deleteFromCart() });
 

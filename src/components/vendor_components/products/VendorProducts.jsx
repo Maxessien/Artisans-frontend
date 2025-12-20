@@ -1,14 +1,15 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import Button from "../../reusable_components/Buttons";
-import {
-  PageHeader,
-  VendorProductCard,
-} from "../../reusable_components/CardsLayouts";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { authApi } from "../../../axiosApiBoilerplates/authApi";
+import logger from "../../../utils/logger";
+import Button from "../../reusable_components/Buttons";
+import {
+    PageHeader,
+    VendorProductCard,
+} from "../../reusable_components/CardsLayouts";
 
 const VendorProducts = ({ products }) => {
   const {
@@ -23,7 +24,7 @@ const VendorProducts = ({ products }) => {
 			toast.success("Product deleted")
 			router.replace(`/${userId}/vendor/products`)
 		}catch(err){
-			console.log(err)
+      logger.error("Failed to delete vendor product", err)
 			toast.error("Unable to delete product")
 		}
 	}

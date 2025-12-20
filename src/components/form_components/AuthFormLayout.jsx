@@ -1,15 +1,15 @@
-import Link from "next/link";
-import "./scss/auth_form_layout.scss";
-import { useEffect } from "react";
 import {
-  FacebookAuthProvider,
-  GoogleAuthProvider,
-  signInWithPopup,
+    FacebookAuthProvider,
+    GoogleAuthProvider,
+    signInWithPopup,
 } from "firebase/auth";
+import Link from "next/link";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 import { auth } from "../../../firebase/fb_config.js";
-import {toast} from "react-toastify"
+import logger from "../../utils/logger";
 import { FacebookIcon, GoogleIcon } from "../svg_components/FormSvg.jsx";
-import { FaFacebook, FaGoogle } from "react-icons/fa";
+import "./scss/auth_form_layout.scss";
 
 const AuthFormLayout = ({ children, type }) => {
   useEffect(() => {
@@ -19,9 +19,9 @@ const AuthFormLayout = ({ children, type }) => {
     try {
       const provider = new GoogleAuthProvider()
       const res = await signInWithPopup(auth, provider);
-      console.log(res)
+      logger.info("Google sign-in result", res)
     } catch (error) {
-      console.log(error);
+      logger.error("Google sign-in failed", error);
       toast.error("Failed to sign in")
     }
   };
@@ -29,9 +29,9 @@ const AuthFormLayout = ({ children, type }) => {
     try {
       const provider = new FacebookAuthProvider()
       const res = await signInWithPopup(auth, provider)
-      console.log(res)
+      logger.info("Facebook sign-in result", res)
     } catch (error) {
-      console.log(error)
+      logger.error("Facebook sign-in failed", error)
       toast.error("Failed to sign in")
     }
   }

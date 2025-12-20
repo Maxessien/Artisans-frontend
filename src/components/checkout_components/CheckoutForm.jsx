@@ -1,13 +1,14 @@
 "use client"
 
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 // import PaymentMethodToggle from "./PaymentMethodToggle"
-import Button from './../reusable_components/Buttons';
-import { authApi } from "../../axiosApiBoilerplates/authApi"
-import { useSelector } from 'react-redux';
 import { useMutation } from "@tanstack/react-query";
-import {toast} from "react-toastify";
-import "./scss/checkout_form.scss"
+import { useSelector } from 'react-redux';
+import { toast } from "react-toastify";
+import { authApi } from "../../axiosApiBoilerplates/authApi";
+import logger from "../../utils/logger";
+import Button from './../reusable_components/Buttons';
+import "./scss/checkout_form.scss";
 
 const CheckoutForm = () => {
   const {idToken, userData} = useSelector((state)=>state.userAuth)
@@ -28,11 +29,11 @@ const CheckoutForm = () => {
     try{
       const res = await authApi(idToken).post(`/orders/user/${userData.userId}`, data)
       await authApi(idToken).post(`/user/${userData.userId}`, {cart: []})
-      console.log(res)
+      logger.info("Checkout order response", res)
       toast.success("Order made successfully")
       return res
     }catch(err){
-      console.log(err)
+      logger.error("Checkout order failed", err)
       toast.error("Couldn't place order, try again later")
       throw err
     }

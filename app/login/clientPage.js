@@ -1,15 +1,16 @@
 "use client";
 
-import { toast } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { auth } from "../../firebase/fb_config";
-import { findError } from "./../../public/fbAuthErrors";
-import AuthFormLayout from "./../../src/components/form_components/AuthFormLayout";
-import AuthFormField from "./../../src/components/form_components/AuthFormField";
+import { useRef, useState } from "react";
 import { FaCheck } from "react-icons/fa";
-import Link from "next/link"
+import { toast } from "react-toastify";
+import { auth } from "../../firebase/fb_config";
+import logger from "../../src/utils/logger";
+import { findError } from "./../../public/fbAuthErrors";
+import AuthFormField from "./../../src/components/form_components/AuthFormField";
+import AuthFormLayout from "./../../src/components/form_components/AuthFormLayout";
 
 const ClientLogin = () => {
   const router = useRouter();
@@ -20,11 +21,11 @@ const ClientLogin = () => {
     try {
       setIsLoading(true);
       const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      logger.info("User signed in", user);
       toast.success("Login Successful");
       router.replace("/");
     } catch (err) {
-      console.log(err);
+      logger.error("Login failed", err);
       const errorInfo = findError(err.code);
       toast.error(errorInfo.customMessage);
     } finally {

@@ -38,7 +38,7 @@ const FaqDropdown = ({ question, answer }) => {
           className={`p-3 h-max text-base rounded-full ${
             expanded
               ? "bg-[var(--text-secondary-light)]"
-              : "bg-[--text-secondary-light]"
+              : "bg-[var(--text-secondary-light)]"
           }`}
           onClick={() => setExpanded(!expanded)}
         >

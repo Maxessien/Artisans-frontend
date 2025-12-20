@@ -5,9 +5,10 @@ import Hero from "../src/components/home_components/Hero";
 import HeroFooter from "../src/components/home_components/HeroFooter";
 import NewsLetter from "../src/components/home_components/NewsLetter";
 import Testimonials from "../src/components/home_components/Testimonials";
+import logger from "../src/utils/logger";
 import {
-    fetchTrendingProducts,
-    getProductCategories,
+  fetchTrendingProducts,
+  getProductCategories,
 } from "../src/utils/productsFectchingHelpers";
 import NewArrivals from "./../src/components/home_components/NewArrivals";
 import ShopByCategory from "./../src/components/home_components/ShopByCategory";
@@ -20,7 +21,7 @@ const Home = async () => {
   try {
     const trendingProducts = await fetchTrendingProducts();
     const categories = await getProductCategories();
-    console.log(trendingProducts, categories);
+    logger.info("Home page data fetched", { trendingProducts, categories });
     return (
       <>
         <main>
@@ -37,7 +38,7 @@ const Home = async () => {
       </>
     );
   } catch (err) {
-    console.log(err);
+    logger.error("Home page data fetch failed", err);
     return (
       <>
         <main>

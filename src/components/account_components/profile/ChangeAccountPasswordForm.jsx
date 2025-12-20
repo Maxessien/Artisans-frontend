@@ -1,9 +1,10 @@
 "use client"
 
-import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { authApi } from "../../../axiosApiBoilerplates/authApi";
+import logger from "../../../utils/logger";
 import Button from '../../reusable_components/Buttons';
 import { formStyles } from "./formStyle";
 
@@ -20,7 +21,7 @@ const ChangeAccountPasswordForm = () => {
       const res = await authApi(idToken).post(`/user/${userId}`, {password: newPassword}, {params: {type: "authOnly"}});
       return res.data;
     } catch (err) {
-      console.log(err);
+      logger.error("Failed to change password", err);
       throw err;
     }
   };

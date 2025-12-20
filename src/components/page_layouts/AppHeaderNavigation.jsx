@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux";
-import "./scss/app_header_navigation.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import logger from "../../utils/logger";
+import "./scss/app_header_navigation.scss";
 
 
 const AppHeaderNavigation = ({ navToggle = ()=>null, signOutFn }) => {
@@ -10,7 +11,7 @@ const AppHeaderNavigation = ({ navToggle = ()=>null, signOutFn }) => {
   const pathname = usePathname()
   return (
     <>
-{console.log(userData)}
+{logger.info("AppHeaderNavigation user", userData)}
       <div className="nav_container">
         <nav className="header_navigation">
           <Link

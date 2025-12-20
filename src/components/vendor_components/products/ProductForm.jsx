@@ -1,22 +1,23 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { PageHeader, Cards } from "../../reusable_components/CardsLayouts";
-import {
-  FormErrors,
-  FormWrapper,
-  Input,
-  Label,
-} from "../../reusable_components/FormLayouts";
-import { FaUpload, FaTrash } from "react-icons/fa";
 import { useState } from "react";
-import Button from "../../reusable_components/Buttons";
-import { authApi } from "../../../axiosApiBoilerplates/authApi";
-import { formatFormData } from "../../../utils/regHelperFns";
+import { useForm } from "react-hook-form";
+import { FaTrash, FaUpload } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
+import { authApi } from "../../../axiosApiBoilerplates/authApi";
+import logger from "../../../utils/logger";
+import { formatFormData } from "../../../utils/regHelperFns";
+import Button from "../../reusable_components/Buttons";
+import { Cards, PageHeader } from "../../reusable_components/CardsLayouts";
+import {
+    FormErrors,
+    FormWrapper,
+    Input,
+    Label,
+} from "../../reusable_components/FormLayouts";
 
 const FormBlocks = ({ children, blockTitle }) => {
   return (
@@ -66,7 +67,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
           : "Product Updated Successfully"
       );
     } catch (err) {
-      console.log(err);
+      logger.error("Failed to save product", err);
       toast.error(
         params.pid === "new"
           ? "Couldn't add product, try again later"
@@ -86,7 +87,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
       reRender((state) => state + 1);
       toast.success("Image deleted");
     } catch (err) {
-      console.log(err);
+      logger.error("Failed to delete product image", err);
       toast.error("Unable to delete image, try again later");
     }
   };

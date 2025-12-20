@@ -1,4 +1,5 @@
 import { productsApi } from "../../axiosApiBoilerplates/regApi";
+import logger from "../../utils/logger";
 
 const fetchAllProducts = async (currentPage) => {
   try {
@@ -10,7 +11,7 @@ const fetchAllProducts = async (currentPage) => {
     });
     return res.data;
   } catch (err) {
-    console.log(err);
+    logger.error("Failed to fetch all products", err);
     return err;
   }
 };
@@ -26,7 +27,7 @@ const fetchProductsByCategory = async (currentPage, selectedCategory) => {
     });
     return res.data;
   } catch (err) {
-    console.log(err);
+    logger.error("Failed to fetch products by category", err);
     return err;
   }
 };
@@ -36,7 +37,7 @@ const fetchTopProducts = async () => {
     const res = await productsApi.get("/trending");
     return res.data;
   } catch (err) {
-    console.log(err);
+    logger.error("Failed to fetch top products", err);
     return err;
   }
 };
@@ -44,17 +45,16 @@ const fetchTopProducts = async () => {
 const fetchBySearchQuery = async (query) => {
   try {
     const res = await productsApi.get(`/search?query=${query}`);
-    console.log(res);
+    logger.info("Search products response", res);
     return res.data;
   } catch (err) {
-    console.log(err);
+    logger.error("Failed to search products", err);
     return err;
   }
 };
 
 export {
-  fetchAllProducts,
-  fetchProductsByCategory,
-  fetchTopProducts,
-  fetchBySearchQuery,
+    fetchAllProducts, fetchBySearchQuery, fetchProductsByCategory,
+    fetchTopProducts
 };
+

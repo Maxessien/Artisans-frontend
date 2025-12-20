@@ -7,6 +7,7 @@ import {
     FaUser,
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import logger from "../../utils/logger";
 import Button from "../reusable_components/Buttons";
 
 const AppHeaderMain = ({ navToggle, navState }) => {
@@ -23,7 +24,7 @@ const AppHeaderMain = ({ navToggle, navState }) => {
 
   return (
     <>
-      {console.log(currentSize)}
+      {logger.info("AppHeaderMain current size", currentSize)}
       <div className="flex items-center justify-between px-3 sm:px-5 md:px-10">
         {currentSize >= 768 ? (
           <>

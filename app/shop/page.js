@@ -1,15 +1,16 @@
-import { regApi } from "../../src/axiosApiBoilerplates/regApi";
 import { headers } from "next/headers";
-import ClientShopPage from "./clientPage";
 import { notFound } from "next/navigation";
+import { regApi } from "../../src/axiosApiBoilerplates/regApi";
+import logger from "../../src/utils/logger";
+import ClientShopPage from "./clientPage";
 
 export const metadata = {
   title: "Lasu Mart-Shop",
 };
 
-const Shop = async ({searchParams}) => {
+const Shop = async ({ searchParams }) => {
   const sParams = await searchParams;
-  console.log(sParams)
+  logger.info("Shop search parameters", sParams);
   const {
     price = "10-400000",
     page = 1,
@@ -26,11 +27,10 @@ const Shop = async ({searchParams}) => {
     cat: ["fashion", "food", "electronics", "sports", "accessories"],
   };
   const formattedPrice = price.split("-");
-  console.log(cat?.split(" "))
+  logger.info("Categories provided", cat?.split(" "));
   if (
-    !["order", "sort"].every((value) =>
-      acceptableValues[value].includes(value === "sort" ? sort : order)
-    ) ||
+    !acceptableValues.sort.includes(sort) ||
+    !acceptableValues.order.includes(order) ||
     formattedPrice.length !== 2 ||
     Number(formattedPrice[0]) < 5 ||
     Number(formattedPrice[1]) > 500000 ||
@@ -38,8 +38,13 @@ const Shop = async ({searchParams}) => {
     page < 1
   )
     return notFound();
-  if (cat && !cat.split(" ").every((value)=>acceptableValues.cat.includes(value))) return notFound();
-  if (search && search.length < 1 && typeof search !== "string") return notFound();
+  if (
+    cat &&
+    !cat.split(" ").every((value) => acceptableValues.cat.includes(value))
+  )
+    return notFound();
+  if (search && search.length < 1 && typeof search !== "string")
+    return notFound();
   try {
     const products = await regApi.get(
       search?.length > 0 && typeof search === "string"
@@ -59,7 +64,7 @@ const Shop = async ({searchParams}) => {
         },
       }
     );
-    console.log(isMobile, "mobile", products.data);
+    logger.info("Shop page data", { isMobile, products: products.data });
     return (
       <>
         <ClientShopPage
@@ -69,7 +74,7 @@ const Shop = async ({searchParams}) => {
       </>
     );
   } catch (err) {
-    console.log(err);
+    logger.error("Shop page fetch failed", err);
     return (
       <>
         <ClientShopPage

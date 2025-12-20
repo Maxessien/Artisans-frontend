@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Filters from "./../../src/components/shop_components/Filters";
 import { useSelector } from "react-redux";
+import logger from "../../src/utils/logger";
+import Filters from "./../../src/components/shop_components/Filters";
 import ShopHeader from "./../../src/components/shop_components/ShopHeader";
 import ShopMain from "./../../src/components/shop_components/ShopMain";
 
@@ -13,12 +14,12 @@ const ClientShopPage = ({ initialShopData, serverSideWindowSize }) => {
 	const isMobile = currentSize ? currentSize < 768 : serverSideWindowSize
   return (
     <>
-      {console.log(showFilter, "filter", isMobile)}
+      {logger.info("Shop client filter state", { showFilter, isMobile })}
       <div className="block relative md:grid md:grid-cols-[25%_75%]">
         {!isMobile && (
           <aside>
             <Filters closeFilterFn={() =>{
-              console.log("setting false")
+				  logger.log("Closing filters on desktop")
               setOpenFilter(false)
             }} />
           </aside>
@@ -26,7 +27,7 @@ const ClientShopPage = ({ initialShopData, serverSideWindowSize }) => {
         {isMobile && showFilter && (
           <aside>
             <Filters closeFilterFn={() =>{
-              console.log("setting false")
+				  logger.log("Closing filters on mobile")
               setOpenFilter(false)
             }} />
           </aside>
@@ -34,7 +35,7 @@ const ClientShopPage = ({ initialShopData, serverSideWindowSize }) => {
         <main>
           {!showFilter && isMobile && (
             <ShopHeader openFilterFn={() =>{
-              console.log("setting true")
+			  logger.log("Opening filters on mobile")
               setOpenFilter(true)
             }} />
           )}

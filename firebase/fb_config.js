@@ -20,6 +20,8 @@ const app = initializeApp(firebaseConfig);
 // Auth
 const auth = getAuth(app);
 
-connectAuthEmulator(auth, "http://127.0.0.1:9099")
+if (process.env.NODE_ENV === 'development') {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099")
+}
 
 export { auth };

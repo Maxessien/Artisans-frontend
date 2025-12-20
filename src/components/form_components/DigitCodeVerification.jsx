@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { PreviousPage } from "../svg_components/FormSvg";
 // import { useRouter } from "next/navigation";
-import Button from "./../reusable_components/Buttons";
-import { regApi } from "../../axiosApiBoilerplates/regApi";
 import { toast } from "react-toastify";
+import { regApi } from "../../axiosApiBoilerplates/regApi";
 import { requestOtp } from "../../utils/auth.client";
+import logger from "../../utils/logger";
+import Button from "./../reusable_components/Buttons";
 
 const DigitCodeVerification = ({
   otpType = "email",
@@ -23,16 +23,20 @@ const DigitCodeVerification = ({
   // const router = useRouter();
 
   const inputsRef = useRef([]);
+  const timerRef = useRef(null)
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    timerRef.current = setInterval(() => {
       if (timeLeft >= 0) setTimeLeft((state) => state - 1);
-      else clearInterval(intervalId)
     }, 1000);
 
-    return () => clearInterval(intervalId);
+    return () => clearInterval(timerRef.current);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(()=>{
+    if (timeLeft < 0) clearInterval(timerRef.current)
+  }, [timeLeft])
 
   const submitOtp = async (e) => {
     e.preventDefault();
@@ -47,7 +51,7 @@ const DigitCodeVerification = ({
       });
       toast.success("OTP verified successfully");
     } catch (err) {
-      console.log(err);
+      logger.error("OTP verification failed", err);
       toast.error("Invalid OTP");
     } finally {
       setIsLoading(false)
@@ -58,7 +62,7 @@ const DigitCodeVerification = ({
     if (value.length > 1) return;
     const stateCopy = [...inputs];
     stateCopy[index] = value;
-    console.log(stateCopy, stateCopy.join(""));
+    logger.info("Updated OTP input", { stateCopy, otp: stateCopy.join("") });
     setInputs(stateCopy);
     if (value.length === 1 && index + 1 < numberOfDigits)
       inputsRef.current[index + 1].focus();
@@ -97,7 +101,7 @@ const DigitCodeVerification = ({
                   value={inputs[index]}
                   onChange={(e) => inputOnchangeFn(e, index)}
                   onKeyDown={({ key, target: { value } }) => {
-                    console.log(value.length)
+                    logger.info("OTP input length", value.length);
                     if (key === "Backspace" && value.length === 0) {
                       inputOnchangeFn({ target: { value } }, index)
                       inputsRef.current[index - 1].focus();
@@ -124,7 +128,7 @@ const DigitCodeVerification = ({
                 await requestOtp(otpType, otpValue)
                 toast.success("OTP sent")
               } catch (err) {
-                console.log(err)
+                logger.error("Failed to resend OTP", err)
                 toast.error("OTP not sent, Try again later")
               } finally{
                 setIsLoading(false)

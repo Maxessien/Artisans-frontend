@@ -1,5 +1,5 @@
 import { authApi } from "../axiosApiBoilerplates/authApi";
-import { io } from "socket.io-client"
+import logger from "./logger";
 
 const formatFormData = (data) => {
   const formData = new FormData();
@@ -16,23 +16,13 @@ const addToCart = async (token, userId, productId) => {
       productId: productId,
       quantity: 1,
     });
-    console.log(res.data);
+    logger.info("Added item to cart", res.data);
     return res.data;
   } catch (err) {
-    console.log(err);
+    logger.error("Failed to add to cart", err);
     throw err;
   }
 };
 
-// Use the public NEXT_PUBLIC_BACKEND_URL so the client connects to the correct backend.
-// Trim any trailing slash and append the namespace (e.g. /chat)
-const initSocket = (nameSpace, token, query = {}) => {
-  const base = process.env.NEXT_PUBLIC_OG_BACKEND_URL;
-  return io(`${base}${nameSpace}`, {
-    auth: { token },
-    query,
-    transports: ["websocket", "polling"], // optional but helps in Codespaces
-  });
-};
+export { addToCart, formatFormData };
 
-export { formatFormData, addToCart, initSocket };

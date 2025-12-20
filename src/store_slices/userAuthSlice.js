@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import logger from "../utils/logger";
 
 const userAuth = createSlice({
   name: "userAuth",
   initialState: { isLoggedIn: false, idToken: "", userData: {} },
   reducers: {
     setUserAuth: (state, action) => {
-      console.log(action, "action")
+      logger.info("Dispatching setUserAuth", action);
       state[action.payload.stateProp] = action.payload.value;
     },
   },

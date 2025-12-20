@@ -1,12 +1,13 @@
 "use client";
 
-import ListProductTable from "./ListProductTable";
-import Button from "./../../reusable_components/Buttons";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { authApi } from "../../../axiosApiBoilerplates/authApi";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
+import { authApi } from "../../../axiosApiBoilerplates/authApi";
+import logger from "../../../utils/logger";
+import Button from "./../../reusable_components/Buttons";
+import ListProductTable from "./ListProductTable";
 
 const OrderHistoryTable = ({ initOrdersData }) => {
   const { idToken } = useSelector((state) => state.userAuth);
@@ -19,7 +20,7 @@ const OrderHistoryTable = ({ initOrdersData }) => {
       toast.success("Order cancelled");
       return res;
     } catch (err) {
-      console.log(err);
+      logger.error("Failed to cancel order", err);
       toast.error("Failed to cancel order, try again");
       throw err;
     }

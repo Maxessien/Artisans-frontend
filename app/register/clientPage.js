@@ -1,11 +1,12 @@
 "use client";
 
-import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import AuthFormLayout from "./../../src/components/form_components/AuthFormLayout";
+import { toast } from "react-toastify";
+import logger from "../../src/utils/logger";
 import { regApi } from "./../../src/axiosApiBoilerplates/regApi";
 import AuthFormField from "./../../src/components/form_components/AuthFormField";
+import AuthFormLayout from "./../../src/components/form_components/AuthFormLayout";
 
 const ClientRegister = () => {
   const router = useRouter();
@@ -17,14 +18,14 @@ const ClientRegister = () => {
       displayName: name,
       password: password,
     };
-    console.log(newUser);
+    logger.info("Registering user", newUser);
     try {
       const res = await regApi.post("/auth/register", newUser);
       toast.success(res.data.message);
       router.push(`/verify?type=email&value=${email}`)
       return res.data;
     } catch (err) {
-      console.log(err.response?.data?.message || err.message);
+      logger.error("Registration failed", err.response?.data?.message || err.message || err);
       toast.error(err.response?.data?.message || err.message);
       throw err;
     }

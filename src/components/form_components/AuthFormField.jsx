@@ -88,7 +88,7 @@ const AuthFormField = ({
               type="text"
               id="storeName"
               placeholder="Enter your store name"
-              {...register("name", {
+              {...register("storeName", {
                 required: "This field is required",
                 minLength: {
                   value: 3,
@@ -115,7 +115,10 @@ const AuthFormField = ({
               placeholder="Enter your email"
               {...register("email", {
                 required: "This field is required",
-                // pattern: { value: "22222", message: "Invalid email address" },
+                pattern: {
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Invalid email address",
+                },
               })}
             />
             {errors.email && (
@@ -130,7 +133,7 @@ const AuthFormField = ({
               <div className="country_code">+234</div>
               <input
                 className="phone_wrapper_input"
-                type="phone"
+                type="tel"
                 id="phone"
                 placeholder="Enter your phone number"
                 {...register("phone", {
@@ -171,8 +174,9 @@ const AuthFormField = ({
                       !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*._+=-])[A-Za-z0-9!@#$%^&*._+=-]+$/.test(
                         value
                       )
-                    ) return "Password must contain one uppercase, lowercase and a special character"
-                      return true;
+                    )
+                      return "Password must contain one uppercase, lowercase and a special character";
+                    return true;
                   },
                 })}
               />
@@ -211,13 +215,15 @@ const AuthFormField = ({
                     message: "password must be at least 8 characters long",
                   },
                   validate: (value) => {
-                    if (value !== passwordWatch) return "Must be the same as password";
+                    if (value !== passwordWatch)
+                      return "Must be the same as password";
                     if (
                       !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*._+=-])[A-Za-z0-9!@#$%^&*._+=-]+$/.test(
                         value
                       )
-                    ) return "Password must contain one uppercase, lowercase and a special character"
-                      return true;
+                    )
+                      return "Password must contain one uppercase, lowercase and a special character";
+                    return true;
                   },
                 })}
               />
@@ -242,8 +248,7 @@ const AuthFormField = ({
             )}
           </label>
         )}
-        {children &&
-          React.cloneElement(children)}
+        {children && React.cloneElement(children)}
         <button disabled={isSubmitting} type="submit" className="submit_button">
           {buttonText}
         </button>

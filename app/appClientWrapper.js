@@ -1,17 +1,18 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { setScreenSize } from "../src/store_slices/windowSizesSlice";
 import { onAuthStateChanged, onIdTokenChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase/fb_config";
-import { setUserAuth } from "../src/store_slices/userAuthSlice";
-import Loader from "./../src/components/reusable_components/Loader";
-import { regApi } from "../src/axiosApiBoilerplates/regApi";
-import { authApi } from "../src/axiosApiBoilerplates/authApi";
-import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import { auth } from "../firebase/fb_config";
+import { authApi } from "../src/axiosApiBoilerplates/authApi";
+import { regApi } from "../src/axiosApiBoilerplates/regApi";
+import { setUserAuth } from "../src/store_slices/userAuthSlice";
+import { setScreenSize } from "../src/store_slices/windowSizesSlice";
+import logger from "../src/utils/logger";
+import Loader from "./../src/components/reusable_components/Loader";
 
 export default function AppClientWrapper({ children }) {
   const [userInfo, setUserInfo] = useState({});
@@ -25,7 +26,7 @@ export default function AppClientWrapper({ children }) {
       dispatch(setUserAuth({ stateProp: "userData", value: user.data }));
       return user.data;
     } catch (err) {
-      console.log(err);
+      logger.error("Failed to fetch logged in user", err);
       await signOut(auth);
       throw err;
     }
@@ -40,16 +41,16 @@ export default function AppClientWrapper({ children }) {
   });
 
   useEffect(() => {
-    console.log(data, "datattttt");
+    logger.info("Logged in user data", data);
     dispatch(setScreenSize());
     const handleResize = () => dispatch(setScreenSize());
     window.addEventListener("resize", handleResize);
     const unsubscribeAuthStateListener = onAuthStateChanged(
       auth,
       async (user) => {
-        console.log("running auth");
+        logger.log("Auth state change detected");
         if (user) {
-          console.log(user);
+          logger.info("User authenticated", user);
           const idToken = await user.getIdToken();
           const {claims} = await user.getIdTokenResult()
           if (!claims?.isVerified?.email) router.push(`/verify?type=email&value=${user.email}`)
@@ -66,7 +67,7 @@ export default function AppClientWrapper({ children }) {
     );
     
     const unsubscribeTokenListener = onIdTokenChanged(auth, async (user) => {
-      console.log("running idtoken");
+      logger.log("ID token change detected");
       if (user) {
         try {
           const token = await user.getIdToken();
@@ -76,7 +77,7 @@ export default function AppClientWrapper({ children }) {
             { withCredentials: true }
           );
         } catch (err) {
-          console.log(err);
+          logger.error("Failed to refresh ID token", err);
           await signOut(auth);
         }
       }

@@ -1,7 +1,8 @@
 "use client"
 
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import logger from "../../utils/logger";
 
 const AccountNavigation = ({navigationDetails}) => {
   const pathName = usePathname();
@@ -12,7 +13,7 @@ const AccountNavigation = ({navigationDetails}) => {
       <nav className="h-full">
         <ul className="flex md:flex-col overflow-x-auto items-center justify-start h-full gap-3 w-full p-3 md:pt-6 bg-[var(--text-secondary-light)]">
           {navigationDetails.map(({ name, path }) => {
-            console.log(pathName, path)
+            logger.info("Account navigation", { pathName, path });
             return (
               <li>
                 <Link

@@ -16,7 +16,7 @@ const NewsLetter = () => {
             Subscribe to our{" "}
             <span className="text-[var(--main-primary)]">Newsletter</span>
           </h2>
-          <p className="text-lg text-[var(--text-secondary)] font-normal">
+          <p className="text-lg text-[var(--main-tertiary-light)] font-normal">
             Be the first to know about fresh drops, exclusive offers and
             artisans highlights
           </p>

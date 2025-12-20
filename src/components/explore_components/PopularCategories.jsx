@@ -1,6 +1,6 @@
 "use client";
 
-const ShopByCategory = () => {
+const PopularCategory = () => {
   const categoriesData = [
     {
       name: "Fashion and Apparel",
@@ -64,4 +64,4 @@ const ShopByCategory = () => {
   );
 };
 
-export default ShopByCategory;
+export default PopularCategory;

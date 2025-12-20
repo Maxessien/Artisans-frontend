@@ -1,11 +1,11 @@
 "use client";
 
-import { authApi } from "../../../axiosApiBoilerplates/authApi";
-import { setUserAuth } from "../../../store_slices/userAuthSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { authApi } from "../../../axiosApiBoilerplates/authApi";
+import { setUserAuth } from "../../../store_slices/userAuthSlice";
 import { formStyles } from "./formStyle";
 
 const AccountInfoForm = () => {
@@ -128,7 +128,7 @@ const AccountInfoForm = () => {
           <button
             disabled={!isEditing}
             type="submit"
-            className="bg-[var(--main-primary)] text-base text-[var(--text-secondary)] disabled:opacity-[0.6] font-semibold px-3 py-2 rounded-md"
+            className="bg-[var(--main-primary)] text-base text-[var(--main-tertiary-light)] disabled:opacity-[0.6] font-semibold px-3 py-2 rounded-md"
           >
             {isPending ? "Saving..." : "Save Changes"}
           </button>

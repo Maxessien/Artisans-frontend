@@ -1,10 +1,10 @@
-import { FaBoxOpen, FaLock, FaPhone, FaTruck } from "react-icons/fa";
+import { FaLock, FaPhone, FaTruck } from "react-icons/fa";
 
 const HeroFooterCards = ({ icon, title, description }) => {
   return (
     <>
       <div className="flex grow-0 gap-2">
-        <div className="rounded-full bg-[var(--red-100)] p-3 h-max inline-flex justify-center items-center">
+        <div className="rounded-full bg-[var(--main-primary-lighter)] p-3 h-max inline-flex justify-center items-center">
           {icon}
         </div>
         <p className="space-y-2.5">

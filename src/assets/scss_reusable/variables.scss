@@ -75,6 +75,7 @@
   :root{
     --main-primary: var(--red-500);
     --main-primary-light: var(--red-400);
+    --main-primary-lighter: var(--red-100);
     --main-secondary: var(--black-400);
     --main-secondary-light: var(--black-300);
     --main-tertiary: var(--white-400);
@@ -82,7 +83,7 @@
     --text-primary: var(--black-800);
     --text-primary-light: var(--black-700);
     --text-errors: rgb(255, 0, 0);
-    --text-secondary: var(--white-300);
+    --text-secondary: var(--white-200);
     --text-secondary-light: var(--white-100);
   }
 // }

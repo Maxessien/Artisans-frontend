@@ -1,15 +1,13 @@
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
-  FaBars,
-  FaShoppingCart,
-  FaTimes,
-  FaUser,
+    FaBars,
+    FaShoppingCart,
+    FaTimes,
+    FaUser,
 } from "react-icons/fa";
-import { MdKeyboardArrowDown } from "react-icons/md";
 import { useSelector } from "react-redux";
 import Button from "../reusable_components/Buttons";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import Search from "./Search";
 
 const AppHeaderMain = ({ navToggle, navState }) => {
   const [accountDropDowm, setAccountDropDown] = useState(false);
@@ -73,7 +71,7 @@ const AppHeaderMain = ({ navToggle, navState }) => {
           <>
             <div onClick={() => navToggle()} className="z-999 cursor-pointer">
               {navState ? (
-                <FaTimes className="text-3xl fixed top-3 right-2 font-normal text-[var(--text-secondary)]" />
+                <FaTimes className="text-3xl fixed top-3 right-2 font-normal text-[var(--main-tertiary-light)]" />
               ) : (
                 <FaBars className="text-2xl font-bold text-[var(--text-primary)]" />
               )}

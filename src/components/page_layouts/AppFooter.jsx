@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import {
-  FaInstagram,
   FaFacebookF,
-  FaXTwitter,
+  FaInstagram,
   FaTiktok,
+  FaXTwitter,
 } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
@@ -146,10 +146,10 @@ export default function AppFooter() {
 
           {/* App Badges */}
           <div className="pt-4 space-y-3">
-            <div className="w-36 h-12 bg-[var(--text-secondary)] rounded-md flex items-center justify-center text-xs">
+            <div className="w-36 h-12 bg-[var(--main-tertiary-light)] rounded-md flex items-center justify-center text-xs">
               App Store Badge
             </div>
-            <div className="w-36 h-12 bg-[var(--text-secondary)] rounded-md flex items-center justify-center text-xs">
+            <div className="w-36 h-12 bg-[var(--main-tertiary-light)] rounded-md flex items-center justify-center text-xs">
               Google Play Badge
             </div>
           </div>

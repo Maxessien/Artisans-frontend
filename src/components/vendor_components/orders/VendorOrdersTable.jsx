@@ -1,6 +1,6 @@
 "use client";
-import { FaEye } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { FaEye } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const StyledTh = ({ children }) => (
@@ -9,7 +9,7 @@ const StyledTh = ({ children }) => (
   </th>
 );
 const StyledTd = ({ children }) => (
-  <td className="text-base text-[var(--text-primary)] px-2 py-1 font-semibold border-r-1 border-r-[var(---text-secondary)]">
+  <td className="text-base text-[var(--text-primary)] px-2 py-1 font-semibold border-r-1 border-r-[var(---main-tertiary-light)]">
     {children}
   </td>
 );
@@ -22,9 +22,9 @@ const VendorOrdersTable = ({ ordersData }) => {
   return (
     <>
       {console.log(ordersData)}
-      <table className="border-collapse border-2 border-[var(---text-secondary)] rounded-md">
+      <table className="border-collapse border-2 border-[var(---main-tertiary-light)] rounded-md">
         <thead>
-          <tr className="border-b-1 border-b-[var(---text-secondary)]">
+          <tr className="border-b-1 border-b-[var(---main-tertiary-light)]">
             <StyledTh>Product Name</StyledTh>
             <StyledTh>Customer phone number</StyledTh>
             <StyledTh>Quantity</StyledTh>
@@ -48,7 +48,7 @@ const VendorOrdersTable = ({ ordersData }) => {
               const timeStamp = new Date(createdAt);
               return (
                 <tr
-                  className="border-b-1 border-b-[var(---text-secondary)]"
+                  className="border-b-1 border-b-[var(---main-tertiary-light)]"
                   onClick={() =>
                     router.push(`/${userId}/vendor/orders/${orderId}`)
                   }

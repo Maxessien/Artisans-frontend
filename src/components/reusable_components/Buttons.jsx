@@ -4,7 +4,7 @@ const variantStyles = {
   primary:
     "bg-[var(--main-primary)] text-[var(--text-secondary-light)] hover:bg-[var(--main-primary-light)]",
   secondary:
-    "text-[var(--main-primary)] shadow-[0px_0.4px_10_-6px_black] bg-[var(--red-200)] hover:bg-[var(--text-red-300)]",
+    "text-[var(--main-primary)] shadow-[0px_0.4px_10_-6px_black] bg-[var(--main-primary-lighter)] hover:bg-[var(--text-red-200)]",
   tertiary:
     "bg-transparent text-[var(--text-primary-light)] border-[2px] border-[var(--text-primary)] hover:bg-orange-200 border-md border-[var(--text-primary-light)]",
 };

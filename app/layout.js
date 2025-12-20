@@ -1,9 +1,8 @@
-import Providers from "./providers";
-import "../src/index.css";
 import "../src/assets/scss_reusable/variables.scss";
 import AppFooter from "../src/components/page_layouts/AppFooter";
+import "../src/index.css";
 import AppClientWrapper from "./appClientWrapper";
-import AppHeader from "../src/components/page_layouts/AppHeader";
+import Providers from "./providers";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +13,7 @@ const RootLayout = async ({ children }) => {
       <html lang="en">
         <body>
           <Providers>
-            <AppHeader />
+            {/* <AppHeader /> */}
           </Providers>
           <Providers>
             <AppClientWrapper>{children}</AppClientWrapper>

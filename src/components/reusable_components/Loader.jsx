@@ -24,7 +24,7 @@ const Loader = ({size="", position=""}) =>{
                   <defs>
                     {/* <!-- Gradient --> */}
                     <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="var(--text-secondary)" />
+                      <stop offset="0%" stopColor="var(--main-tertiary-light)" />
                       <stop offset="100%" stopColor="var(--main-primary)" />
                     </linearGradient>
                   </defs>

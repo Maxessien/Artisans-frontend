@@ -1,8 +1,8 @@
 "use client"
 
-import Button from './Buttons';
-import { FaEdit,  FaTrash } from "react-icons/fa"
 import { useRouter } from 'next/navigation';
+import { FaEdit, FaTrash } from "react-icons/fa";
+import Button from './Buttons';
 
 const Cards = ({children, className="", ...rest})=>{
     return (
@@ -21,7 +21,7 @@ const StatsCard = ({cardTitle, statsValue, statsIcon})=>{
                 <h2 className="text-base text-[var(--text-primary)] font-semibold">{cardTitle}</h2>
                 <p className="text-xl font-bold text-[var(--text-primary)]">{statsValue}</p>
             </div>
-            <div className="text-lg text-[var(--text-primary)] bg-[var(--text-secondary)] h-[max-content] rounded-full p-3">{statsIcon}</div>
+            <div className="text-lg text-[var(--text-primary)] bg-[var(--main-tertiary-light)] h-[max-content] rounded-full p-3">{statsIcon}</div>
             </div>
         </Cards>
         </>
@@ -79,4 +79,4 @@ const VendorProductCard = ({imageUrl, productName, price, productId, deleteFn, u
     )
 }
 
-export {Cards, PageHeader, StatsCard, OrdersCompactCards, VendorProductCard}
+export { Cards, OrdersCompactCards, PageHeader, StatsCard, VendorProductCard };

@@ -44,8 +44,8 @@ const OrderHistoryTable = ({ initOrdersData }) => {
                     </p>
                     <Button
                       isDisabled={isPending}
-                      width="full"
-                      rounded="none"
+                      width="100%"
+                      rounded="0px"
                       buttonFn={() => mutateAsync(data.orderId)}
                     >
                       Cancel Order
@@ -63,7 +63,7 @@ const OrderHistoryTable = ({ initOrdersData }) => {
             <p className="text-lg font-semibold text-[var(--text-primary-light)]">
               No Orders Made
             </p>
-            <Button rounded="md" buttonFn={() => router.push("/shop")}>
+            <Button rounded="6px" buttonFn={() => router.push("/shop")}>
               Shop Now
             </Button>
           </div>

@@ -1,5 +1,5 @@
-import { fetchTrendingProducts } from "../../../src/utils/productsFectchingHelpers" 
 import RecommendationSidebar from "../../../src/components/page_layouts/RecommendationSidebar";
+import { fetchTrendingProducts } from "../../../src/utils/fetchingHelpers";
 
 export const metadata = {
     title: "Lasu Mart-Chat"

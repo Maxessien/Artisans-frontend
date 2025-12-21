@@ -1,10 +1,10 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query";
+import { fetchTrendingProducts } from "../../utils/fetchingHelpers.js";
+import Loader from "../reusable_components/Loader.jsx";
 import ProductCards from "./ProductCards";
 import "./scss/trending.scss";
-import { useQuery } from "@tanstack/react-query";
-import Loader from "../reusable_components/Loader.jsx";
-import { fetchTrendingProducts } from "../../utils/productsFectchingHelpers.js";
 
 
 const TrendingProducts = ({initData}) => {

@@ -107,7 +107,7 @@ const CheckoutForm = () => {
           )}
         </div>
 
-        <Button isDisabled={isPending} buttonType="submit" rounded="md">{isPending ? "..." : "Proceed To Payment"}</Button>
+        <Button isDisabled={isPending} buttonType="submit" rounded="6px">{isPending ? "..." : "Proceed To Payment"}</Button>
       </form>
     </section>
   )

@@ -79,7 +79,7 @@ const ChangeAccountPasswordForm = () => {
             <p className={errorMessage}>{errors.confirmNewPassword.message}</p>
           )}
         </label>
-          <Button buttonType="submit" className="w-full max-w-[540px]" rounded="md">{isPending? "Saving..." : "Change Password"}</Button>
+          <Button buttonType="submit" extraStyles={{maxWidth: "540px"}} rounded="6px">{isPending? "Saving..." : "Change Password"}</Button>
       </form>
     </>
   );

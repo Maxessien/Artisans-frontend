@@ -109,8 +109,8 @@ const Filters = ({ closeFilterFn }) => {
         </div>
         <Button
           type="secondary"
-          rounded="md"
-          className="border-1 border-[var(--text-primary)] mr-2"
+          rounded="6px"
+          extraStyles={{ borderWidth: "1px", borderColor: "var(--text-primary)", marginRight: "8px" }}
           buttonFn={() => {
             reset();
             router.push("/shop");
@@ -119,9 +119,9 @@ const Filters = ({ closeFilterFn }) => {
           Reset
         </Button>
         <Button
-          rounded="md"
+          rounded="6px"
           buttonType="submit"
-          className="text-lg font-semibold"
+          extraStyles={{ fontSize: "1.125rem", fontWeight: 600 }}
         >
           Apply Filters
         </Button>

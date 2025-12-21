@@ -62,14 +62,14 @@ const EditProfilePhoto = () => {
         />
         <div className="flex gap-3">
         <Button
-          rounded="md"
+          rounded="6px"
           type="tertiary"
           buttonFn={() => mutateAsync("delete")}
           buttonType="button"
         >
           {isPending ? "Removing..." : "Remove Photo"}
         </Button>
-        <Button rounded="md" buttonType="submit">
+        <Button rounded="6px" buttonType="submit">
           {isPending ? "Saving..." : "Save"}
         </Button>
         </div>

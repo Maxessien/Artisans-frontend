@@ -5,11 +5,11 @@ import Hero from "../src/components/home_components/Hero";
 import HeroFooter from "../src/components/home_components/HeroFooter";
 import NewsLetter from "../src/components/home_components/NewsLetter";
 import Testimonials from "../src/components/home_components/Testimonials";
-import logger from "../src/utils/logger";
 import {
   fetchTrendingProducts,
   getProductCategories,
-} from "../src/utils/productsFectchingHelpers";
+} from "../src/utils/fetchingHelpers";
+import logger from "../src/utils/logger";
 import NewArrivals from "./../src/components/home_components/NewArrivals";
 import ShopByCategory from "./../src/components/home_components/ShopByCategory";
 

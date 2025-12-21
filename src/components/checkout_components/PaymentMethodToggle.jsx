@@ -13,18 +13,18 @@ const PaymentMethodToggle = ({ register }) => {
 
       <div className="flex gap-2">
         <Button
-          width="full"
+          width="100%"
           type={method === "delivery" ? "primary" : "secondary"}
           buttonFn={() => setMethod("delivery")}
-	  rounded="md"
+	  rounded="6px"
         >
           Pay On Delivery
         </Button>
         <Button
-          width="full"
+          width="100%"
           type={method === "online" ? "primary" : "secondary"}
           buttonFn={() => setMethod("online")}
-	  rounded="md"
+	  rounded="6px"
         >
           Pay Online
         </Button>

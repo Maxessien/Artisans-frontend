@@ -161,8 +161,8 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
                   <img className="w-full max-w-20" src={url} />
                   <Button
                     buttonFn={() => deleteImage(publicId)}
-                    rounded="md"
-                    width="full"
+                    rounded="6px"
+                    width="100%"
                   >
                     <FaTrash /> Remove Image
                   </Button>
@@ -221,8 +221,8 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
         <Cards className="mt-2">
           <Button
             isDisabled={isPending}
-            rounded="md"
-            width="full"
+            rounded="6px"
+            width="100%"
             buttonType="submit"
           >
             {params.pid === "new"

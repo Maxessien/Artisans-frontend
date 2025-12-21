@@ -2,7 +2,6 @@
 import { useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import Button from "../reusable_components/Buttons";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const ProductImageSlide = ({ images, productName }) => {
@@ -25,22 +24,17 @@ const ProductImageSlide = ({ images, productName }) => {
 
   return (
     <>
+    <div className="relative overflow-x-auto aspect-square w-full max-w-[520px] mx-auto sm:w-1/2">
       <motion.div
         initial={{ x: 0 }}
         animate={{ x: `${containerScroll.position}%` }}
         transition={{ duration: 0.4 }}
-        className="relative snap-x overflow-x-auto aspect-square w-full max-w-[520px] mx-auto sm:w-1/2"
+        className="flex justify-start snap-x w-max"
       >
         {containerScroll.position > 0 && (
-          <Button
-            type="tertiary"
-            buttonFn={() =>
-              containerScroll.position > 0 ? scrollImage("forward") : null
-            }
-            className="absolute top-1/2 left-2 z-5"
-          >
+          <button className="absolute top-1/2 left-4 p-2 inline-flex items-center justify-center" onClick={()=>scrollImage("backward")}>
             <FaArrowLeft />
-          </Button>
+          </button>
         )}
         {images?.map(({ url }) => {
           return (
@@ -51,18 +45,13 @@ const ProductImageSlide = ({ images, productName }) => {
               />
           );
         })}
-        {containerScroll.position < 100 && images?.length > 1 && (
-          <Button
-            type="primary"
-            buttonFn={() =>
-              containerScroll.position < 100 ? scrollImage("backward") : null
-            }
-            className="absolute top-1/2 right-2 z-5"
-          >
+        {containerScroll.position < (100 - (100/containerScroll.totalImages)) && images?.length > 1 && (
+          <button className="absolute top-1/2 right-4 p-2 inline-flex items-center justify-center" onClick={()=>scrollImage("forward")}>
             <FaArrowRight />
-          </Button>
+          </button>
         )}
       </motion.div>
+    </div>
     </>
   );
 };

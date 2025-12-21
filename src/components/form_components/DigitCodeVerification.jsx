@@ -121,7 +121,7 @@ const DigitCodeVerification = ({
           </p>
         ) : (
           <Button
-            width="max"
+            width="max-content"
             buttonFn={async () => {
               try {
                 setIsLoading(true)
@@ -141,7 +141,7 @@ const DigitCodeVerification = ({
           </Button>
         )}
 
-        <Button isDisabled={isLoading} className="mt-4" buttonType="submit" width="full">
+        <Button isDisabled={isLoading} extraStyles={{ marginTop: "1rem" }} buttonType="submit" width="100%">
           Submit
         </Button>
       </form>

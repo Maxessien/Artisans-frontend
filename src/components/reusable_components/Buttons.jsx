@@ -22,22 +22,22 @@ const Button = ({
   buttonFn=undefined,
   size = "medium",
   type = "primary",
-  rounded = "full",
+  rounded = "9999px",
   isLoading = false,
   isDisabled = false,
-  width = "[max-content]",
-  className = "",
+  width = "max-content",
+  extraStyles = {},
   buttonType="button",
 }) => {
-  const allStyles = `rounded-${rounded} ${baseStyles} ${sizeStyles[size]} ${
+  const allStyles = `${baseStyles} ${sizeStyles[size]} ${
     variantStyles[type]
-  } w-${width} ${isDisabled ? "opacity-50 cursor-not-allowed" : ""} ${
+  } ${isDisabled ? "opacity-50 cursor-not-allowed" : ""} ${
     isLoading ? "cursor-not-allowed" : ""
-  } ${className}`;
+  }`;
 
   return (
     <>
-      <button type={buttonType} disabled={isDisabled} onClick={buttonFn} className={allStyles}>
+      <button style={{width: width, borderRadius: rounded, ...extraStyles}} type={buttonType} disabled={isDisabled} onClick={buttonFn} className={allStyles}>
         {children}{" "}
         {/* {isLoading && (
           <Circles

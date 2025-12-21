@@ -33,7 +33,7 @@ const CheckoutSummary = ({deliveryFee, selectedProds=[]}) => {
           <PriceCalc name={"Delivery Fee"} price={deliveryFee} />
         </ul>
         <li className="flex justify-between items-center w-full text-xl text-[var(--main-secondary-light)] font-normal"><span>Total</span> <span>#{subTotal + deliveryFee}</span></li>
-        <Button buttonFn={submitOrder} width="full">Proceed To Checkout</Button>
+        <Button buttonFn={submitOrder} width="100%">Proceed To Checkout</Button>
       </div>
     </>
   );

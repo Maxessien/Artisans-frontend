@@ -15,7 +15,7 @@ const ViewProductInfo = ({
   name,
   description,
   price,
-  ratings,
+  reviews,
   productId,
   category,
 }) => {
@@ -57,9 +57,9 @@ const ViewProductInfo = ({
           </p>
           <p className="text-xl text-[var(--main-secondary)] font-normal">
             <FaStar className="text-orange-400" />{" "}
-            {ratings?.reduce((prev, curr) => curr.stars + prev, 0) /
-              ratings?.length || 0}{" "}
-            {`(${ratings?.length || 0} Reviews)`}
+            {reviews?.reduce((prev, curr) => curr.rating + prev, 0) /
+              reviews?.length || 0}{" "}
+            {`(${reviews?.length || 0} Reviews)`}
           </p>
           <div className="w-full flex justify-evenly items-center p-4 rounded-md bg-[var(--main-tertiary)]">
             <button
@@ -95,7 +95,7 @@ const ViewProductInfo = ({
             </div>
               <Button
                 buttonFn={() => mutateAsync()}
-                width="full"
+                width="100%"
                 isDisabled={isPending}
               >
                 Add To Cart{" - "}#{price}

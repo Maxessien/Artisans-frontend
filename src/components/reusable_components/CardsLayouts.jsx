@@ -71,8 +71,8 @@ const VendorProductCard = ({imageUrl, productName, price, productId, deleteFn, u
                 <p className="text-lg text-left text-[var(--text-primary)] font-semibold">{productName}</p>
                 <p className="text-lg text-left text-[var(--text-primary)] font-bold"><span>&#8358; {price}</span></p>
                 <p className="grid grid-cols-[80%_20%] gap-2">
-                    <Button type="secondary" width="full" rounded="md" buttonFn={()=>router.push(`/${userId}/vendor/products/${productId}`)}><FaEdit /> Edit</Button>
-                    <Button rounded="md" buttonFn={()=>deleteFn(productId)}><FaTrash /></Button>
+                    <Button type="secondary" width="100%" rounded="6px" buttonFn={()=>router.push(`/${userId}/vendor/products/${productId}`)}><FaEdit /> Edit</Button>
+                    <Button rounded="6px" buttonFn={()=>deleteFn(productId)}><FaTrash /></Button>
                 </p>
             </div>
         </div>

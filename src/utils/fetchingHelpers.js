@@ -1,10 +1,11 @@
 import { regApi } from "../axiosApiBoilerplates/regApi";
 import logger from "./logger";
 
-
 const fetchAllProducts = async (pageNumber, filters) => {
   try {
-    const products = await regApi.get("/product/single", {params: { page: pageNumber, ...filters }})
+    const products = await regApi.get("/product/single", {
+      params: { page: pageNumber, ...filters },
+    });
     logger.info("Fetched all products", products);
     return products.data;
   } catch (err) {
@@ -27,7 +28,7 @@ const fetchTrendingProducts = async () => {
 const getProductCategories = async () => {
   try {
     const categories = await regApi.get("/category");
-	// console.log(categories, "batttt")
+    // console.log(categories, "batttt")
     return categories.data || [];
   } catch (err) {
     logger.error("Failed to get product categories", err);
@@ -35,5 +36,21 @@ const getProductCategories = async () => {
   }
 };
 
-export { fetchAllProducts, fetchTrendingProducts, getProductCategories };
+const fetchProductReviews = async (productId, page) => {
+  try {
+    const reviews = await regApi.get(`/products/reviews/${productId}`, {
+      params: { page: page },
+    });
+    return reviews.data;
+  } catch (err) {
+    logger.error("Product Reviews fetch err", err);
+    throw err;
+  }
+};
 
+export {
+  fetchAllProducts,
+  fetchTrendingProducts,
+  getProductCategories,
+  fetchProductReviews,
+};

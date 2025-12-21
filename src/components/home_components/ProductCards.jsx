@@ -74,17 +74,17 @@ const ProductCards = ({
           <>
             <Button
               buttonFn={() => router.push(`/shop/${productId}`)}
-              width="full"
-              rounded="md"
+              width="100%"
+              rounded="6px"
             >
               View Product
             </Button>
-            <Button width="full" buttonFn={() => shopBtn()} rounded="md">
+            <Button width="100%" buttonFn={() => shopBtn()} rounded="6px">
               <FaShoppingCart size={20} className="mr-[5px]" /> Add to Cart
             </Button>
           </>
         ) : (
-          <Button width="full">...</Button>
+          <Button width="100%">...</Button>
         )}
       </div>
     </>

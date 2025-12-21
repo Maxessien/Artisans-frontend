@@ -7,8 +7,8 @@ import { authApi } from "../../../axiosApiBoilerplates/authApi";
 import logger from "../../../utils/logger";
 import Button from "../../reusable_components/Buttons";
 import {
-    PageHeader,
-    VendorProductCard,
+  PageHeader,
+  VendorProductCard,
 } from "../../reusable_components/CardsLayouts";
 
 const VendorProducts = ({ products }) => {
@@ -33,7 +33,7 @@ const VendorProducts = ({ products }) => {
       <PageHeader headerText={"Products"} />
       <Button
         buttonFn={() => router.push(`/${userId}/vendor/products/new`)}
-        className="block mb-3"
+        extraStyles={{ display: "block", marginBottom: "12px" }}
         type="secondary"
       >
         Add New Products

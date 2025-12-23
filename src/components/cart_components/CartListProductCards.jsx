@@ -22,12 +22,6 @@ const CartListProductCard = ({
         `/user/${userData?.userId}/cart/${productId}`
       );
       logger.info("Deleted from cart", res);
-      dispatch(
-        setUserAuth({
-          stateProp: "userData",
-          value: res.data,
-        })
-      );
     } catch (err) {
       logger.error("Failed deleting from cart", err);
     }

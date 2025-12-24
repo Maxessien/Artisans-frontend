@@ -44,7 +44,12 @@ const CartIcon = (props) => {
         strokeWidth="1.5"
         strokeLinecap="round"
       />
-      <path d="M6 6H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M6 6H22"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
       <path
         d="M6 22C7.10457 22 8 21.1046 8 20C8 18.8954 7.10457 18 6 18C4.89543 18 4 18.8954 4 20C4 21.1046 4.89543 22 6 22Z"
         stroke="currentColor"
@@ -55,7 +60,12 @@ const CartIcon = (props) => {
         stroke="currentColor"
         strokeWidth="1.5"
       />
-      <path d="M8 20H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M8 20H15"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
       <path
         d="M2 2H2.966C3.91068 2 4.73414 2.62459 4.96326 3.51493L7.93852 15.0765C8.08887 15.6608 7.9602 16.2797 7.58824 16.7616L6.63213 18"
         stroke="currentColor"
@@ -121,10 +131,43 @@ const PlusIcon = (props) => {
       focusable="false"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M15.001 6.25V23.7525" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M23.7525 15.0029H6.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M15.001 6.25V23.7525"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M23.7525 15.0029H6.25"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 };
 
-export { HomeIcon, CartIcon, PlusIcon, HeartIcon, UserIcon };
+const BackArrowIcon = (props) => {
+  return (
+    <svg
+      {...props}
+      width="10"
+      height="19"
+      viewBox="0 0 10 19"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9.21154 0.75C9.21154 0.75 0.750014 7.01011 0.75 9.25C0.749986 11.49 9.21154 17.75 9.21154 17.75"
+        stroke="#141B34"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export { HomeIcon, CartIcon, PlusIcon, HeartIcon, UserIcon, BackArrowIcon };

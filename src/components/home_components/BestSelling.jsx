@@ -2,8 +2,8 @@
 
 import { useSelector } from "react-redux";
 import ButtonLink from "../reusable_components/ButtonLink";
-import { HomeProductCards } from "./NewArrivals";
 import { homeSectionPadding } from "./AboutUs";
+import HomeProductCards from "./HomeProductCards";
 
 const BestSelling = () => {
   const { currentSize } = useSelector((state) => state.screenSize);

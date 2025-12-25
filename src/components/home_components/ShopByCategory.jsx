@@ -1,6 +1,6 @@
 "use client";
 
-const ShopByCategory = () => {
+const ShopByCategory = ({data}) => {
   const categoriesData = [
     {
       name: "Fashion and Apparel",
@@ -36,6 +36,8 @@ const ShopByCategory = () => {
       imageUrl: "standing-talking-drum2.jpg",
     },
   ];
+
+  const categories = data ?? categoriesData
   return (
     <>
       <section className="bg-[var(--main-tertiary-light)] w-full py-10 px-5 sm:px-10 md:px-13 lg:p-20 h-[340px] sm:h-[440px] md:h-[480px] lg:h-[520px]">
@@ -44,7 +46,7 @@ const ShopByCategory = () => {
         </h2>
 
         <div className="overflow-x-auto flex gap-3 h-full py-3">
-          {categoriesData.map(({ name, imageUrl }) => {
+          {categories.map(({ name, imageUrl }) => {
             return (
               <div className="relative aspect-square h-full">
                 <img

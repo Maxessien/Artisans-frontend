@@ -170,4 +170,31 @@ const BackArrowIcon = (props) => {
   );
 };
 
-export { HomeIcon, CartIcon, PlusIcon, HeartIcon, UserIcon, BackArrowIcon };
+const ForwardArrowIcon = (props) => {
+  return (
+    <svg
+      {...props}
+      width="9"
+      height="17"
+      viewBox="0 0 9 17"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M-0.000445366 1.32539L1.3258 0.000391006L8.54955 7.22164C8.666 7.33735 8.75841 7.47495 8.82147 7.62651C8.88453 7.77807 8.91699 7.94061 8.91699 8.10477C8.91699 8.26892 8.88453 8.43146 8.82147 8.58302C8.75841 8.73459 8.666 8.87218 8.54955 8.98789L1.3258 16.2129L0.000803947 14.8879L6.7808 8.10664L-0.000445366 1.32539Z"
+        fill="#1F1F1F"
+        fillOpacity="0.7"
+      />
+    </svg>
+  );
+};
+
+export {
+  HomeIcon,
+  CartIcon,
+  PlusIcon,
+  HeartIcon,
+  UserIcon,
+  BackArrowIcon,
+  ForwardArrowIcon,
+};

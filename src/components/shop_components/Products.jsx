@@ -1,5 +1,5 @@
 import logger from "../../utils/logger";
-import ProductCards from "../home_components/ProductCards";
+import HomeProductCards from "../home_components/HomeProductCards";
 import "./scss/products.scss";
 
 const Products = ({ initialProductsData }) => {
@@ -9,17 +9,16 @@ const Products = ({ initialProductsData }) => {
     <>
       {logger.info("Rendering shop products", initialProductsData)}
       <section className="shop_product">
-        <h2>Shop</h2>
         <div className="shop_product_display">
           {productsData?.length > 0 ? (
-            productsData.map(({ name, price, productId, images }) => {
+            productsData.map(({ product_name, price, product_id, images }) => {
               return (
-                <div key={productId}>
-                  <ProductCards
+                <div key={product_id}>
+                  <HomeProductCards
                     imageUrl={images[0].url}
-                    name={name}
+                    name={product_name}
                     price={price}
-                    productId={productId}
+                    productId={product_id}
                   />
                 </div>
               );

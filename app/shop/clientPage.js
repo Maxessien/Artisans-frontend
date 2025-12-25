@@ -32,7 +32,7 @@ const ClientShopPage = ({ initialShopData, serverSideWindowSize }) => {
             }} />
           </aside>
         )}
-        <main>
+        <main className="px-3 py-5">
           {!showFilter && isMobile && (
             <ShopHeader openFilterFn={() =>{
 			  logger.log("Opening filters on mobile")

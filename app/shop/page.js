@@ -17,13 +17,13 @@ const Shop = async ({ searchParams }) => {
     search,
     cat,
     order = "desc",
-    sort = "createdAt",
+    sort = "date_added",
   } = sParams;
   const userAgent = (await headers()).get("user-agent");
   const isMobile = /Mobi|Android|iPhone/i.test(userAgent) || false;
   const acceptableValues = {
     order: ["asc", "desc"],
-    sort: ["createdAt", "ratings", "price"],
+    sort: ["date_added", "ratings", "price"],
     cat: ["fashion", "food", "electronics", "sports", "accessories"],
   };
   const formattedPrice = price.split("-");
@@ -55,7 +55,7 @@ const Shop = async ({ searchParams }) => {
           page: page,
           minPrice: Number(formattedPrice[0]) || 5,
           maxPrice: Number(formattedPrice[1]) || 500000,
-          sortBy: sort || "createdAt",
+          sortBy: sort || "date_added",
           order: order || "desc",
           category: cat?.split(" ") ?? false,
           ...(search?.length > 0 && typeof search === "string"

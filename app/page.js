@@ -6,6 +6,7 @@ import HeroFooter from "../src/components/home_components/HeroFooter";
 import NewsLetter from "../src/components/home_components/NewsLetter";
 import Testimonials from "../src/components/home_components/Testimonials";
 import {
+  fetchLatestProducts,
   fetchTrendingProducts,
   getProductCategories,
 } from "../src/utils/fetchingHelpers";
@@ -21,16 +22,17 @@ const Home = async () => {
   try {
     const trendingProducts = await fetchTrendingProducts();
     const categories = await getProductCategories();
-    logger.info("Home page data fetched", { trendingProducts, categories });
+    const latestProducts = await fetchLatestProducts()
+    logger.info("Home page data fetched", { trendingProducts, categories, latestProducts });
     return (
       <>
         <main>
           <Hero />
           <HeroFooter />
           <AboutUs />
-          <ShopByCategory />
-          <NewArrivals />
-          <BestSelling />
+          <ShopByCategory data={categories?.data?.length > 0 ? categories?.data : null} />
+          <NewArrivals data={latestProducts?.data?.length > 0 ? latestProducts?.data : null} />
+          <BestSelling data={trendingProducts?.data?.length > 0 ? trendingProducts?.data : null} />
           <Testimonials />
           <FAQ />
           <NewsLetter />
@@ -45,9 +47,9 @@ const Home = async () => {
           <Hero />
           <HeroFooter />
           <AboutUs />
-          <ShopByCategory />
-          <NewArrivals />
-          <BestSelling />
+          <ShopByCategory data={null} />
+          <NewArrivals data={null} />
+          <BestSelling data={null} />
           <Testimonials />
           <FAQ />
           <NewsLetter />

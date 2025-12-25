@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 const Cart = async()=>{
-
+    
     return (
       <>
         <main className="w-screen">

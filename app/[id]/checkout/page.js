@@ -1,6 +1,6 @@
-import CheckoutForm from "../../../src/components/checkout_components/CheckoutForm";
 import {redirect} from "next/navigation"
 import { getUserServerSide } from "../../../src/utils/auth.server";
+import Checkout from "../../../src/components/checkout_components/Checkout";
 
 export const metadata = {
 	title: "Lasu Mart-Checkout"
@@ -9,13 +9,13 @@ export const metadata = {
 const CheckoutPage = async ({ params }) => {
 	const idParams = await params
   const {user} = await getUserServerSide()
-  if(!user || !user.cart || user.cart.length <= 0){
+  if(!user?.cart?.length <= 0){
     redirect(`/${idParams.id}/cart`)
   }
   return (
     <>
-    <main>
-      <CheckoutForm checkOutData={user?.cart} />
+    <main className="px-3 py-4">
+      <Checkout />
     </main>
     </>
   );

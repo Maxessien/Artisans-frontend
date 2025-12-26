@@ -23,7 +23,7 @@ const ShopHeader = ({ openFilterFn = () => null, headerTitle = "" }) => {
           </button>
           <input
             placeholder="Search"
-            className="w-full px-2 py-4 text-base text-(--text-primary) placeholder:text-(--main-secondary) font-normal"
+            className="w-full px-2 py-4 text-base text-(--text-primary) focus:outline-0 placeholder:text-(--main-secondary) font-normal"
             type="text"
           />
           <button className="w-max p-1 h-full" onClick={openFilterFn}>

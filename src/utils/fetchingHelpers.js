@@ -55,7 +55,7 @@ const getProductCategories = async () => {
 
 const fetchProductReviews = async (productId, page) => {
   try {
-    const reviews = await regApi.get(`/products/reviews/${productId}`, {
+    const reviews = await regApi.get(`/reviews/${productId}`, {
       params: { page: page },
     });
     return reviews.data;

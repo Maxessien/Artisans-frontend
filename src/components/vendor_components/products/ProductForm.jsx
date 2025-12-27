@@ -11,24 +11,12 @@ import { authApi } from "../../../axiosApiBoilerplates/authApi";
 import logger from "../../../utils/logger";
 import { formatFormData } from "../../../utils/regHelperFns";
 import Button from "../../reusable_components/Buttons";
-import { Cards, PageHeader } from "../../reusable_components/CardsLayouts";
 import {
-    FormErrors,
-    FormWrapper,
-    Input,
-    Label,
+  FormErrors,
+  FormWrapper,
+  Input,
+  Label,
 } from "../../reusable_components/FormLayouts";
-
-const FormBlocks = ({ children, blockTitle }) => {
-  return (
-    <Cards className="flex flex-col items-start gap-3 mt-2">
-      <h2 className="text-lg text-[var(--text-primary)] font-semibold mb-3">
-        {blockTitle}
-      </h2>
-      {children}
-    </Cards>
-  );
-};
 
 const ProductForm = ({ hasDefault, availableCategories }) => {
   const { idToken } = useSelector((state) => state.userAuth);
@@ -37,6 +25,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
@@ -92,6 +81,8 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
     }
   };
 
+  const imagesValues = watch("images");
+
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (data) => submitFn(data),
   });
@@ -102,138 +93,151 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
         headerText={params.pid === "new" ? "Add Product" : "Edit Product"}
       />
       <form onSubmit={handleSubmit(mutateAsync)}>
-        <FormBlocks blockTitle="Product Information">
-          <FormWrapper>
-            <Label htmlFor="productName">Product Name*</Label>
-            <Input
-              id="productName"
-              {...register("productName", {
-                required: "You must add a Product Name",
-              })}
-            />
-            {errors.productName && (
-              <FormErrors errorText={errors.productName.message} />
-            )}
-          </FormWrapper>
-          <FormWrapper>
-            <Label htmlFor="description">Description (optional)</Label>
-            <Input
-              inputType="textarea"
-              className="h-15"
-              placeholder="Write a description for your product"
-              id="description"
-              {...register("description")}
-            />
-            {errors.description && (
-              <FormErrors errorText={errors.description.message} />
-            )}
-          </FormWrapper>
-          <FormWrapper>
-            <Label htmlFor="price">Price*</Label>
-            <Input
-              type="number"
-              id="price"
-              {...register("price", {
-                required: "You must add a Price",
-                min: { value: 0, message: "Price cannot be less than 0" },
-              })}
-            />
-            {errors.price && <FormErrors errorText={errors.price.message} />}
-          </FormWrapper>
-          <FormWrapper>
-            <Label htmlFor="category">category*</Label>
-            <Input
-              inputType="select"
-              selectOptions={availableCategories}
-              id="category"
-              {...register("category", { required: "You must add a category" })}
-            />
-            {errors.category && (
-              <FormErrors errorText={errors.category.message} />
-            )}
-          </FormWrapper>
-        </FormBlocks>
-        <Cards className="flex gap-3 justify-start">
-          {hasDefault?.images?.length > 0 &&
-            hasDefault.images.map(({ url, publicId }) => {
-              return (
-                <div className="flex flex-col gap-2">
-                  <img className="w-full max-w-20" src={url} />
-                  <Button
-                    buttonFn={() => deleteImage(publicId)}
-                    rounded="6px"
-                    width="100%"
-                  >
-                    <FaTrash /> Remove Image
-                  </Button>
-                </div>
-              );
+        <FormWrapper>
+          <Label htmlFor="productName">Product Name*</Label>
+          <Input
+            id="productName"
+            {...register("productName", {
+              required: "You must add a Product Name",
             })}
-        </Cards>
+          />
+          {errors.productName && (
+            <FormErrors errorText={errors.productName.message} />
+          )}
+        </FormWrapper>
+        <FormWrapper>
+          <Label htmlFor="category">category*</Label>
+          <Input
+            inputType="select"
+            selectOptions={availableCategories}
+            id="category"
+            {...register("category", { required: "You must add a category" })}
+          />
+          {errors.category && (
+            <FormErrors errorText={errors.category.message} />
+          )}
+        </FormWrapper>
 
-        <FormBlocks blockTitle="Product Images (select one or more images)">
-          <label className="w-full" htmlFor="file_input">
-            <Cards className="flex flex-col items-center justify-center gap-2">
-              <FaUpload className="text-[var(--text-primary)]" size={45} />
-              <p className="text-base text-[var(--text-primary)] font-semibold">
-                Click to upload Image*
-              </p>
-              <p className="text-base text-[var(--main-secondary)] font-semibold">
-                PNG, JPG or WEBP (max. 5MB)
-              </p>
-              <input
-                id="file_input"
-                type="file"
-                {...register("images", {
-                  validate: (value) => {
-                    if (hasDefault?.images.length < 1 && value?.length < 1)
-                      return "Products need at least one image";
-                    for (const file of value.files) {
-                      if (file.size / (1024 * 1024) > 5)
-                        return "Images must be less than 5Mb";
-                    }
-                    return true;
-                  },
-                })}
-              />
-            </Cards>
+        {(hasDefault?.images?.length > 0 || imagesValues?.length > 0) && (
+          <div className="flex gap-3 justify-start">
+            {hasDefault?.images?.length > 0 &&
+              hasDefault.images.map(({ url, publicId }) => {
+                return (
+                  <div className="flex flex-col gap-2">
+                    <img className="w-full max-w-20" src={url} />
+                    <Button
+                      buttonFn={() => deleteImage(publicId)}
+                      rounded="6px"
+                      width="100%"
+                    >
+                      <FaTrash /> Remove Image
+                    </Button>
+                  </div>
+                );
+              })}
+            {imagesValues?.length > 0 &&
+              imagesValues.map((value, index) => {
+                return (
+                  <div className="flex flex-col gap-2">
+                    <img
+                      className="w-full max-w-20"
+                      src={URL.createObjectURL(value.files[0])}
+                      alt=""
+                    />
+                    <Button
+                      buttonFn={imagesValues.splice(index, 1)}
+                      rounded="6px"
+                      width="100%"
+                    >
+                      <FaTrash /> Remove Image
+                    </Button>
+                  </div>
+                );
+              })}
+          </div>
+        )}
+
+        <FormWrapper>
+          <p>Add at least 1 photo</p>
+          <label htmlFor="images">
+            <input
+              id="images"
+              {...register("images", {
+                validate: () => {
+                  if (
+                    !imagesValues?.length > 0 &&
+                    !hasDefault?.images?.length > 0
+                  )
+                    return "Product must have at least one image";
+                  return true;
+                },
+              })}
+              type="file"
+              className="hidden"
+            />
+            <button className="flex items-center justify-center bg-(--main-primary-light) rounded-md p-5 text-3xl text-(--main-primary) font-normal">
+              +
+            </button>
           </label>
           {errors.images && <FormErrors errorText={errors.images.message} />}
-        </FormBlocks>
+        </FormWrapper>
 
-        <FormBlocks blockTitle="Product Status">
-          <FormWrapper>
-            <Label htmlFor="productStatus">Status</Label>
-            <Input
-              inputType="select"
-              selectOptions={["active", "inactive"]}
-              id="productStatus"
-              {...register("productStatus", {
-                required: "You must add a status",
-              })}
-            />
-            {errors.productStatus && (
-              <FormErrors errorText={errors.productStatus.message} />
-            )}
-          </FormWrapper>
-        </FormBlocks>
+        <FormWrapper>
+          <Label htmlFor="description">Description</Label>
+          <Input
+            inputType="textarea"
+            className="h-15"
+            placeholder="Write a description for your product"
+            id="description"
+            {...register("description")}
+          />
+          {errors.description && (
+            <FormErrors errorText={errors.description.message} />
+          )}
+        </FormWrapper>
 
-        <Cards className="mt-2">
-          <Button
-            isDisabled={isPending}
-            rounded="6px"
-            width="100%"
-            buttonType="submit"
-          >
-            {params.pid === "new"
-              ? !isPending
-                ? "Add Product"
-                : "Adding..."
-              : !isPending
-              ? "Update Product"
-              : "Updating..."}
-          </Button>
-        </Cards>
+        <FormWrapper>
+          <Label htmlFor="productRegion">Region</Label>
+          <Input
+            inputType="select"
+            selectOptions={["active", "inactive"]}
+            id="productRegion"
+            {...register("productRegion", {
+              required: "You must add a status",
+            })}
+          />
+          {errors.productRegion && (
+            <FormErrors errorText={errors.productRegion.message} />
+          )}
+        </FormWrapper>
+
+        <FormWrapper>
+          <Label htmlFor="price">Price*</Label>
+          <Input
+            type="number"
+            id="price"
+            {...register("price", {
+              required: "You must add a Price",
+              min: { value: 0, message: "Price cannot be less than 0" },
+            })}
+          />
+          {errors.price && <FormErrors errorText={errors.price.message} />}
+        </FormWrapper>
+
+        <Button
+          isDisabled={isPending}
+          rounded="6px"
+          width="100%"
+          buttonType="submit"
+        >
+          {params.pid === "new"
+            ? !isPending
+              ? "Post Product"
+              : "Posting..."
+            : !isPending
+            ? "Update Product"
+            : "Updating..."}
+        </Button>
       </form>
     </>
   );

@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation';
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Button from './Buttons';
 
-const Cards = ({children, className="", ...rest})=>{
+const Cards = ({children, extraStyles, ...rest})=>{
     return (
-        <div {...rest} className={`border-1 border-solid border-[var(--main-secondary)] w-full px-4 py-3 rounded-md bg-[var(--text-secondary-light)] ${className}`}>
+        <div {...rest} style={extraStyles} className={`w-full shadow-[0px_0px_10px_-6px_black] rounded-md bg-[var(--text-secondary-light)]`}>
             {children}
         </div>
     )

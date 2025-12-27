@@ -245,8 +245,58 @@ const LogoutIcon = (props) => {
   );
 };
 
+const TermsOfServiceIcon = (props) => {
+  return (
+    <svg
+      {...props}
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.0227 1.46973H4.40913C4.01935 1.46973 3.64553 1.62457 3.36991 1.90019C3.09429 2.1758 2.93945 2.54962 2.93945 2.9394V14.6968C2.93945 15.0866 3.09429 15.4604 3.36991 15.736C3.64553 16.0117 4.01935 16.1665 4.40913 16.1665H13.2272C13.617 16.1665 13.9908 16.0117 14.2664 15.736C14.542 15.4604 14.6969 15.0866 14.6969 14.6968V5.14392L11.0227 1.46973Z"
+        stroke="#6B7280"
+        strokeWidth="1.46968"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10.2871 1.46973V4.40908C10.2871 4.79886 10.442 5.17268 10.7176 5.4483C10.9932 5.72392 11.367 5.87876 11.7568 5.87876H14.6961"
+        stroke="#6B7280"
+        strokeWidth="1.46968"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7.34858 6.61328H5.87891"
+        stroke="#6B7280"
+        strokeWidth="1.46968"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M11.7576 9.55371H5.87891"
+        stroke="#6B7280"
+        strokeWidth="1.46968"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M11.7576 12.4922H5.87891"
+        stroke="#6B7280"
+        strokeWidth="1.46968"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export {
   HelpAndSupportIcon,
+  TermsOfServiceIcon,
   SettingsIcon,
   UserIcon,
   StarIcon,

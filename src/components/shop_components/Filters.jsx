@@ -6,21 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../store_slices/productPageSlice";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const Filters = ({ closeFilterFn }) => {
+const Filters = ({ closeFilterFn, categories }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const { currentSize } = useSelector((state) => state.screenSize);
-  const categories = [
-    "fashion",
-    "food",
-    "electronics",
-    "sports",
-    "accessories",
-  ];
+
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
-      sortType: searchParams.get("sort") || "createdAt",
+      sortType: searchParams.get("sort") || "date_added",
       sortOrder: searchParams.get("order") || "desc",
       minPrice: searchParams.get("price")?.split("-")[0] || 5,
       maxPrice: searchParams.get("price")?.split("-")[1] || 400000,
@@ -66,7 +60,7 @@ const Filters = ({ closeFilterFn }) => {
             <span>Type</span>
             <select id="sortType" {...register("sortType")}>
               <option value="rating">Popularity</option>
-              <option value="createdAt">Recent</option>
+              <option value="date_added">Recent</option>
               <option value="price">Price</option>
             </select>
           </label>

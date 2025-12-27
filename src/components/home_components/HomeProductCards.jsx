@@ -12,7 +12,7 @@ const HomeProductCards = ({ name, description, price, imageUrl, showBtn=false })
       <div className="flex flex-col gap-2">
         <div className="relative rounded-md w-full">
           <button className="rounded-full p-2 bg-[var(--text-secondary-light)] shadow-[0px_0px_10px_-5px_black] absolute top-2 right-2">
-            <HeartIcon className="text-(var(--main-primary))" size={22} />
+            <HeartIcon className="text-(--main-primary)" size={22} />
           </button>
           <img
             className="w-full object-cover"

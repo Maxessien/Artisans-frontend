@@ -5,7 +5,7 @@ import ButtonLink from "../reusable_components/ButtonLink";
 import { homeSectionPadding } from "./AboutUs";
 import HomeProductCards from "./HomeProductCards";
 
-const BestSelling = () => {
+const BestSelling = ({data}) => {
   const { currentSize } = useSelector((state) => state.screenSize);
   const bestSellingDataset = [
     {
@@ -35,6 +35,8 @@ const BestSelling = () => {
     },
   ];
 
+  const bestSelling = data ?? bestSellingDataset
+
   return (
     <>
       <section className={`bg-[var(--main-tertiary-light)] ${homeSectionPadding} w-full min-w-screen`}>
@@ -49,11 +51,9 @@ const BestSelling = () => {
             currentSize < 480 ? "grid-cols-1" : "grid-cols-2"
           } md:grid-cols-3 xl:grid-cols-4 gap-3 justify-start`}
         >
-          {bestSellingDataset.map((data) => {
+          {bestSelling.map((data) => {
             return (
-              <>
-                <HomeProductCards {...data} />
-              </>
+              <HomeProductCards key={data.name} {...data} />
             );
           })}
         </div>

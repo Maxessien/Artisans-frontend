@@ -189,6 +189,34 @@ const PreviousPage = (props) => {
   );
 };
 
+const AddImageIcon = (props) => {
+  return (
+    <svg
+      {...props}
+      width="44"
+      height="44"
+      viewBox="0 0 44 44"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M22.002 9.16699V34.8373"
+        stroke="#9D1F15"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M34.8364 22.0039H9.16602"
+        stroke="#9D1F15"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export {
   MxEye,
   GoogleIcon,
@@ -196,4 +224,5 @@ export {
   InstagramIcon,
   VerifiedCheckmark,
   PreviousPage,
+  AddImageIcon,
 };

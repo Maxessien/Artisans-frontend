@@ -22,7 +22,7 @@ const ProductReviews = ({ initReviews, productId, totalPages }) => {
         currentPage: state.currentPage + 1,
       })),
     queryFn: () => fetchProductReviews(productId, reviewPage.currentPage + 1),
-    enabled: !initReviews?.length > 0,
+    enabled: !initReviews || initReviews?.length === 0,
     ...(initReviews?.length > 0 ? { initialData: initReviews } : {}),
   });
 
@@ -77,8 +77,8 @@ const ProductReviews = ({ initReviews, productId, totalPages }) => {
         </div>
 
         <ul className="w-full flex flex-col">
-          {data.map((reviews)=>{
-            return <CommentCard {...reviews} />
+          {data.map((reviews, index)=>{
+            return <CommentCard key={reviews.id ?? reviews.reviewId ?? index} {...reviews} />
           })}
         </ul>
 

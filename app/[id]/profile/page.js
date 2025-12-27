@@ -1,25 +1,57 @@
-import AccountInfoForm from "../../../src/components/account_components/profile/AccountInfoForm.jsx";
-import EditProfilePhoto from "../../../src/components/account_components/profile/EditProfilePhoto.jsx";
-import ChangeAccountPasswordForm from "../../../src/components/account_components/profile/ChangeAccountPasswordForm.jsx";
-import {accountHeadersStyles} from "../account/layout.js"
+import BottomNavigation from "../../../src/components/page_layouts/BottomNavigation";
+import ProfileCardsItems from "../../../src/components/profile_components/ProfileCardsItems";
+import { Cards } from "../../../src/components/reusable_components/CardsLayouts";
+import { getUserServerSide } from "../../../src/utils/auth.server";
+import Button from './../../../src/components/reusable_components/Buttons';
 
-const ProfilePage = () => {
-  const headerStyles =
-    "font-bold text-xl text-[var(--text-primary)] text-left mt-4 mb-2";
+const LineSeperator = ()=>{
+  return (
+    <span className="w-full h-1 bg-(--main-secondary-light)"></span>
+  )
+}
+
+const ProfilePage = async() => {
+  const {user} = await getUserServerSide()
   return (
     <>
-        <h1 className={accountHeadersStyles}>
-          Profile
-        </h1>
+    <main className="space-y-3 px-3 py-5">
+      <h1 className="w-full text-center text-2xl text-(--text-primary) font-normal">My Profile</h1>
+      <div>
+        <img src={user.picture_url} alt={`${user.display_name} profile picture`} />
+        <div>
+          <Button extraStyles={{padding: "1rem"}}>Camera Icon</Button>
+        </div>
+      </div>
 
-        <h2 className={headerStyles}>Edit Profile</h2>
-        <AccountInfoForm />
+      <section>
+        <h2>
+          {user.display_name}
+        </h2>
+        <p>{user.email}</p>
+      </section>
 
-        <h2 className={headerStyles}>Change Photo</h2>
-        <EditProfilePhoto />
+      <Cards>
+        <ProfileCardsItems title="Edit Profile" href="edit" />
+        <LineSeperator />
+        <ProfileCardsItems title="My Orders" href="edit" />
+      </Cards>
 
-        <h2 className={headerStyles}>Change Password</h2>
-        <ChangeAccountPasswordForm />
+      <Cards>
+        <ProfileCardsItems title="My Posts" href="edit" />
+        <LineSeperator />
+        <ProfileCardsItems title="Followers" href="edit" />
+        <LineSeperator />
+        <ProfileCardsItems title="Ratings and Reviews" href="edit" />
+      </Cards>
+
+      <Cards>
+        <ProfileCardsItems title="Account Settings" href="edit" />
+        <LineSeperator />
+        <ProfileCardsItems title="Help and Support" href="edit" />
+      </Cards>
+      <Button width="100%" rounded="6px">Log Out</Button>
+      <BottomNavigation />
+    </main>
     </>
   );
 };

@@ -48,7 +48,7 @@ const ShopByCategory = ({data}) => {
         <div className="overflow-x-auto flex gap-3 h-full py-3">
           {categories.map(({ name, imageUrl }) => {
             return (
-              <div className="relative aspect-square h-full">
+              <div key={name} className="relative aspect-square h-full">
                 <img
                   className="h-full w-full"
                   src={`designs/${imageUrl}`}

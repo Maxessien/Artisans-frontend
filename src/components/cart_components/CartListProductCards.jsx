@@ -53,9 +53,9 @@ const CartListProductCard = ({
   return (
     <>
       <label className="flex justify-start items-center">
-        <input type="checkbox" value={()=>isSelected(productId)} className="hidden" />
+        <input type="checkbox" checked={()=>isSelected(productId)} className="hidden" />
         <div className="h-[14px] w-[14px] flex justify-center items-center border-[var(--main-primary)] border-2">
-          {()=>isSelected(productId) && (
+          {isSelected(productId) && (
             <div className="h-3 w-3 bg-[var(--main-primary)]"></div>
           )}
         </div>

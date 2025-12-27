@@ -82,17 +82,15 @@ const Filters = ({ closeFilterFn }) => {
         <div className="category_options">
           {categories.map((category) => {
             return (
-              <>
-                <label htmlFor={category}>
-                  <input
-                    type="checkbox"
-                    value={category}
-                    id={category}
-                    {...register("categories")}
-                  />
-                  <span>{category}</span>
-                </label>
-              </>
+              <label key={category} htmlFor={category}>
+                <input
+                  type="checkbox"
+                  value={category}
+                  id={category}
+                  {...register("categories")}
+                />
+                <span>{category}</span>
+              </label>
             );
           })}
         </div>

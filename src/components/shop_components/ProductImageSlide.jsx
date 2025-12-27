@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -42,6 +41,7 @@ const ProductImageSlide = ({ images, productName }) => {
           {images?.map(({ url }) => {
             return (
               <img
+                key={url}
                 src={url}
                 alt={`${productName} image`}
                 className="snap-start object-cover w-full z-1"
@@ -49,7 +49,7 @@ const ProductImageSlide = ({ images, productName }) => {
             );
           })}
           {containerScroll.position < 100 - 100 / containerScroll.totalImages &&
-            containerScroll.totalImages?.length > 1 && (
+            images?.length > 1 && (
               <button
                 className="absolute top-1/2 right-4 p-2 inline-flex items-center justify-center"
                 onClick={() => scrollImage("forward")}

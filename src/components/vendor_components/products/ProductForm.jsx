@@ -17,6 +17,7 @@ import {
   Input,
   Label,
 } from "../../reusable_components/FormLayouts";
+import { AddImageIcon } from "../../svg_components/FormSvg";
 
 const ProductForm = ({ hasDefault, availableCategories }) => {
   const { idToken } = useSelector((state) => state.userAuth);
@@ -176,7 +177,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
               className="hidden"
             />
             <button className="flex items-center justify-center bg-(--main-primary-light) rounded-md p-5 text-3xl text-(--main-primary) font-normal">
-              +
+              <AddImageIcon />
             </button>
           </label>
           {errors.images && <FormErrors errorText={errors.images.message} />}

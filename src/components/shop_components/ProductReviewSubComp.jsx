@@ -1,3 +1,5 @@
+import { FaStar } from "react-icons/fa";
+
 export const RatingsStarsList = ({ data, stars }) => {
   return (
     <li className="flex gap-2 items-center w-full">

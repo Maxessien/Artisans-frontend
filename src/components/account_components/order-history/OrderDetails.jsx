@@ -30,24 +30,24 @@ const OrderDetails = ({
       <section className="pb-6 border-b border-(--text-primary-light)">
         <h3 className="text-lg font-semibold text-(--text-primary) mb-4">Receiver Info</h3>
         <div className="space-y-3">
-          <div className="flex justify-between">
+          <p className="flex justify-between">
             <span className="text-sm text-(--main-secondary)">Name</span>
             <span className="text-sm font-medium text-(--text-primary)">{receiverInfo?.name}</span>
-          </div>
-          <div className="flex justify-between">
+          </p>
+          <p className="flex justify-between">
             <span className="text-sm text-(--main-secondary)">Address</span>
             <span className="text-sm font-medium text-(--text-primary) text-right max-w-[200px]">
               {receiverInfo?.address}
             </span>
-          </div>
-          <div className="flex justify-between">
+          </p>
+          <p className="flex justify-between">
             <span className="text-sm text-(--main-secondary)">Phone no.</span>
             <span className="text-sm font-medium text-(--text-primary)">{receiverInfo?.phone}</span>
-          </div>
-          <div className="flex justify-between">
+          </p>
+          <p className="flex justify-between">
             <span className="text-sm text-(--main-secondary)">Email</span>
             <span className="text-sm font-medium text-(--text-primary)">{receiverInfo?.email}</span>
-          </div>
+          </p>
         </div>
       </section>
 

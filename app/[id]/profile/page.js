@@ -1,7 +1,7 @@
-import AccountInfoForm from "./../../../../src/components/account_components/profile/AccountInfoForm";
-import EditProfilePhoto from "./../../../../src/components/account_components/profile/EditProfilePhoto";
-import ChangeAccountPasswordForm from "./../../../../src/components/account_components/profile/ChangeAccountPasswordForm";
-import {accountHeadersStyles} from "../layout.js"
+import AccountInfoForm from "../../../src/components/account_components/profile/AccountInfoForm.jsx";
+import EditProfilePhoto from "../../../src/components/account_components/profile/EditProfilePhoto.jsx";
+import ChangeAccountPasswordForm from "../../../src/components/account_components/profile/ChangeAccountPasswordForm.jsx";
+import {accountHeadersStyles} from "../account/layout.js"
 
 const ProfilePage = () => {
   const headerStyles =

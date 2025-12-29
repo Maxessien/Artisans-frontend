@@ -19,13 +19,13 @@ const NewArrivals = () => {
         } w-full`}
       >
         <header
-          className={`${
+          className={`pt-10 pb-3 ${
             pathname === "/"
               ? "w-full"
               : "w-full flex justify-between items-center"
           }`}
         >
-          <h2 className={`w-full ${pathname === "/explore" ? "flex justify-between items-center" : "text-center"} text-[var(--text-primary)] font-normal text-2xl mb-3`}>
+          <h2 className={`w-full ${pathname === "/explore" ? "flex justify-between items-center" : "text-center"} text-[var(--text-primary)] font-normal text-2xl`}>
             New{" "}
             {pathname === "/" ? (
               <span className="text-[var(--main-primary)]">Arrivals</span>
@@ -34,7 +34,7 @@ const NewArrivals = () => {
             )}
           </h2>
           {pathname === "/explore" && (
-            <Link href={"/shop"} className="text-[var(--main-primary)] w-max text-base font-medium">
+            <Link href={"/shop"} className="text-[var(--main-primary)] w-full text-right h-max text-base font-medium">
               See all
             </Link>
           )}
@@ -48,7 +48,7 @@ const NewArrivals = () => {
             if (currentSize < 480 && index + 1 > 4) return null;
             return (
               <>
-                <HomeProductCards {...data} />
+                <HomeProductCards {...data} description={false} imageUrl={data.images} />
               </>
             );
           })}

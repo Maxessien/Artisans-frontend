@@ -1,9 +1,9 @@
-import { BackArrowIcon } from "../svg_components/NavigationSvg";
 import {
   FilterIcon,
   NotificationIcon,
   SearchIcon,
 } from "../svg_components/ExploreSvg";
+import { BackArrowIcon } from "../svg_components/NavigationSvg";
 
 const ShopHeader = ({ openFilterFn = () => null, headerTitle = "" }) => {
   return (
@@ -17,13 +17,13 @@ const ShopHeader = ({ openFilterFn = () => null, headerTitle = "" }) => {
             <NotificationIcon />
           </button>
         </div>
-        <div className="w-full rounded-full px-2 bg-(--text-primary-light) flex items-center">
+        <div className="w-full rounded-full px-2 bg-(--text-secondary-light) shadow-[0px_0px_10px_-7px_black] flex items-center">
           <button className="w-max p-1 h-full">
             <SearchIcon />
           </button>
           <input
             placeholder="Search"
-            className="w-full px-2 py-4 text-base text-(--text-primary) focus:outline-0 placeholder:text-(--main-secondary) font-normal"
+            className="w-full px-2 py-3 text-base text-(--text-primary) focus:outline-0 placeholder:text-(--main-secondary) font-normal"
             type="text"
           />
           <button className="w-max p-1 h-full" onClick={openFilterFn}>

@@ -22,12 +22,12 @@ const Search = () => {
   };
 
   return (
-    <form className="relative" onSubmit={handleSubmit(submitSearchQuery)}>
+    <form className="relative w-full lg:w-lg" onSubmit={handleSubmit(submitSearchQuery)}>
       <input
         type="text"
         {...register("searchQuery")}
         placeholder="Search"
-        className="rounded-full placeholder:text-[var(--main-secondary-light)] shadow-[0px_0px_8px_-5px_black] lg:w-lg pl-8 py-2 px-2 text-base font-semibold text-[var(--text-primary-light)]"
+        className="rounded-full placeholder:text-[var(--main-secondary-light)] shadow-[0px_0px_8px_-5px_black] w-full py-2 px-10 text-base font-semibold text-[var(--text-primary-light)]"
       />
       <button
         type="submit"

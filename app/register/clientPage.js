@@ -25,8 +25,8 @@ const ClientRegister = () => {
       router.push(`/verify?type=email&value=${email}`)
       return res.data;
     } catch (err) {
-      logger.error("Registration failed", err.response?.data?.message || err.message || err);
-      toast.error(err.response?.data?.message || err.message);
+      logger.error("Registration failed", err?.response?.data?.message || err?.message || err);
+      toast.error(err?.response?.data?.message || err?.message);
       throw err;
     }
   };
@@ -37,7 +37,7 @@ const ClientRegister = () => {
   });
   return (
     <>
-      <main>
+      <main className="pt-12">
         <AuthFormLayout type={"register"}>
           <AuthFormField
             submitFunction={mutateAsync}

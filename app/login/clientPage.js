@@ -26,8 +26,8 @@ const ClientLogin = () => {
       router.replace("/");
     } catch (err) {
       logger.error("Login failed", err);
-      const errorInfo = findError(err.code);
-      toast.error(errorInfo.customMessage);
+      const errorInfo = findError(err?.code);
+      toast.error(errorInfo?.customMessage);
     } finally {
       setIsLoading(false);
     }
@@ -35,7 +35,7 @@ const ClientLogin = () => {
 
   return (
     <>
-      <main>
+      <main className="pt-15">
         <AuthFormLayout type={"login"}>
           <h2 className="text-lg w-full text-center text-[var(--main-secondary)] font-normal">
             Log in to continue shopping

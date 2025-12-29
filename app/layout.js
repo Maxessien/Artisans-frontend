@@ -16,7 +16,7 @@ const RootLayout = async ({ children }) => {
           <Providers>
             {/* <AppHeader /> */}
             <AppClientWrapper>{children}</AppClientWrapper>
-            <AppFooter />
+            {/* <AppFooter /> */}
           </Providers>
         </body>
       </html>

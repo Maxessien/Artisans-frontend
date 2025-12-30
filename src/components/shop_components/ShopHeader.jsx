@@ -13,7 +13,7 @@ const ShopHeader = ({ openFilterFn = () => null, headerTitle = "" }) => {
           <button>
             <BackArrowIcon />
           </button>
-          <button className="rounded-full p-2 text-sm">
+          <button className="rounded-full bg-(--text-secondary-light) shadow-[0px_0px_10px_-6px] p-2 text-sm">
             <NotificationIcon />
           </button>
         </div>

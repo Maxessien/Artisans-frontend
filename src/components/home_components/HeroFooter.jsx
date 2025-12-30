@@ -8,9 +8,9 @@ const HeroFooterCards = ({ icon, title, description }) => {
           {icon}
         </div>
         <p className="space-y-2.5">
-          <h3 className="text-xl text-[var(--text-primary)] font-medium">
+          <span className="text-xl text-[var(--text-primary)] font-medium">
             {title}
-          </h3>
+          </span>
           <span className="text-base text-[var(--main-secondary)] font-medium">
             {description}
           </span>

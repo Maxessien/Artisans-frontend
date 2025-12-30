@@ -57,7 +57,7 @@ const Shop = async ({ searchParams }) => {
           maxPrice: Number(formattedPrice[1]) || 500000,
           sortBy: sort || "date_added",
           order: order || "desc",
-          category: cat?.split(" ") ?? false,
+          category: cat?.split(" ") ?? "",
           ...(search?.length > 0 && typeof search === "string"
             ? { searchTerm: search }
             : {}),

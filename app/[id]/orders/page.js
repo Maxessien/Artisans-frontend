@@ -1,26 +1,23 @@
+import { redirect } from "next/navigation.js";
 import { authApi } from "../../../src/axiosApiBoilerplates/authApi.js";
-import SignOutUser from "../../../src/components/reusable_components/SignOutUser.jsx";
 import { getServerAuthToken } from "../../../src/utils/auth.server.js";
 import logger from "../../../src/utils/logger.js";
-import { accountHeadersStyles } from "../account/layout.js";
-import OrderHistory from './../../../src/components/account_components/order-history/OrderHistory';
+import OrderHistory from "./../../../src/components/profile_components/order-history/OrderHistory";
+import MobilePageHeader from "../../../src/components/page_layouts/MobilePageHeader.jsx";
 
+const OrderHistoryPage = async ({ searchParams }) => {
+  const sParams = await searchParams;
+  if (!sParams?.status) redirect("?status=active");
+  const token = await getServerAuthToken();
+  const orderHistory = await authApi(token).get(`/orders/user`, {
+    params: { status: sParams?.status ?? "active" },
+  });
+  logger.info("Fetched order history", orderHistory);
+  return (
+    <div className="space-y-3 py-4 px-3">
+      <OrderHistory initOrdersData={orderHistory?.data ?? []} />
+    </div>
+  );
+};
 
-const OrderHistoryPage = async()=>{
-    try {
-        const token = await getServerAuthToken()
-        const orderHistory = await authApi(token).get(`/orders/user`)
-	    logger.info("Fetched order history", orderHistory)
-        return <>
-        <h1 className={accountHeadersStyles}>
-            Orders
-        </h1>
-        <OrderHistory initOrdersData={orderHistory.data} />
-        </>
-    } catch (err) {
-	    logger.error("Failed to load order history", err)
-        return <SignOutUser />
-    }
-}
-
-export default OrderHistoryPage
+export default OrderHistoryPage;

@@ -24,7 +24,7 @@ const Products = ({ initialProductsData }) => {
               );
             })
           ) : (
-            <p className="flex items-center justify-center w-full font-bold text-xl text-[var(--main-secondary-light)]">
+            <p className="flex items-center justify-center w-full font-medium text-xl text-[var(--main-secondary)]">
               No Products Listed
             </p>
           )}

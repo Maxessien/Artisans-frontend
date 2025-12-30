@@ -11,7 +11,7 @@ export const PriceCalc = (name="", price=0) => {
   );
 };
 
-const CheckoutSummary = ({ deliveryFee, selectedProds = [] }) => {
+const CheckoutSummary = ({ deliveryFee=5000, selectedProds = [] }) => {
   const subTotal =
     selectedProds.reduce((prev, curr) => {
       if (curr.isSelected) {
@@ -38,8 +38,8 @@ const CheckoutSummary = ({ deliveryFee, selectedProds = [] }) => {
           </button>
         </div>
         <ul className="space-y-3 px-2 border-b-[var(--main-secondary-light)] border-b-2">
-          <PriceCalc name={"subTotal"} price={subTotal} />
-          <PriceCalc name={"Delivery Fee"} price={deliveryFee} />
+          <PriceCalc name="subTotal" price={subTotal} />
+          <PriceCalc name="Delivery Fee" price={deliveryFee} />
         </ul>
         <li className="flex justify-between items-center w-full text-xl text-[var(--main-secondary-light)] font-normal">
           <span>Total</span> <span>#{subTotal + deliveryFee}</span>

@@ -16,18 +16,18 @@ const ProfilePage = async() => {
     <>
     <main className="space-y-3 px-3 py-5">
       <h1 className="w-full text-center text-2xl text-(--text-primary) font-normal">My Profile</h1>
-      <div>
-        <img src={user.picture_url} alt={`${user.display_name} profile picture`} />
-        <div>
+      <div className="relative w-25 h-25 rounded-full">
+        <img className="object-cover" src={user.picture_url} alt={`${user.display_name} profile picture`} />
+        <div className="absolute bottom-[-15px] right-[-15px]">
           <Button extraStyles={{padding: "1rem"}}>Camera Icon</Button>
         </div>
       </div>
 
-      <section>
-        <h2>
+      <section className="space-y-2">
+        <h2 className="w-full text-center text-xl text-(--text-primary) font-normal">
           {user.display_name}
         </h2>
-        <p>{user.email}</p>
+        <p className="w-full text-center text-lg text-(--text-primary-light) font-normal">{user.email}</p>
       </section>
 
       <Cards>

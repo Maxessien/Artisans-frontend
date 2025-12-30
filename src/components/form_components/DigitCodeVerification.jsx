@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { regApi } from "../../axiosApiBoilerplates/regApi";
 import { requestOtp } from "../../utils/auth.client";
@@ -20,7 +20,7 @@ const DigitCodeVerification = ({
   const [inputs, setInputs] = useState(Array(numberOfDigits).fill(""));
   const [isLoading, setIsLoading] = useState(false)
 
-  // const router = useRouter();
+  const router = useRouter();
 
   const inputsRef = useRef([]);
   const timerRef = useRef(null)
@@ -49,6 +49,7 @@ const DigitCodeVerification = ({
         type: otpType,
         otpValue: otp,
       });
+	router.push("/login")
       toast.success("OTP verified successfully");
     } catch (err) {
       logger.error("OTP verification failed", err);

@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { authApi } from "../../axiosApiBoilerplates/authApi";
-import { setUserAuth } from "../../store_slices/userAuthSlice";
 import logger from "../../utils/logger";
+import { toast } from "react-toastify";
 
 const CartListProductCard = ({
   name,
@@ -12,18 +12,23 @@ const CartListProductCard = ({
   quantity,
   imageUrl,
   productId,
+  cartId,
   isSelected,
+  removeFn = ()=>null,
+  updateFn = ()=>null,
 }) => {
   const { idToken, userData } = useSelector((state) => state.userAuth);
-  const dispatch = useDispatch();
   const deleteFromCart = async () => {
     try {
       const res = await authApi(idToken).delete(
-        `/user/${userData?.userId}/cart/${productId}`
+        `/user/cart/${cartId}`
       );
-      logger.info("Deleted from cart", res);
+      removeFn(cartId)
+      logger.info("Deleted from cart", res.data);
+      toast.success("Item sucessfully deleted from cart")
     } catch (err) {
       logger.error("Failed deleting from cart", err);
+      toast.error("Couldn't delete product from cart, Try again later")
     }
   };
 
@@ -36,15 +41,11 @@ const CartListProductCard = ({
           quantity: value,
         }
       );
+      updateFn(cartId, (quantity + value))
       logger.info("Updated cart quantity", res.data);
-      dispatch(
-        setUserAuth({
-          stateProp: "userData",
-          value: res.data,
-        })
-      );
     } catch (err) {
       logger.error("Failed updating cart quantity", err);
+      toast.error("Couldn't update cart quantity, Try again later")
     }
   };
 

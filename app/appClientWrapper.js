@@ -18,12 +18,34 @@ export default function AppClientWrapper({ children }) {
   const [userInfo, setUserInfo] = useState({});
   const { isLoggedIn } = useSelector((state) => state.userAuth);
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
 
   const fetchLoggedInUser = async (userId, token) => {
     try {
       const user = await authApi(token).get(`/user/${userId}`);
-      dispatch(setUserAuth({ stateProp: "userData", value: user.data }));
+      const {
+        user_id,
+        email,
+        display_name,
+        phone_number,
+        picture_url,
+        preferred_payment_method,
+        total_cart_items,
+      } = user.data;
+      dispatch(
+        setUserAuth({
+          stateProp: "userData",
+          value: {
+            userId: user_id,
+            email,
+            displayName: display_name,
+            phoneNumber: phone_number,
+            pictureUrl: picture_url,
+            paymentMethod: preferred_payment_method,
+            cartCount: total_cart_items,
+          },
+        })
+      );
       return user.data;
     } catch (err) {
       logger.error("Failed to fetch logged in user", err);
@@ -52,20 +74,21 @@ export default function AppClientWrapper({ children }) {
         if (user) {
           logger.info("User authenticated", user);
           const idToken = await user.getIdToken();
-          const {claims} = await user.getIdTokenResult()
-          if (!claims?.isVerified?.email) router.push(`/verify?type=email&value=${user.email}`)
+          const { claims } = await user.getIdTokenResult();
+          if (!claims?.isVerified?.email)
+            router.push(`/verify?type=email&value=${user.email}`);
           setUserInfo({ userId: user.uid, token: idToken });
           dispatch(setUserAuth({ stateProp: "isLoggedIn", value: true }));
           dispatch(setUserAuth({ stateProp: "idToken", value: idToken }));
         } else {
-            await regApi.delete("/auth/logout", {withCredentials: true})
+          await regApi.delete("/auth/logout", { withCredentials: true });
           dispatch(setUserAuth({ stateProp: "isLoggedIn", value: false }));
           dispatch(setUserAuth({ stateProp: "idToken", value: "" }));
           dispatch(setUserAuth({ stateProp: "userData", value: {} }));
         }
       }
     );
-    
+
     const unsubscribeTokenListener = onIdTokenChanged(auth, async (user) => {
       logger.log("ID token change detected");
       if (user) {
@@ -91,7 +114,6 @@ export default function AppClientWrapper({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   return (
     <>
       {isFetching ? (
@@ -103,8 +125,13 @@ export default function AppClientWrapper({ children }) {
         </>
       ) : (
         <>
-        {children}
-        <ToastContainer position="top-center" pauseOnHover newestOnTop theme="colored" />
+          {children}
+          <ToastContainer
+            position="top-center"
+            pauseOnHover
+            newestOnTop
+            theme="colored"
+          />
         </>
       )}
     </>

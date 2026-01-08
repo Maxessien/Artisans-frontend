@@ -44,7 +44,7 @@ const PopularCategory = () => {
         </h2>
 
         <div className="overflow-x-auto flex gap-3 h-full py-3">
-          {categoriesData.map(({ name, imageUrl }) => {
+          {categoriesData?.map(({ name, imageUrl }) => {
             return (
               <div className="relative aspect-square h-full">
                 <img

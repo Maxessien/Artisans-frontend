@@ -36,7 +36,7 @@ const VendorOrdersTable = ({ ordersData }) => {
           </tr>
         </thead>
         <tbody>
-          {ordersData.map(
+          {ordersData?.map(
             ({
               orderId,
               name,

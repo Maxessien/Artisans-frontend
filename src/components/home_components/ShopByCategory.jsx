@@ -46,7 +46,7 @@ const ShopByCategory = ({data}) => {
         </h2>
 
         <div className="overflow-x-auto flex gap-3 h-full py-3">
-          {categories.map(({ name, imageUrl }) => {
+          {categories?.map(({ name, imageUrl }) => {
             return (
               <div key={name} className="relative aspect-square h-full">
                 <img

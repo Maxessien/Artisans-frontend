@@ -1,14 +1,9 @@
-import AuthFormField from './../../src/components/form_components/AuthFormField';
+import ForgotPassword from '../../src/components/form_components/ResetPassword'
 
-const ForgotPassword = ()=>{
-    return (
-        <>
-        <div className="form_page_section">
-            <h1>Forgot Password</h1>
-            <AuthFormField submitFunction={()=>null} email buttonText="Reset" />
-        </div>
-        </>
-    )
+const ResetPasswordPage = () => {
+  return (
+    <ForgotPassword />
+  )
 }
 
-export default ForgotPassword
+export default ResetPasswordPage

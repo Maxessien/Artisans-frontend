@@ -38,7 +38,7 @@ const OrderHistory = ({ orders }) => {
         </button>
       </div>
       <div className="space-y-2">
-        {orders.map(
+        {orders?.map(
           ({
             order_id,
             price,

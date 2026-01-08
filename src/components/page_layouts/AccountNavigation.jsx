@@ -12,7 +12,7 @@ const AccountNavigation = ({navigationDetails}) => {
     <>
       <nav className="h-full">
         <ul className="flex md:flex-col overflow-x-auto items-center justify-start h-full gap-3 w-full p-3 md:pt-6 bg-[var(--text-secondary-light)]">
-          {navigationDetails.map(({ name, path }) => {
+          {navigationDetails?.map(({ name, path }) => {
             logger.info("Account navigation", { pathName, path });
             return (
               <li>

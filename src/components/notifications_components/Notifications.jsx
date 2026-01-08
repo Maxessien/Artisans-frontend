@@ -16,7 +16,7 @@ const Notifications = ({ notifications = [] }) => {
       <div className="grid grid-cols-2 w-full shadow-[0px_0px_10px_-8px_black]">
         <button
           onClick={() =>
-            router.push(`/${userData.user_id}/notifications?status=unread`)
+            router.push(`/${userData.userId}/notifications?status=unread`)
           }
           className={`px-2 py-3 text-base text-(--text-primary) ${
             searchParams.get("status") === "unread"
@@ -28,7 +28,7 @@ const Notifications = ({ notifications = [] }) => {
         </button>
         <button
           onClick={() =>
-            router.push(`/${userData.user_id}/notifications?status=read`)
+            router.push(`/${userData.userId}/notifications?status=read`)
           }
           className={`px-2 py-3 text-base text-(--text-primary) ${
             searchParams.get("status") === "read"

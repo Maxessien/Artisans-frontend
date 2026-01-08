@@ -7,7 +7,7 @@ const CommentsSidebar = ({ reviews }) => {
         </h2>
         {reviews?.length > 0 ? (
           <ul className="flex flex-col gap-3">
-            {reviews.map(({ userInfo: { name }, textFeedback, ratings }) => {
+            {reviews?.map(({ userInfo: { name }, textFeedback, ratings }) => {
               <li className="flex flex-col gap-2 items-start">
                 <p className="text-base text-[var(--text-primary)] font-semibold">
                   {name}

@@ -51,7 +51,7 @@ const BestSelling = ({data}) => {
             currentSize < 480 ? "grid-cols-1" : "grid-cols-2"
           } md:grid-cols-3 xl:grid-cols-4 gap-3 justify-start`}
         >
-          {bestSelling.map((data) => {
+          {bestSelling?.map((data) => {
             return (
               <HomeProductCards key={data.name} {...data} />
             );

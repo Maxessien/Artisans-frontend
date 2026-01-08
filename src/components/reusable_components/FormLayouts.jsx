@@ -19,8 +19,8 @@ const Input = ({ inputType = "input", className = "", ...otherProps }) => {
         {...otherProps}
         className={`w-full max-w-[540px] bg-(--main-primary-light) px-3 py-1 text-base font-normal text-[var(--text-primary)] disabled:opacity-[0.7] rounded-full shadow-[0.3px_0.5px_6px_-2px_var(--text-primary-light)] ${className}`}
       >
-        {otherProps.selectOptions &&
-          otherProps.selectOptions.map((option) => {
+        {otherProps?.selectOptions &&
+          otherProps?.selectOptions?.map((option) => {
             return <option>{option}</option>;
           })}
       </select>

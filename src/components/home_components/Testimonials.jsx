@@ -31,7 +31,7 @@ const Testimonials = ()=> {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((item, index) => (
+          {testimonials?.map((item, index) => (
             <div
               key={index}
               className="bg-white shadow-md rounded-xl p-6 border border-gray-200"

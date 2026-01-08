@@ -44,7 +44,7 @@ const NewArrivals = () => {
             currentSize < 480 && pathname === "/" ? "grid-cols-1" : "grid-cols-2"
           } ${pathname === "/explore" && "grid-cols-2"} md:grid-cols-3 xl:grid-cols-4 gap-3 justify-start`}
         >
-          {newArrivalsMockDataset.map((data, index) => {
+          {newArrivalsMockDataset?.map((data, index) => {
             if (currentSize < 480 && index + 1 > 4) return null;
             return (
               <>

@@ -7,6 +7,7 @@ import { regApi } from "../../axiosApiBoilerplates/regApi";
 import { requestOtp } from "../../utils/auth.client";
 import logger from "../../utils/logger";
 import Button from "./../reusable_components/Buttons";
+import Verified from "../reusable_components/Verified";
 
 const DigitCodeVerification = ({
   otpType = "email",
@@ -18,12 +19,13 @@ const DigitCodeVerification = ({
 }) => {
   const [timeLeft, setTimeLeft] = useState(otpLifespan);
   const [inputs, setInputs] = useState(Array(numberOfDigits).fill(""));
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [isVerified, setIsVerified] = useState(false)
 
   const router = useRouter();
 
   const inputsRef = useRef([]);
-  const timerRef = useRef(null)
+  const timerRef = useRef(null);
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -31,17 +33,17 @@ const DigitCodeVerification = ({
     }, 1000);
 
     return () => clearInterval(timerRef.current);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(()=>{
-    if (timeLeft < 0) clearInterval(timerRef.current)
-  }, [timeLeft])
+  useEffect(() => {
+    if (timeLeft < 0) clearInterval(timerRef.current);
+  }, [timeLeft]);
 
   const submitOtp = async (e) => {
     e.preventDefault();
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const otp = inputs.join("");
       if (otp?.trim().length < numberOfDigits)
         throw new Error("incomplete OTP");
@@ -49,13 +51,13 @@ const DigitCodeVerification = ({
         type: otpType,
         otpValue: otp,
       });
-	router.push("/login")
-      toast.success("OTP verified successfully");
+      setIsVerified(true)
     } catch (err) {
       logger.error("OTP verification failed", err);
+      setIsVerified(false)
       toast.error("Invalid OTP");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -68,6 +70,10 @@ const DigitCodeVerification = ({
     if (value.length === 1 && index + 1 < numberOfDigits)
       inputsRef.current[index + 1].focus();
   };
+
+  if (isVerified){
+    return <Verified />
+  }
 
   return (
     <>
@@ -104,7 +110,7 @@ const DigitCodeVerification = ({
                   onKeyDown={({ key, target: { value } }) => {
                     logger.info("OTP input length", value.length);
                     if (key === "Backspace" && value.length === 0) {
-                      inputOnchangeFn({ target: { value } }, index)
+                      inputOnchangeFn({ target: { value } }, index);
                       inputsRef.current[index - 1].focus();
                     }
                   }}
@@ -125,14 +131,14 @@ const DigitCodeVerification = ({
             width="max-content"
             buttonFn={async () => {
               try {
-                setIsLoading(true)
-                await requestOtp(otpType, otpValue)
-                toast.success("OTP sent")
+                setIsLoading(true);
+                await requestOtp(otpType, otpValue);
+                toast.success("OTP sent");
               } catch (err) {
-                logger.error("Failed to resend OTP", err)
-                toast.error("OTP not sent, Try again later")
-              } finally{
-                setIsLoading(false)
+                logger.error("Failed to resend OTP", err);
+                toast.error("OTP not sent, Try again later");
+              } finally {
+                setIsLoading(false);
               }
             }}
             size="small"
@@ -142,7 +148,12 @@ const DigitCodeVerification = ({
           </Button>
         )}
 
-        <Button isDisabled={isLoading} extraStyles={{ marginTop: "1rem" }} buttonType="submit" width="100%">
+        <Button
+          isDisabled={isLoading}
+          extraStyles={{ marginTop: "1rem" }}
+          buttonType="submit"
+          width="100%"
+        >
           Submit
         </Button>
       </form>

@@ -4,7 +4,7 @@ import { requestOtp } from "../../src/utils/auth.client";
 
 const VerifyPage = async ({ searchParams }) => {
   const sParams = await searchParams;
-  const { type, value } = sParams;
+  const { type, value,  } = sParams;
   if (
     type !== "email" ||
     !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)

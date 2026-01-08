@@ -77,7 +77,7 @@ const ProductReviews = ({ initReviews, productId, totalPages }) => {
         </div>
 
         <ul className="w-full flex flex-col">
-          {data.map((reviews, index)=>{
+          {data?.map((reviews, index)=>{
             return <CommentCard key={reviews.id ?? reviews.reviewId ?? index} {...reviews} />
           })}
         </ul>

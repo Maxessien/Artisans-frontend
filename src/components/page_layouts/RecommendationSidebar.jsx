@@ -40,7 +40,7 @@ const RecommendationSidebar = ({ products, layoutStyle = "" }) => {
           Recommended Products
         </h1>
         <ul className="space-y-2">
-            {products.map((product) => (
+            {products?.map((product) => (
               <li>
               <RecListProductCards {...product} />
               </li>

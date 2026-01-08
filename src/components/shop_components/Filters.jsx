@@ -72,22 +72,26 @@ const Filters = ({ closeFilterFn, categories }) => {
             </select>
           </label>
         </div>
-        <h3>Categories</h3>
-        <div className="category_options">
-          {categories.map((category) => {
-            return (
-              <label key={category} htmlFor={category}>
-                <input
-                  type="checkbox"
-                  value={category}
-                  id={category}
-                  {...register("categories")}
-                />
-                <span>{category}</span>
-              </label>
-            );
-          })}
-        </div>
+        {categories?.length > 0 && (
+          <>
+            <h3>Categories</h3>
+            <div className="category_options">
+              {categories.map((category) => {
+                return (
+                  <label key={category} htmlFor={category}>
+                    <input
+                      type="checkbox"
+                      value={category}
+                      id={category}
+                      {...register("categories")}
+                    />
+                    <span>{category}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </>
+        )}
         <h3>Price Range</h3>
         <div className="price_range">
           <label htmlFor="min">
@@ -102,7 +106,11 @@ const Filters = ({ closeFilterFn, categories }) => {
         <Button
           type="secondary"
           rounded="6px"
-          extraStyles={{ borderWidth: "1px", borderColor: "var(--text-primary)", marginRight: "8px" }}
+          extraStyles={{
+            borderWidth: "1px",
+            borderColor: "var(--text-primary)",
+            marginRight: "8px",
+          }}
           buttonFn={() => {
             reset();
             router.push("/shop");

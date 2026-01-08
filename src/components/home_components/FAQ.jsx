@@ -81,7 +81,7 @@ const FAQ = () => {
         <section className="flex flex-col sm:flex-row gap-8 w-full">
           <img className="w-full sm:w-[50%]" src="designs/woman-standing.png" alt="Rep image" />
           <div className="w-full sm:w-[50%] flex flex-col gap-3 items-start">
-            {faqMockDataset.map((data)=><FaqDropdown {...data} />)}
+            {faqMockDataset?.map((data)=><FaqDropdown {...data} />)}
           </div>
         </section>
       </section>

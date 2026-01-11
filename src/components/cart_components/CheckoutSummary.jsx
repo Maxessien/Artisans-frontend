@@ -1,6 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Button from "../reusable_components/Buttons";
+import { useDispatch, useSelector } from "react-redux";
+import { addCheckoutProducts } from "../../store_slices/checkoutProductsSlice";
 
 export const PriceCalc = (name="", price=0) => {
   return (
@@ -12,6 +15,7 @@ export const PriceCalc = (name="", price=0) => {
 };
 
 const CheckoutSummary = ({ deliveryFee=5000, selectedProds = [] }) => {
+  const {userData} = useSelector((state)=>state.userAuth)
   const subTotal =
     selectedProds.reduce((prev, curr) => {
       if (curr.isSelected) {
@@ -21,8 +25,14 @@ const CheckoutSummary = ({ deliveryFee=5000, selectedProds = [] }) => {
       }
     }, 0) || 0;
 
-  //Function would be defined later
-  const submitOrder = () => null;
+    const dispatch = useDispatch()
+
+    const router = useRouter()
+
+    const proceedToCheckout = ()=>{
+      selectedProds.forEach((item)=>dispatch(addCheckoutProducts(item)))
+      router.push(`/${userData.userId}/checkout`)
+    }
 
   return (
     <>
@@ -44,7 +54,7 @@ const CheckoutSummary = ({ deliveryFee=5000, selectedProds = [] }) => {
         <li className="flex justify-between items-center w-full text-xl text-[var(--main-secondary-light)] font-normal">
           <span>Total</span> <span>#{subTotal + deliveryFee}</span>
         </li>
-        <Button buttonFn={submitOrder} width="100%">
+        <Button buttonFn={proceedToCheckout} width="100%">
           Proceed To Checkout
         </Button>
       </div>

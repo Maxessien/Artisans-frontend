@@ -75,7 +75,7 @@ export default function AppClientWrapper({ children }) {
           logger.info("User authenticated", user);
           const idToken = await user.getIdToken();
           const { claims } = await user.getIdTokenResult();
-          if (!claims?.isVerified?.email)
+          if (!claims?.isVerified?.email && !user?.emailVerified)	
             router.push(`/verify?type=email&value=${user.email}`);
           setUserInfo({ userId: user.uid, token: idToken });
           dispatch(setUserAuth({ stateProp: "isLoggedIn", value: true }));

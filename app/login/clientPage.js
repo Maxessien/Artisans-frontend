@@ -23,7 +23,7 @@ const ClientLogin = () => {
       const user = await signInWithEmailAndPassword(auth, email, password);
       logger.info("User signed in", user);
       toast.success("Login Successful");
-      router.replace("/");
+      router.replace("/explore");
     } catch (err) {
       logger.error("Login failed", err);
       const errorInfo = findError(err?.code);

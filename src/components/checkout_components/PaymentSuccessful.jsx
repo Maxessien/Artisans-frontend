@@ -1,4 +1,5 @@
 import Button from "../reusable_components/Buttons";
+import { PaymentCompleteIcon } from "../svg_components/PaymentSvg";
 
 const DetailsList = ({ title = "", value = "" }) => {
   return (
@@ -14,7 +15,7 @@ const PaymentSuccessful = () => {
     <>
       <div className="p-3 bg-(--main-tertiary) rounded-full">
         <div className="p-3 bg-green-600 rounded-full">
-          <PaymentSuccessful />
+          <PaymentCompleteIcon />
         </div>
       </div>
       <header className="space-y-3">

@@ -28,15 +28,15 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
   const { userData, idToken } = useSelector((state) => state.userAuth);
   const cartProducts = useSelector((state) => state.checkoutProducts);
 
-  const subTotal = cartProducts.reduce(
-    (prev, curr) => Number(curr.price) + prev,
+  const subTotal = cartProducts?.reduce(
+    (prev, curr) => (Number(curr.price) * Number(curr.quantity)) + prev,
     0
   );
 
   const paystackConfig = {
     reference: refId,
     email: userData.email,
-    amountInKobo: (subTotal + 5000) * 1000,
+    amountInKobo: (subTotal + 5000) * 100,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
   };
 
@@ -48,6 +48,7 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
       router.replace(`/${userData.userId}/orders`);
     } catch (err) {
       logger.error("Paystack on success err", err);
+      toast.error("Couldn't complete orders try again later");
     }
   };
 
@@ -64,7 +65,6 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
           price,
           address: address,
           paymentMethod: selected,
-          userId: userData.userId,
           reference: refId
         })
       );
@@ -116,7 +116,7 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
           <h2 className="text-lg text-(--text-primary) font-normal">
             Shipping Address
           </h2>
-          <Link className="text-base text-(--main-primary) font-normal">
+          <Link href={`/${userData.userId}/profile`} className="text-base text-(--main-primary) font-normal">
             Add New Address
           </Link>
         </header>

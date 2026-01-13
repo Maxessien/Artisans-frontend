@@ -6,7 +6,7 @@ const checkoutProducts = createSlice({
     initialState: [],
     reducers: {
         addCheckoutProducts: (state, {payload})=>{
-            state = [...state, payload]
+            state.push(payload)
         }
     }
 })

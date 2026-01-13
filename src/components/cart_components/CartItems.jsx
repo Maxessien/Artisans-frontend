@@ -91,8 +91,8 @@ const CartItems = ({ cartDetails }) => {
           )}
         </header>
         {cartItems?.length > 0 ? (
-          <div className="h-full">
-            <div className="overflow-y-auto w-full h-full">
+          <div className="h-screen">
+            <div className="overflow-y-auto w-full h-3/4">
               {cartItems.map(
                 ({
                   product_name,

@@ -5,7 +5,7 @@ import Button from "../reusable_components/Buttons";
 import { useDispatch, useSelector } from "react-redux";
 import { addCheckoutProducts } from "../../store_slices/checkoutProductsSlice";
 
-export const PriceCalc = ({name="", price=0}) => {
+export const PriceCalc = ({ name = "", price = 0 }) => {
   return (
     <li className="flex justify-between items-center w-full text-lg text-[var(--main-secondary-light)] font-normal">
       <span>{name}</span>{" "}
@@ -14,8 +14,8 @@ export const PriceCalc = ({name="", price=0}) => {
   );
 };
 
-const CheckoutSummary = ({ deliveryFee=5000, selectedProds = [] }) => {
-  const {userData} = useSelector((state)=>state.userAuth)
+const CheckoutSummary = ({ deliveryFee = 5000, selectedProds = [] }) => {
+  const { userData } = useSelector((state) => state.userAuth);
   const subTotal =
     selectedProds.reduce((prev, curr) => {
       if (curr.isSelected) {
@@ -25,18 +25,18 @@ const CheckoutSummary = ({ deliveryFee=5000, selectedProds = [] }) => {
       }
     }, 0) || 0;
 
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-    const router = useRouter()
+  const router = useRouter();
 
-    const proceedToCheckout = ()=>{
-      selectedProds.forEach((item)=>dispatch(addCheckoutProducts(item)))
-      router.push(`/${userData.userId}/checkout`)
-    }
+  const proceedToCheckout = () => {
+    selectedProds.forEach((item) => dispatch(addCheckoutProducts(item)));
+    router.push(`/${userData.userId}/checkout`);
+  };
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full h-full">
         <div className="relative">
           <input
             type="text"
@@ -47,7 +47,7 @@ const CheckoutSummary = ({ deliveryFee=5000, selectedProds = [] }) => {
             Apply
           </button>
         </div>
-        <ul className="space-y-3 px-2 border-b-[var(--main-secondary-light)] border-b-2">
+        <ul className="space-y-3 px-2 mb-4 py-3 border-b-[var(--main-secondary-light)] border-b-2">
           <PriceCalc name="subTotal" price={subTotal} />
           <PriceCalc name="Delivery Fee" price={deliveryFee} />
         </ul>

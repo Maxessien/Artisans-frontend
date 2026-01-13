@@ -14,7 +14,7 @@ const CheckoutPage = async ({ params }) => {
   }
   return (
     <>
-    <main className="px-3 py-4">
+    <main className="px-3 py-4 space-y-3">
       <Checkout />
     </main>
     </>

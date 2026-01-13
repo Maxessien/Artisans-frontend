@@ -1,3 +1,5 @@
+"use client"
+
 import MobilePageHeader from "../page_layouts/MobilePageHeader";
 import PaymentMethodCard from "./PaymentMethodCard";
 import {
@@ -20,13 +22,19 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from "react";
 
 const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
   const router = useRouter();
-  const [selected, setSelected] = useState("paystack");
+  const [selected, setSelected] = useState("delivery");
   const [refId] = useState(()=>uuidv4())
   const { userData, idToken } = useSelector((state) => state.userAuth);
   const cartProducts = useSelector((state) => state.checkoutProducts);
+
+
+  useEffect(()=>{
+    if (cartProducts?.length <= 0) router.replace(`/${userData.userId}/cart`)
+  }, [cartProducts])
 
   const subTotal = cartProducts?.reduce(
     (prev, curr) => (Number(curr.price) * Number(curr.quantity)) + prev,
@@ -36,12 +44,13 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
   const paystackConfig = {
     reference: refId,
     email: userData.email,
-    amountInKobo: (subTotal + 5000) * 100,
+    amount: (subTotal + 5000) * 100,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
   };
 
   const onSuccess = async (ref) => {
     try {
+      console.log(idToken)
       await authApi(idToken).post(`/orders/confirm`, {
         ref,
       });
@@ -80,11 +89,11 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
   return (
     <>
       <MobilePageHeader pageTitle="Checkout" />
-      <section>
+      <section className="space-y-3">
         <h2 className="text-lg text-(--text-primary) w-full text-left font-normal">
           Payment Method
         </h2>
-        <p className="text-lg text-(--main-secondary) w-full text-center font-normal">
+        <p className="text-base text-(--main-secondary) w-full text-center font-normal">
           Your Payment is processed securely. We never store your card details
         </p>
         <PaymentMethodCard
@@ -120,7 +129,7 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
             Add New Address
           </Link>
         </header>
-        <div className="flex justify-between items-center bg-(--text-secondary-light) rounded-md px-2 py-3">
+        <div className="flex justify-between items-center shadow-[0px_0px_10px_-7px_black] bg-(--text-secondary-light) rounded-md px-2 py-3">
           <FaLocationArrow />
           <p>{address}</p>
           <ForwardArrowIcon />
@@ -131,13 +140,13 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
         <h2 className="text-lg text-(--text-primary) text-left w-full font-normal">
           Order Summary
         </h2>
-        <div className="flex flex-col gap-2 rounded-md bg-(--text-secondary-light) w-full px-2 py-3">
+        <div className="flex flex-col gap-2 shadow-[0px_0px_10px_-7px_black] rounded-md bg-(--text-secondary-light) w-full px-2 py-3">
           <PriceCalc name="Sub-Total" price={subTotal} />
           <PriceCalc name="Delivery Fee" price={5000} />
-          <span className="w-full h-1 block bg-(--main-secondary)"></span>
+          <span className="w-full h-[2px] block bg-(--main-secondary)"></span>
           <p className="flex justify-between items-center text-lg text-(--text-primary) font-normal">
             <span>Total Amount</span>
-            <span>{subTotal + 5000}</span>
+            <span>#{subTotal + 5000}</span>
           </p>
         </div>
       </section>

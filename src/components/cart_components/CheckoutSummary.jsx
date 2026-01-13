@@ -7,7 +7,7 @@ import { addCheckoutProducts } from "../../store_slices/checkoutProductsSlice";
 
 export const PriceCalc = ({ name = "", price = 0 }) => {
   return (
-    <li className="flex justify-between items-center w-full text-lg text-[var(--main-secondary-light)] font-normal">
+    <li className="flex justify-between items-center w-full text-base text-[var(--main-secondary-light)] font-normal">
       <span>{name}</span>{" "}
       <span className="text-[var(--text-primary)]">#{price}</span>
     </li>

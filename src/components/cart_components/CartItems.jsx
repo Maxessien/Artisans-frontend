@@ -66,7 +66,7 @@ const CartItems = ({ cartDetails }) => {
   const isSelected = (productId) => {
     return selected.some(
       (selection) => selection.productId === productId && selection.isSelected
-    );
+    )
   };
 
   const { mutateAsync, isPending } = useMutation({
@@ -75,8 +75,7 @@ const CartItems = ({ cartDetails }) => {
 
   return (
     <>
-      {logger.info("CartItems", cartDetails)}
-      <section className="w-full px-4 py-3 bg-[var(--text-secondary-light)] h-screen min-h-130 shadow-[0px_2px_8px_-3px_black] rounded-md">
+      <section className="w-full cursor-pointer px-4 py-3 bg-[var(--text-secondary-light)] h-screen min-h-130 shadow-[0px_2px_8px_-3px_black] rounded-md">
         <header className="flex items-center justify-between w-full">
           <h2 className="text-2xl text-center w-full font-medium text-[var(--text-primary-light)]">
             Cart Items
@@ -93,12 +92,11 @@ const CartItems = ({ cartDetails }) => {
         </header>
         {cartItems?.length > 0 ? (
           <div className="h-full">
-            <div className="overflow-y-auto h-full">
+            <div className="overflow-y-auto w-full h-full">
               {cartItems.map(
                 ({
-                  name,
+                  product_name,
                   price,
-                  description,
                   quantity,
                   cart_id,
                   product_id,
@@ -106,18 +104,18 @@ const CartItems = ({ cartDetails }) => {
                 }) => {
                   return (
                     <>
-                      <div key={cart_id} onClick={() => selectFn(cart_id)}>
+                      <div key={cart_id} className="w-full">
                         <CartListProductCard
-                          name={name}
+                          name={product_name}
                           quantity={quantity}
                           price={price}
-                          description={description}
                           imageUrl={images[0].url}
                           cartId={cart_id}
                           productId={product_id}
-                          isSelected={isSelected}
+                          isSelected={isSelected(product_id)}
                           removeFn={removeFromCart}
                           updateFn={updateCartQuantity}
+                          selectFn={selectFn}
                         />
                       </div>
                     </>

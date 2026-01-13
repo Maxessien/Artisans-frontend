@@ -11,13 +11,13 @@ export const metadata = {
 const Cart = async()=>{
   const token = await getServerAuthToken()
 
-  const cartItems = await authApi(token).get("/user/cart")
+  const cartItems = await authApi(token).get("/user/cart/all")
   logger.log("Cart items details", cartItems.data)
     
     return (
       <>
         <main className="w-screen">
-          <CartItems initUserData={cartItems.data} />
+          <CartItems cartDetails={cartItems.data} />
         </main>
       </>
     );

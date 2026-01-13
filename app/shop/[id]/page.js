@@ -27,7 +27,7 @@ const ViewProductPage = async ({ params }) => {
     <>
       <main className="flex flex-col gap-2 lg:grid lg:grid-cols-[75%_25%] px-3">
         <ViewProductInfo {...product.data} />
-        <CommentsSidebar reviews={product.data.reviews || []} />
+        {/* <CommentsSidebar reviews={product.data.reviews || []} /> */}
       </main>
       {similarProducts?.length > 0 ? (
         <SimilarProducts products={similarProducts} />

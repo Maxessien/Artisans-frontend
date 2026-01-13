@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { authApi } from "../../axiosApiBoilerplates/authApi";
 import logger from "../../utils/logger";
 import { toast } from "react-toastify";
+import Button from "../reusable_components/Buttons";
 
 const CartListProductCard = ({
   name,
@@ -14,21 +15,20 @@ const CartListProductCard = ({
   productId,
   cartId,
   isSelected,
-  removeFn = ()=>null,
-  updateFn = ()=>null,
+  selectFn,
+  removeFn = () => null,
+  updateFn = () => null,
 }) => {
   const { idToken, userData } = useSelector((state) => state.userAuth);
   const deleteFromCart = async () => {
     try {
-      const res = await authApi(idToken).delete(
-        `/user/cart/${cartId}`
-      );
-      removeFn(cartId)
+      const res = await authApi(idToken).delete(`/user/cart/${cartId}`);
+      removeFn(cartId);
       logger.info("Deleted from cart", res.data);
-      toast.success("Item sucessfully deleted from cart")
+      toast.success("Item sucessfully deleted from cart");
     } catch (err) {
       logger.error("Failed deleting from cart", err);
-      toast.error("Couldn't delete product from cart, Try again later")
+      toast.error("Couldn't delete product from cart, Try again later");
     }
   };
 
@@ -41,11 +41,11 @@ const CartListProductCard = ({
           quantity: value,
         }
       );
-      updateFn(cartId, (quantity + value))
+      updateFn(cartId, quantity + value);
       logger.info("Updated cart quantity", res.data);
     } catch (err) {
       logger.error("Failed updating cart quantity", err);
-      toast.error("Couldn't update cart quantity, Try again later")
+      toast.error("Couldn't update cart quantity, Try again later");
     }
   };
 
@@ -53,57 +53,57 @@ const CartListProductCard = ({
 
   return (
     <>
-      <label className="flex justify-start items-center">
-        <input type="checkbox" checked={()=>isSelected(productId)} className="hidden" />
-        <div className="h-[14px] w-[14px] flex justify-center items-center border-[var(--main-primary)] border-2">
-          {isSelected(productId) && (
-            <div className="h-3 w-3 bg-[var(--main-primary)]"></div>
+      <div className="flex justify-start items-center gap-1 w-full">
+        <input type="checkbox" defaultChecked={isSelected} className="hidden" />
+        <div onClick={() => selectFn(productId)} className="h-[14px] w-[14px] flex justify-center items-center rounded-full border-[var(--main-primary)] border-2">
+          {isSelected && (
+            <div className="h-2 w-2 rounded-full bg-[var(--main-primary)]"></div>
           )}
         </div>
-        <div className="flex items-center gap-4 p-4 rounded-xl bg-[var(--text-secondary-light)] shadow-sm border">
-          {/* Image */}
-          <img
-            src={imageUrl}
-            alt={name}
-            className="w-20 h-20 rounded-lg object-cover"
-          />
+        <div className="flex h-full items-center gap-4 p-4 justify-between rounded-xl bg-[var(--text-secondary-light)] shadow-sm border">
+          <div onClick={() => selectFn(productId)} className="flex items-center gap-3">
+            {/* Image */}
+            <img
+              src={imageUrl}
+              alt={name}
+              className="w-20 h-20 rounded-lg object-cover"
+            />
 
-          {/* Info */}
-          <div className="flex-1">
-            <h3 className="text-sm font-semibold text-gray-900">{name}</h3>
+            {/* Info */}
+            <div className="flex-1">
+              <h3 className="text-sm font-semibold text-(--text-primary)">
+                {name}
+              </h3>
 
-            {description && (
-              <p className="text-xs text-gray-500 mt-1">{description}</p>
-            )}
+              {description && (
+                <p className="text-xs text-gray-500 mt-1">{description}</p>
+              )}
 
-            <p className="text-sm font-bold mt-2">₦{price.toLocaleString()}</p>
+              <p className="text-sm font-bold mt-2">
+                ₦{price.toLocaleString()}
+              </p>
+            </div>
           </div>
 
           {/* Quantity controls */}
-          <div className="flex flex-col justify-between items-center">
+          <div className="flex flex-col h-full justify-between items-center">
             <button onClick={mutateAsync}>
               <FaTrash color="var(--main-primary)" />
             </button>
             <div className="flex items-center gap-2">
-              <button
-                onClick={() => updateCartQuantity(-1)}
-                className="w-7 h-7 rounded-full bg-gray-200 text-sm font-bold"
-              >
+              <Button buttonFn={() => updateCartQuantity(-1)} type="secondary">
                 <FaMinus />
-              </button>
+              </Button>
 
               <span className="text-sm font-medium">{quantity}</span>
 
-              <button
-                onClick={() => updateCartQuantity(1)}
-                className="w-7 h-7 rounded-full bg-red-600 text-white text-sm font-bold"
-              >
+              <Button buttonFn={() => updateCartQuantity(1)}>
                 <FaPlus />
-              </button>
+              </Button>
             </div>
           </div>
         </div>
-      </label>
+      </div>
     </>
   );
 };

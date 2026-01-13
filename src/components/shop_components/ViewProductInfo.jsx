@@ -9,6 +9,7 @@ import { addToCart } from "../../utils/regHelperFns";
 import Button from "../reusable_components/Buttons";
 import ProductImageSlide from "./ProductImageSlide";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const ViewProductInfo = ({
   images,
@@ -21,15 +22,16 @@ const ViewProductInfo = ({
 }) => {
   //React and Next js hooks initailizations
   const dispatch = useDispatch();
-  const { idToken, userData } = useSelector((state) => state.userAuth);
+  const { idToken, userData, isLoggedIn } = useSelector((state) => state.userAuth);
   const [showSection, setShowSection] = useState("description");
   const [quantity, setQuantity] = useState(1);
+
+  const router = useRouter()
 
   //Functions and mutation Logic
   const { mutateAsync, isPending, data } = useMutation({
     mutationFn: () => addToCart(idToken, userData.userId, product_id, quantity),
-    onSuccess: (resData) => {
-      logger.info("Added to cart response", resData);
+    onSuccess: () => {
       dispatch(
         setUserAuth({
           stateProp: "userData",
@@ -48,21 +50,23 @@ const ViewProductInfo = ({
     <>
       {logger.info("Mutation data in component", data)}
       <section className="flex flex-col sm:flex-row bg-[var(--text-secondary-light)] sm:px-2 sm:py-3 sm:rounded-md gap-4">
-        <ProductImageSlide images={images} productName={name} />
+        <ProductImageSlide images={images} productName={product_name} />
         <div className="flex flex-col gap-3 px-2 sm:px-0">
-          <p className="text-lg flex flex-col gap-2 items-start justify-center text-[var(--text-primary-light)] font-normal">
-            <span className="text-base text-[var(--text-primary)]">
-              {category}
-            </span>
-            <span className="text-lg text-[var(--text-primary)]">{product_name}</span>
-            <span>&#8358;{price}</span>
-          </p>
-          <p className="text-xl text-[var(--main-secondary)] font-normal">
-            <FaStar className="text-orange-400" />{" "}
-            {reviews?.reduce((prev, curr) => curr.rating + prev, 0) /
-              reviews?.length || 0}{" "}
-            {`(${reviews?.length || 0} Reviews)`}
-          </p>
+          <div className="flex justify-between items-start">
+            <p className="text-lg flex flex-col gap-2 items-start justify-center text-[var(--text-primary-light)] font-normal">
+              <span className="text-lg text-[var(--text-primary)]">{product_name}</span>
+              <span className="text-base text-[var(--text-primary)]">
+                {category}
+              </span>
+              <span>&#8358;{price}</span>
+            </p>
+            <p className="text-xl flex gap-2 items-center text-[var(--main-secondary)] font-normal">
+              <FaStar className="text-orange-400" />{" "}
+              {reviews?.reduce((prev, curr) => curr.rating + prev, 0) /
+                reviews?.length || 0}{" "}
+              {`(${reviews?.length || 0} Reviews)`}
+            </p>
+          </div>
           <div className="w-full flex justify-evenly items-center p-2 rounded-md bg-[var(--main-tertiary)]">
             <button
               onClick={() => setShowSection("description")}
@@ -113,7 +117,7 @@ const ViewProductInfo = ({
                 </button>
               </div>
               <Button
-                buttonFn={() => mutateAsync()}
+                buttonFn={() => isLoggedIn ? mutateAsync() : router.push("/login")}
                 width="100%"
                 extraStyles={{padding: "12px 0"}}
                 isDisabled={isPending}
@@ -121,7 +125,8 @@ const ViewProductInfo = ({
               >
                 Add To Cart{" - "}#{price}
               </Button>
-              <Button width="100%"
+              <Button
+                width="100%"
                 extraStyles={{padding: "12px 0"}}
                 >Buy Now</Button>
             </>

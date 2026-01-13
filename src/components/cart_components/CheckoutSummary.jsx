@@ -5,7 +5,7 @@ import Button from "../reusable_components/Buttons";
 import { useDispatch, useSelector } from "react-redux";
 import { addCheckoutProducts } from "../../store_slices/checkoutProductsSlice";
 
-export const PriceCalc = (name="", price=0) => {
+export const PriceCalc = ({name="", price=0}) => {
   return (
     <li className="flex justify-between items-center w-full text-lg text-[var(--main-secondary-light)] font-normal">
       <span>{name}</span>{" "}

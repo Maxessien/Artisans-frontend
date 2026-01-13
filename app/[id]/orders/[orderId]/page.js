@@ -3,7 +3,7 @@ import { getServerAuthToken } from "../../../../src/utils/auth.server";
 import { authApi } from "../../../../src/axiosApiBoilerplates/authApi";
 import logger from "../../../../src/utils/logger";
 import { notFound } from "next/navigation";
-import OrderDetails from "../../../../src/components/account_components/order-history/OrderDetails";
+import OrderDetails from "../../../../src/components/profile_components/order-history/OrderDetails";
 
 const OrderDetailsPage = async ({ params }) => {
   try {

@@ -13,10 +13,7 @@ const VendorDashboard = ({totalOrders=0, totalProducts=0, pendingOrders=0, compl
         <>
         <PageHeader headerText={"Dashboard"} />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
-            <StatsCard cardTitle={"Total Orders"} statsValue={totalOrders} statsIcon={<FaShoppingCart />} />
             <StatsCard cardTitle={"Total Products"} statsValue={totalProducts} statsIcon={<FaShoppingBag />} />
-            <StatsCard cardTitle={"Pending Orders"} statsValue={pendingOrders} statsIcon={<FaClock />} />
-            <StatsCard cardTitle={"Completed Orders"} statsValue={completedOrders} statsIcon={<FaCheckCircle />} />
         </div>
 
         <Cards>

@@ -13,17 +13,6 @@ const VendorDashboardPage = async () => {
     <VendorDashboard
       recentOrders={orders.data.slice(0, 5)}
       totalProducts={products?.data.length || 0}
-      totalOrders={orders?.data.length || 0}
-      pendingOrders={
-        orders?.data?.filter(
-          ({ deliveryStatus }) => deliveryStatus === "pending"
-        ).length || 0
-      }
-      completedOrders={
-        orders?.data?.filter(
-          ({ deliveryStatus }) => deliveryStatus === "completed"
-        ).length || 0
-      }
     />
   );
 };

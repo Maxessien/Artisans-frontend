@@ -23,6 +23,7 @@ export default function AppClientWrapper({ children }) {
   const fetchLoggedInUser = async (userId, token) => {
     try {
       const user = await authApi(token).get(`/user/${userId}`);
+      console.log("User Data", user)
       const {
         user_id,
         email,

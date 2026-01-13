@@ -12,10 +12,10 @@ const OrderHistoryPage = async ({ searchParams }) => {
   const orderHistory = await authApi(token).get(`/orders/user`, {
     params: { status: sParams?.status ?? "active" },
   });
-  logger.info("Fetched order history", orderHistory);
+  logger.info("Fetched order history", orderHistory?.data);
   return (
     <div className="space-y-3 py-4 px-3">
-      <OrderHistory initOrdersData={orderHistory?.data ?? []} />
+      <OrderHistory orders={orderHistory?.data ?? []} />
     </div>
   );
 };

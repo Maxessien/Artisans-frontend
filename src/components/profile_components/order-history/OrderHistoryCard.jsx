@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
 import Button from './../../reusable_components/Buttons';
+import { useRouter } from 'next/navigation';
 
 
 const OrderHistoryCard = ({ imageUrl, name, price, quantity, dateAdded, orderId }) => {

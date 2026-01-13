@@ -7,7 +7,7 @@ import SignOutUser from './../../src/components/reusable_components/SignOutUser'
 const UserLayout = async ({children}) => {
   try {
   const {user} = await getUserServerSide();
-	if(!user) throw new Error("User not logged in")
+	if(!user?.uid) throw new Error("User not logged in")
     return children
   } catch (err) {
 	logger.error("User layout auth check failed", err);

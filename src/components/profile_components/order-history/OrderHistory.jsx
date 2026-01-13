@@ -1,12 +1,15 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import MobilePageHeader from "./../../page_layouts/MobilePageHeader";
 import { SearchIcon } from "../../svg_components/ExploreSvg";
 import OrderHistoryCard from "./OrderHistoryCard";
+import { useSelector } from "react-redux";
 
 const OrderHistory = ({ orders }) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
+  const { userData } = useSelector((state) => state.userAuth);
   const statusBtnStl = (activeStr) =>
     `w-full py-3 px-2 text-lg font-normal text-(--text-primary) ${
       searchParams.get("status") === activeStr && "bg-(--text-secondary-light)"
@@ -14,7 +17,7 @@ const OrderHistory = ({ orders }) => {
   return (
     <>
       <MobilePageHeader pageTitle="My Order History" />
-      <div className="w-full rounded-full px-2 bg-(--text-primary-light) flex items-center">
+      <div className="w-full rounded-full px-2 bg-(--text-secondary-light) shadow-[0px_0px_10px_-8.5px_black] flex items-center">
         <button className="w-max p-1 h-full">
           <SearchIcon />
         </button>
@@ -24,14 +27,27 @@ const OrderHistory = ({ orders }) => {
           type="text"
         />
       </div>
-      <div className="grid grid-cols-3 bg-(--main-tertiary) rounded-md">
+      <div className="grid grid-cols-3 bg-(--main-tertiary) shadow-[0px_0px_10px_-9px_black] rounded-md">
         <button
+          onClick={() =>
+            router.push(`/${userData.userId}/orders?status=active`)
+          }
           className={`${statusBtnStl("active")} rounded-[6px_0px_0px_6px]`}
         >
           Active
         </button>
-        <button className={`${statusBtnStl("completed")}`}>Completed</button>
         <button
+          onClick={() =>
+            router.push(`/${userData.userId}/orders?status=delivered`)
+          }
+          className={`${statusBtnStl("delivered")}`}
+        >
+          Completed
+        </button>
+        <button
+          onClick={() =>
+            router.push(`/${userData.userId}/orders?status=cancelled`)
+          }
           className={`${statusBtnStl("cancelled")} rounded-[0px_6px_6px_0px]`}
         >
           Cancelled

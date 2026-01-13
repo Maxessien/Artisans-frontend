@@ -16,10 +16,10 @@ const ProfilePage = async() => {
     <>
     <main className="space-y-3 px-3 py-5">
       <h1 className="w-full text-center text-2xl text-(--text-primary) font-normal">My Profile</h1>
-      <div className="relative w-25 h-25 rounded-full">
+      <div className="relative w-25 h-25 mx-auto rounded-full">
         <img className="object-cover" src={user.picture_url} alt={`${user.display_name} profile picture`} />
         <div className="absolute bottom-[-15px] right-[-15px]">
-          <Button extraStyles={{padding: "1rem"}}>Camera Icon</Button>
+          <Button extraStyles={{padding: "1rem"}}>Cam</Button>
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 import { authApi } from "../../../../../src/axiosApiBoilerplates/authApi"
 import ProductForm from "../../../../../src/components/vendor_components/products/ProductForm"
-import { getServerAuthToken } from "../../../../../src/utils/authHelpers"
+import { getServerAuthToken } from "../../../../../src/utils/auth.server"
 import logger from "../../../../../src/utils/logger"
 
 

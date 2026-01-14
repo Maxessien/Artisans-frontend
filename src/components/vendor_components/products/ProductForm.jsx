@@ -1,15 +1,16 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaTrash, FaUpload } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { authApi } from "../../../axiosApiBoilerplates/authApi";
 import logger from "../../../utils/logger";
 import { formatFormData } from "../../../utils/regHelperFns";
+import MobilePageHeader from "../../page_layouts/MobilePageHeader";
 import Button from "../../reusable_components/Buttons";
 import {
   FormErrors,
@@ -20,9 +21,10 @@ import {
 import { AddImageIcon } from "../../svg_components/FormSvg";
 
 const ProductForm = ({ hasDefault, availableCategories }) => {
-  const { idToken } = useSelector((state) => state.userAuth);
+  const { idToken, userData } = useSelector((state) => state.userAuth);
   const [_, reRender] = useState(0);
   const params = useParams();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -31,31 +33,29 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
   } = useForm({
     mode: "onTouched",
     defaultValues: {
-      productName: hasDefault?.name ?? "",
+      productName: hasDefault?.product_name ?? "",
       description: hasDefault?.description ?? "",
       price: hasDefault?.price ?? 0,
       category: hasDefault?.category ?? availableCategories[0],
       images: [],
-      productStatus: hasDefault?.productStatus ?? "active",
     },
   });
 
   const submitFn = async (data) => {
     try {
       const formData = formatFormData(data);
-      const product = await authApi(idToken).post(
+      await authApi(idToken).post(
         params.pid === "new"
           ? "/product/vendor"
-          : `/product/vendor/${hasDefault?.productId}`,
+          : `/product/vendor/${hasDefault?.product_id}`,
         formData
       );
-      hasDefault = product.data;
-      reRender((state) => state + 1);
       toast.success(
         params.pid === "new"
           ? "Product Added Successfully"
           : "Product Updated Successfully"
       );
+      router.push(`/${userData?.userId}/vendor/products`);
     } catch (err) {
       logger.error("Failed to save product", err);
       toast.error(
@@ -69,10 +69,10 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
   const deleteImage = async (id) => {
     try {
       await authApi(idToken).delete(`/product/image/${id}`, {
-        params: { productId: hasDefault?.productId, publicId: id },
+        params: { productId: hasDefault?.product_id, public_id: id },
       });
       hasDefault.images = hasDefault.images.filter(
-        ({ publicId }) => publicId !== id
+        ({ public_id }) => public_id !== id
       );
       reRender((state) => state + 1);
       toast.success("Image deleted");
@@ -90,10 +90,10 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
 
   return (
     <>
-      <PageHeader
-        headerText={params.pid === "new" ? "Add Product" : "Edit Product"}
+      <MobilePageHeader
+        pageTitle={params.pid === "new" ? "Add Product" : "Edit Product"}
       />
-      <form onSubmit={handleSubmit(mutateAsync)}>
+      <form className="space-y-3" onSubmit={() => handleSubmit(mutateAsync)}>
         <FormWrapper>
           <Label htmlFor="productName">Product Name*</Label>
           <Input
@@ -122,12 +122,12 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
         {(hasDefault?.images?.length > 0 || imagesValues?.length > 0) && (
           <div className="flex gap-3 justify-start">
             {hasDefault?.images?.length > 0 &&
-              hasDefault.images.map(({ url, publicId }) => {
+              hasDefault.images.map(({ url, public_id }) => {
                 return (
-                  <div className="flex flex-col gap-2">
+                  <div key={public_id} className="flex flex-col gap-2">
                     <img className="w-full max-w-20" src={url} />
                     <Button
-                      buttonFn={() => deleteImage(publicId)}
+                      buttonFn={() => deleteImage(public_id)}
                       rounded="6px"
                       width="100%"
                     >
@@ -137,16 +137,19 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
                 );
               })}
             {imagesValues?.length > 0 &&
-              imagesValues.map((value, index) => {
+              imagesValues?.map((value, index) => {
                 return (
-                  <div className="flex flex-col gap-2">
+                  <div key={index} className="flex flex-col gap-2">
                     <img
                       className="w-full max-w-20"
                       src={URL.createObjectURL(value.files[0])}
                       alt=""
                     />
                     <Button
-                      buttonFn={imagesValues.splice(index, 1)}
+                      buttonFn={() => {
+                        imagesValues.splice(index, 1);
+                        reRender((state) => state + 1);
+                      }}
                       rounded="6px"
                       width="100%"
                     >
@@ -160,26 +163,36 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
 
         <FormWrapper>
           <p>Add at least 1 photo</p>
-          <label htmlFor="images">
-            <input
-              id="images"
-              {...register("images", {
-                validate: () => {
-                  if (
-                    !imagesValues?.length > 0 &&
-                    !hasDefault?.images?.length > 0
-                  )
-                    return "Product must have at least one image";
-                  return true;
-                },
-              })}
-              type="file"
-              className="hidden"
-            />
-            <button className="flex items-center justify-center bg-(--main-primary-light) rounded-md p-5 text-3xl text-(--main-primary) font-normal">
-              <AddImageIcon />
-            </button>
-          </label>
+          {Array(imagesValues?.length + 1)
+            .fill("img")
+            .map((_, index) => {
+              return (
+                <label
+                  className={`cursor-pointer ${index <= imagesValues?.length && "hidden"}`}
+                  htmlFor="images"
+                >
+                  <input
+                    id="images"
+                    {...register("images", {
+                      validate: () => {
+                        if (
+                          imagesValues?.length === 0 &&
+                          hasDefault?.images?.length === 0
+                        )
+                          return "Product must have at least one image";
+                        return true;
+                      },
+                    })}
+                    multiple={false}
+                    type="file"
+                    className="hidden"
+                  />
+                  <div className="flex items-center justify-center bg-(--main-primary-lighter) rounded-md p-5 text-3xl text-(--main-primary) font-normal">
+                    <AddImageIcon />
+                  </div>
+                </label>
+              );
+            })}
           {errors.images && <FormErrors errorText={errors.images.message} />}
         </FormWrapper>
 
@@ -197,7 +210,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
           )}
         </FormWrapper>
 
-        <FormWrapper>
+        {/* <FormWrapper>
           <Label htmlFor="productRegion">Region</Label>
           <Input
             inputType="select"
@@ -210,7 +223,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
           {errors.productRegion && (
             <FormErrors errorText={errors.productRegion.message} />
           )}
-        </FormWrapper>
+        </FormWrapper> */}
 
         <FormWrapper>
           <Label htmlFor="price">Price*</Label>
@@ -230,6 +243,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
           rounded="6px"
           width="100%"
           buttonType="submit"
+          extraStyles={{ maxWidth: "520px" }}
         >
           {params.pid === "new"
             ? !isPending

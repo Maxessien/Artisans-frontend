@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
@@ -6,55 +6,58 @@ import { toast } from "react-toastify";
 import { authApi } from "../../../axiosApiBoilerplates/authApi";
 import logger from "../../../utils/logger";
 import Button from "../../reusable_components/Buttons";
+import MobilePageHeader from './../../page_layouts/MobilePageHeader';
 import {
-  PageHeader,
   VendorProductCard,
 } from "../../reusable_components/CardsLayouts";
 
 const VendorProducts = ({ products }) => {
   const {
     userData: { userId },
-	idToken
+    idToken,
   } = useSelector((state) => state.userAuth);
   const router = useRouter();
-	
-	const delFn = async(id)=>{
-		try{
-			await authApi(idToken).delete(`/product/${id}`, {params: {productId: id}})
-			toast.success("Product deleted")
-			router.replace(`/${userId}/vendor/products`)
-		}catch(err){
-      logger.error("Failed to delete vendor product", err)
-			toast.error("Unable to delete product")
-		}
-	}
+
+  const delFn = async (id) => {
+    try {
+      await authApi(idToken).delete(`/product/${id}`, {
+        params: { productId: id },
+      });
+      toast.success("Product deleted");
+      router.replace(`/${userId}/vendor/products`);
+    } catch (err) {
+      logger.error("Failed to delete vendor product", err);
+      toast.error("Unable to delete product");
+    }
+  };
   return (
     <>
-      <PageHeader headerText={"Products"} />
+      <MobilePageHeader pageTitle={"Products"} />
       <Button
         buttonFn={() => router.push(`/${userId}/vendor/products/new`)}
-        extraStyles={{ display: "block", marginBottom: "12px" }}
+        extraStyles={{ display: "block", marginBottom: "15px" }}
         type="secondary"
+        rounded="6px"
       >
         Add New Products
       </Button>
-      {products && products.length > 0 ? (
+      {products && products?.length > 0 ? (
         <div className="grid sm:grid-cols-[minmax(250px,300px)] max-w-[1440px]">
-          {products.map(({ name, price, productId, images }) => {
+          {products.map(({ product_name, price, product_id, images }) => {
             return (
               <VendorProductCard
-		userId={userId}
-                productName={name}
+                userId={userId}
+                productName={product_name}
                 price={price}
-                productId={productId}
+                productId={product_id}
                 imageUrl={images[0].url}
-		deleteFn={delFn}
+                deleteFn={delFn}
               />
             );
           })}
         </div>
       ) : (
-        <p className="text-[var(--main-secondary)] text-lg font-semibold">
+        <p className="text-[var(--main-secondary)] text-lg font-medium">
           You haven't added any product
         </p>
       )}

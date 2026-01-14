@@ -18,7 +18,7 @@ const VendorAccountLayout = async({children})=>{
         {/* <Link href={`/${user.uid}/account/profile`} className="text-[var(--main-secondary)] flex items-center gap-2 text-base py-2 font-semibold"><FaArrowLeft /> Back to Account Profile</Link> */}
         <div className={"flex flex-col gap-3 w-screen md:grid md:grid-cols-[25%_75%]"}>
             <VendorNavigaton />
-            <main className="py-3 px-5 w-full">
+            <main className="py-3 px-5 min-w-0">
                 {children}
             </main>
         </div>

@@ -75,9 +75,9 @@ const CartItems = ({ cartDetails }) => {
 
   return (
     <>
-      <section className="w-full cursor-pointer px-4 py-3 bg-[var(--text-secondary-light)] h-screen min-h-130 shadow-[0px_2px_8px_-3px_black] rounded-md">
+      <section className="w-full cursor-pointer px-4 py-4 bg-[var(--text-secondary-light)] h-screen flex flex-col gap-3 min-h-130 shadow-[0px_2px_8px_-3px_black] rounded-md">
         <header className="flex items-center justify-between w-full">
-          <h2 className="text-2xl text-center w-full font-medium text-[var(--text-primary-light)]">
+          <h2 className="text-2xl font-medium text-[var(--text-primary-light)]">
             Cart Items
           </h2>
           {cartItems?.length > 0 && (
@@ -91,8 +91,8 @@ const CartItems = ({ cartDetails }) => {
           )}
         </header>
         {cartItems?.length > 0 ? (
-          <div className="h-screen">
-            <div className="overflow-y-auto w-full h-3/4">
+          <div className="h-full flex flex-col">
+            <div className="overflow-y-auto w-full h-full">
               {cartItems.map(
                 ({
                   product_name,

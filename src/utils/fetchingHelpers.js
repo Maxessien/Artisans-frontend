@@ -7,7 +7,7 @@ const fetchAllProducts = async (pageNumber, filters) => {
       params: { page: pageNumber, ...filters },
     });
     logger.info("Fetched all products", products);
-    return products?.data || {data: [], total_pages: 0};
+    return products?.data || { data: [], total_pages: 0 };
   } catch (err) {
     logger.error("Failed to fetch all products", err);
     throw err;
@@ -16,10 +16,12 @@ const fetchAllProducts = async (pageNumber, filters) => {
 
 const fetchTrendingProducts = async () => {
   try {
-    const products = await regApi.get("/product", {params: {
-      sortBy: "ratings",
-      limit: 7
-    }});
+    const products = await regApi.get("/product", {
+      params: {
+        sortBy: "ratings",
+        limit: 7,
+      },
+    });
     logger.info("Fetched trending products", products.data);
     return products?.data?.data || [];
   } catch (err) {
@@ -30,10 +32,12 @@ const fetchTrendingProducts = async () => {
 
 const fetchLatestProducts = async () => {
   try {
-    const products = await regApi.get("/product", {params: {
-      sortBy: "date_added",
-      limit: 7
-    }});
+    const products = await regApi.get("/product", {
+      params: {
+        sortBy: "date_added",
+        limit: 7,
+      },
+    });
     logger.info("Fetched trending products", products.data);
     return products?.data?.data || [];
   } catch (err) {
@@ -45,7 +49,7 @@ const fetchLatestProducts = async () => {
 const getProductCategories = async () => {
   try {
     const latest = await regApi.get("/category");
-    logger.log("Latest Data", latest.data)
+    logger.log("Latest Data", latest.data);
     return latest.data || [];
   } catch (err) {
     logger.error("Failed to get product categories", err);
@@ -65,10 +69,21 @@ const fetchProductReviews = async (productId, page) => {
   }
 };
 
+const noNullFn = async (asyncCallback) => {
+  try {
+    const data = await asyncCallback();
+    return data ?? { data: [] };
+  } catch (err) {
+    logger.log(err);
+    return { data: [] };
+  }
+};
+
 export {
   fetchAllProducts,
   fetchTrendingProducts,
   getProductCategories,
   fetchProductReviews,
   fetchLatestProducts,
+  noNullFn,
 };

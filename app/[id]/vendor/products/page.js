@@ -1,14 +1,15 @@
 import { authApi } from "../../../../src/axiosApiBoilerplates/authApi"
 import VendorProducts from "../../../../src/components/vendor_components/products/VendorProducts"
-import { getServerAuthToken } from "../../../../src/utils/authHelpers"
+import { getServerAuthToken } from "../../../../src/utils/auth.server"
+import { noNullFn } from "../../../../src/utils/fetchingHelpers"
 
 
 const VendorProductPage = async()=>{
     const token = await getServerAuthToken()
-    const products = await authApi(token).get("/product/vendor") || {data: null}
+    const products = await noNullFn(authApi(token).get("/product/vendor"))
 
     return (
-        <VendorProducts products={products.data} />
+        <VendorProducts products={products?.data} />
     )
 }
 

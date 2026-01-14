@@ -1,25 +1,26 @@
 "use client"
 
-import { Cards, OrdersCompactCards, PageHeader, StatsCard } from "../../reusable_components/CardsLayouts"
-import { FaArrowRight, FaCheckCircle, FaClock, FaShoppingBag, FaShoppingCart } from "react-icons/fa"
+import { Cards, OrdersCompactCards,StatsCard } from "../../reusable_components/CardsLayouts"
+import { FaArrowRight, FaShoppingBag } from "react-icons/fa"
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import MobilePageHeader from './../../page_layouts/MobilePageHeader';
 
-const VendorDashboard = ({totalOrders=0, totalProducts=0, pendingOrders=0, completedOrders=0, recentOrders=[]})=>{
+const VendorDashboard = ({totalProducts=0, recentOrders=[]})=>{
     const {userData} = useSelector((state)=>state.userAuth)
     const router = useRouter()
     return (
         <>
-        <PageHeader headerText={"Dashboard"} />
+        <MobilePageHeader pageTitle={"Dashboard"} />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
             <StatsCard cardTitle={"Total Products"} statsValue={totalProducts} statsIcon={<FaShoppingBag />} />
         </div>
 
-        <Cards>
+        <Cards extraStyles={{padding: "15px 20px"}}>
             <div className="flex justify-between mb-2">
-                <h3 className="text-lg text-[var(--text-primary)] font-semibold">Recent Orders</h3>
-                <Link className="flex gap-2 items-center text-[va(--text-primary)] font-semibold text-base" href={`/${userData.userId}/vendor/orders`}>View All <FaArrowRight /></Link>
+                <h3 className="text-lg text-[var(--text-primary)] font-medium">Recent Orders</h3>
+                <Link className="flex gap-2 items-center text-[var(--main-primary)] font-medium text-base" href={`/${userData.userId}/vendor/orders`}>View All <FaArrowRight /></Link>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -30,7 +31,7 @@ const VendorDashboard = ({totalOrders=0, totalProducts=0, pendingOrders=0, compl
                         </div>
                     )
                 })): (
-                    <p className="text-lg font-semibold text-[var(--text-primary)] text-center">You have not received any orders</p>
+                    <p className="text-lg font-semibold text-[var(--text-primary)] mt-5 text-center">You have not received any orders</p>
                 )}
             </div>
         </Cards>

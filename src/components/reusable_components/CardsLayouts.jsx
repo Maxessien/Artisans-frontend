@@ -15,10 +15,10 @@ const Cards = ({children, extraStyles, ...rest})=>{
 const StatsCard = ({cardTitle, statsValue, statsIcon})=>{
     return (
         <>
-        <Cards>
+        <Cards extraStyles={{padding: "15px 20px"}}>
             <div className="flex justify-between gap-2">
             <div className="flex flex-col justify-center items-start gap-3">
-                <h2 className="text-base text-[var(--text-primary)] font-semibold">{cardTitle}</h2>
+                <h2 className="text-base text-[var(--text-primary)] font-medium">{cardTitle}</h2>
                 <p className="text-xl font-bold text-[var(--text-primary)]">{statsValue}</p>
             </div>
             <div className="text-lg text-[var(--text-primary)] bg-[var(--main-tertiary-light)] h-[max-content] rounded-full p-3">{statsIcon}</div>

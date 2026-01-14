@@ -36,7 +36,7 @@ const CheckoutSummary = ({ deliveryFee = 5000, selectedProds = [] }) => {
 
   return (
     <>
-      <div className="w-full h-full">
+      <div className="w-full h-max">
         <div className="relative">
           <input
             type="text"

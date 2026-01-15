@@ -2,14 +2,15 @@ import Button from './../../reusable_components/Buttons';
 import { useRouter } from 'next/navigation';
 
 
+export const months = [
+  "Jan", "Feb", "Mar", "Apr",
+  "May", "June", "July", "Aug",
+  "Sep", "Oct", "Nov", "Dec",
+];
+
 const OrderHistoryCard = ({ imageUrl, name, price, quantity, dateAdded, orderId }) => {
     const router = useRouter()
   const timeStamp = new Date(dateAdded);
-  const months = [
-    "Jan", "Feb", "Mar", "Apr",
-    "May", "June", "July", "Aug",
-    "Sep", "Oct", "Nov", "Dec",
-  ];
   return (
     <>
       <div className='px-2 py-3 space-y-3 bg-(--text-secondary-light) w-full'>

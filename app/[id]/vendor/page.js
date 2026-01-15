@@ -6,8 +6,8 @@ import { noNullFn } from "../../../src/utils/fetchingHelpers";
 
 const VendorDashboardPage = async () => {
   const token = await getServerAuthToken();
-  const orders = await noNullFn(authApi(token).get("/orders/vendor"));
-  const products = await noNullFn(authApi(token).get("/product/vendor"));
+  const orders = await noNullFn(async ()=> await authApi(token).get("/orders/vendor"));
+  const products = await noNullFn(async ()=> await authApi(token).get("/product/vendor"));
 
   return (
     <VendorDashboard

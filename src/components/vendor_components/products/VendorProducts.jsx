@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 import { authApi } from "../../../axiosApiBoilerplates/authApi";
 import logger from "../../../utils/logger";
 import Button from "../../reusable_components/Buttons";
-import MobilePageHeader from './../../page_layouts/MobilePageHeader';
 import {
+  PageHeader,
   VendorProductCard,
 } from "../../reusable_components/CardsLayouts";
 
@@ -32,7 +32,7 @@ const VendorProducts = ({ products }) => {
   };
   return (
     <>
-      <MobilePageHeader pageTitle={"Products"} />
+      <PageHeader headerText={"Products"} />
       <Button
         buttonFn={() => router.push(`/${userId}/vendor/products/new`)}
         extraStyles={{ display: "block", marginBottom: "15px" }}

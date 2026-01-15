@@ -6,7 +6,7 @@ import { noNullFn } from "../../../../src/utils/fetchingHelpers"
 
 const VendorProductPage = async()=>{
     const token = await getServerAuthToken()
-    const products = await noNullFn(authApi(token).get("/product/vendor"))
+    const products = await noNullFn(async ()=> await authApi(token).get("/product/vendor"))
 
     return (
         <VendorProducts products={products?.data} />

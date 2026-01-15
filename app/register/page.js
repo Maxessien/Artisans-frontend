@@ -10,7 +10,7 @@ export const metadata = {
 const Register = async ()=>{
     const {user} = await getUserServerSide()
     if (user) {
-        redirect("/")
+        redirect("/explore")
         return
     }
 	return (

@@ -24,10 +24,10 @@ const VendorDashboard = ({totalProducts=0, recentOrders=[]})=>{
             </div>
 
             <div className="flex flex-col gap-2">
-                {recentOrders && recentOrders.length > 0 ? (recentOrders.map(({name, deliveryStatus, price, orderId})=>{
+                {recentOrders && recentOrders.length > 0 ? (recentOrders.map(({product_name, delivery_status, price, order_id})=>{
                     return (
-                        <div onClick={()=>router.push(`/${userData.userId}/vendor/orders/${orderId}`)}>
-                            <OrdersCompactCards productTitle={name} deliveryStatus={deliveryStatus} price={price} />
+                        <div key={order_id} onClick={()=>router.push(`/${userData.userId}/vendor/orders/${order_id}`)}>
+                            <OrdersCompactCards productTitle={product_name} deliveryStatus={delivery_status} price={price} />
                         </div>
                     )
                 })): (

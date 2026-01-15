@@ -29,14 +29,15 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
     defaultValues: {
       productName: hasDefault?.product_name ?? "",
-      description: hasDefault?.description ?? "",
       price: hasDefault?.price ?? 0,
       category: hasDefault?.category ?? availableCategories[0],
+      description: hasDefault?.description ?? "",
       images: [],
     },
   });
@@ -88,12 +89,22 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
     mutationFn: (data) => submitFn(data),
   });
 
+  const handleImageUpload = ({ target }) => {
+    if (target?.files?.length === 0) return;
+    console.log(target.value, target?.files);
+    setValue("images", [...imagesValues, target?.files[0]], {
+      shouldValidate: true,
+      shouldTouch: true,
+    });
+  };
+
   return (
     <>
+      {console.log(imagesValues)}
       <MobilePageHeader
         pageTitle={params.pid === "new" ? "Add Product" : "Edit Product"}
       />
-      <form className="space-y-3" onSubmit={() => handleSubmit(mutateAsync)}>
+      <form className="space-y-3" onSubmit={handleSubmit(mutateAsync)}>
         <FormWrapper>
           <Label htmlFor="productName">Product Name*</Label>
           <Input
@@ -110,7 +121,14 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
           <Label htmlFor="category">category*</Label>
           <Input
             inputType="select"
-            selectOptions={availableCategories}
+            selectOptions={[
+              "Handmade Jewelry",
+              "Pottery & Ceramics",
+              "Woodwork",
+              "Textiles & Fabrics",
+              "Leather Goods",
+              "Art & Paintings",
+            ]}
             id="category"
             {...register("category", { required: "You must add a category" })}
           />
@@ -131,7 +149,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
                       rounded="6px"
                       width="100%"
                     >
-                      <FaTrash /> Remove Image
+                      <FaTrash />
                     </Button>
                   </div>
                 );
@@ -141,8 +159,8 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
                 return (
                   <div key={index} className="flex flex-col gap-2">
                     <img
-                      className="w-full max-w-20"
-                      src={URL.createObjectURL(value.files[0])}
+                      className="w-full max-w-25"
+                      src={URL.createObjectURL(value)}
                       alt=""
                     />
                     <Button
@@ -153,7 +171,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
                       rounded="6px"
                       width="100%"
                     >
-                      <FaTrash /> Remove Image
+                      <FaTrash />
                     </Button>
                   </div>
                 );
@@ -163,12 +181,14 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
 
         <FormWrapper>
           <p>Add at least 1 photo</p>
-          {Array(imagesValues?.length + 1)
+          {Array(imagesValues?.length + 1 || 1)
             .fill("img")
             .map((_, index) => {
               return (
                 <label
-                  className={`cursor-pointer ${index <= imagesValues?.length && "hidden"}`}
+                  className={`cursor-pointer ${
+                    index + 1 <= imagesValues?.length && "hidden"
+                  }`}
                   htmlFor="images"
                 >
                   <input
@@ -183,6 +203,7 @@ const ProductForm = ({ hasDefault, availableCategories }) => {
                         return true;
                       },
                     })}
+                    onChange={handleImageUpload}
                     multiple={false}
                     type="file"
                     className="hidden"

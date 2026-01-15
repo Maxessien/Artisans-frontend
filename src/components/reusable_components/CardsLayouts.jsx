@@ -63,13 +63,13 @@ const VendorProductCard = ({imageUrl, productName, price, productId, deleteFn, u
     const router = useRouter()
     
     return (
-        <div className="flex flex-col w-full min-w-[150px] border-1 border-solid border-[var(--main-secondary)] rounded-md bg-[var(--text-secondary-light)]">
+        <div className="flex flex-col w-full min-w-[100px] border-1 border-solid border-[var(--main-secondary)] rounded-md bg-[var(--text-secondary-light)]">
             <div className="w-full aspect-square">
                 <img src={imageUrl} alt={`${productName} image`} className="object-cover" />
             </div>
             <div className="space-y-2 px-3 py-4">
-                <p className="text-lg text-left text-[var(--text-primary)] font-semibold">{productName}</p>
-                <p className="text-lg text-left text-[var(--text-primary)] font-bold"><span>&#8358; {price}</span></p>
+                <p className="text-lg text-left text-[var(--text-primary)] font-medium">{productName}</p>
+                <p className="text-lg text-left text-[var(--text-primary)] font-semibold"><span>&#8358; {price}</span></p>
                 <p className="grid grid-cols-[80%_20%] gap-2">
                     <Button type="secondary" width="100%" rounded="6px" buttonFn={()=>router.push(`/${userId}/vendor/products/${productId}`)}><FaEdit /> Edit</Button>
                     <Button rounded="6px" buttonFn={()=>deleteFn(productId)}><FaTrash /></Button>

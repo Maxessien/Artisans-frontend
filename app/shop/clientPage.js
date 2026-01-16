@@ -7,18 +7,19 @@ import Filters from "./../../src/components/shop_components/Filters";
 import ShopHeader from "./../../src/components/shop_components/ShopHeader";
 import ShopMain from "./../../src/components/shop_components/ShopMain";
 
-const ClientShopPage = ({ initialShopData, serverSideWindowSize }) => {
+const ClientShopPage = ({ initialShopData, categories, serverSideWindowSize }) => {
   const [openFilter, setOpenFilter] = useState(false);
 	const {currentSize} = useSelector((state)=>state.screenSize)
 	const showFilter = openFilter !== undefined ? openFilter : !serverSideWindowSize;
 	const isMobile = currentSize ? currentSize < 768 : serverSideWindowSize
+
   return (
     <>
       {logger.info("Shop client filter state", { showFilter, isMobile })}
       <div className="block relative md:grid md:grid-cols-[25%_75%]">
         {!isMobile && (
           <aside>
-            <Filters closeFilterFn={() =>{
+            <Filters categories={categories.map(({title})=>title)} closeFilterFn={() =>{
 				  logger.log("Closing filters on desktop")
               setOpenFilter(false)
             }} />
@@ -26,7 +27,7 @@ const ClientShopPage = ({ initialShopData, serverSideWindowSize }) => {
         )}
         {isMobile && showFilter && (
           <aside>
-            <Filters closeFilterFn={() =>{
+            <Filters categories={categories.map(({title})=>title)} closeFilterFn={() =>{
 				  logger.log("Closing filters on mobile")
               setOpenFilter(false)
             }} />

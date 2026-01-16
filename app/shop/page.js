@@ -10,7 +10,8 @@ export const metadata = {
 
 const Shop = async ({ searchParams }) => {
   const sParams = await searchParams;
-  logger.info("Shop search parameters", sParams);
+  const prodCategories = await regApi.get("/category")
+  logger.info("Shop search parameters", prodCategories.data?.map(({title})=>title));
   const {
     price = "10-400000",
     page = 1,
@@ -24,10 +25,10 @@ const Shop = async ({ searchParams }) => {
   const acceptableValues = {
     order: ["asc", "desc"],
     sort: ["date_added", "ratings", "price"],
-    cat: ["fashion", "food", "electronics", "sports", "accessories"],
+    cat: prodCategories.data?.map(({title})=>title) ?? null,
   };
   const formattedPrice = price.split("-");
-  logger.info("Categories provided", cat?.split(" "));
+  logger.info("Categories provided", {split: cat?.split("-")?.map((val)=>decodeURIComponent(val)), raw: cat});
   if (
     !acceptableValues.sort.includes(sort) ||
     !acceptableValues.order.includes(order) ||
@@ -40,7 +41,7 @@ const Shop = async ({ searchParams }) => {
     return notFound();
   if (
     cat &&
-    !cat.split(" ").every((value) => acceptableValues.cat.includes(value))
+    !cat.split("-")?.map((val)=>decodeURIComponent(val)).every((value) => acceptableValues?.cat ? acceptableValues.cat.includes(value) : true)
   )
     return notFound();
   if (search && search.length < 1 && typeof search !== "string")
@@ -57,7 +58,7 @@ const Shop = async ({ searchParams }) => {
           maxPrice: Number(formattedPrice[1]) || 500000,
           sortBy: sort || "date_added",
           order: order || "desc",
-          category: cat?.split(" ") ?? "",
+          category: acceptableValues?.cat ? cat?.split("-")?.map((val)=>decodeURIComponent(val)) ?? "" : "",
           ...(search?.length > 0 && typeof search === "string"
             ? { searchTerm: search }
             : {}),
@@ -70,6 +71,7 @@ const Shop = async ({ searchParams }) => {
         <ClientShopPage
           initialShopData={products?.data}
           serverSideWindowSize={isMobile}
+          categories={prodCategories.data}
         />
       </>
     );
@@ -80,6 +82,7 @@ const Shop = async ({ searchParams }) => {
         <ClientShopPage
           initialShopData={{ totalPages: 0, data: [] }}
           serverSideWindowSize={isMobile}
+          categories={[]}
         />
       </>
     );

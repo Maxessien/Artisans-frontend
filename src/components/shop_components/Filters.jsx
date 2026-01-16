@@ -18,7 +18,7 @@ const Filters = ({ closeFilterFn, categories }) => {
       sortOrder: searchParams.get("order") || "desc",
       minPrice: searchParams.get("price")?.split("-")[0] || 5,
       maxPrice: searchParams.get("price")?.split("-")[1] || 400000,
-      categories: searchParams.get("cat") || categories,
+      categories: searchParams.get("cat")?.split("-")?.map((val)=>decodeURIComponent(val)) || categories,
     },
   });
 
@@ -37,8 +37,8 @@ const Filters = ({ closeFilterFn, categories }) => {
         typeof searchParams.get("search") === "string"
           ? `?search=${searchParams.get("search")}&`
           : "?"
-      }cat=${categories.join(
-        "+"
+      }cat=${encodeURIComponent(categories.map((cat)=>encodeURIComponent(cat)).join(
+        "-")
       )}&sort=${sortType}&order=${sortOrder}&price=${minPrice}-${maxPrice}&page=1`
     );
   };
@@ -59,7 +59,7 @@ const Filters = ({ closeFilterFn, categories }) => {
           <label htmlFor="sortType">
             <span>Type</span>
             <select id="sortType" {...register("sortType")}>
-              <option value="rating">Popularity</option>
+              <option value="ratings">Popularity</option>
               <option value="date_added">Recent</option>
               <option value="price">Price</option>
             </select>
@@ -115,13 +115,14 @@ const Filters = ({ closeFilterFn, categories }) => {
             reset();
             router.push("/shop");
           }}
+          buttonType="button"
         >
           Reset
         </Button>
         <Button
           rounded="6px"
           buttonType="submit"
-          extraStyles={{ fontSize: "1.125rem", fontWeight: 600 }}
+          extraStyles={{ fontSize: "1.125rem", fontWeight: 600, marginTop: "1rem" }}
         >
           Apply Filters
         </Button>

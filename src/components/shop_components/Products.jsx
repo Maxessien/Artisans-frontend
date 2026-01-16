@@ -15,7 +15,7 @@ const Products = ({ initialProductsData }) => {
               return (
                 <div key={product_id}>
                   <HomeProductCards
-                    imageUrl={images[0].url}
+                    imageUrl={images[0]}
                     name={product_name}
                     price={price}
                     productId={product_id}

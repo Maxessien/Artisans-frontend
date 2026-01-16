@@ -114,7 +114,7 @@ const DigitCodeVerification = ({
                       inputsRef.current[index - 1].focus();
                     }
                   }}
-                  type="number"
+                  type="text"
                 />
               );
             })}

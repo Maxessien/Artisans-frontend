@@ -1,12 +1,12 @@
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
-import Button from "../reusable_components/Buttons";
-import "./scss/filters.scss";
 import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../store_slices/productPageSlice";
-import { useRouter, useSearchParams } from "next/navigation";
+import Button from "../reusable_components/Buttons";
+import "./scss/filters.scss";
 
-const Filters = ({ closeFilterFn, categories }) => {
+const Filters = ({ closeFilterFn, defaultCategories }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
@@ -16,11 +16,21 @@ const Filters = ({ closeFilterFn, categories }) => {
     defaultValues: {
       sortType: searchParams.get("sort") || "date_added",
       sortOrder: searchParams.get("order") || "desc",
-      minPrice: searchParams.get("price")?.split("-")[0] || 5,
+      minPrice: searchParams.get("price")?.split("-")[0] || 10,
       maxPrice: searchParams.get("price")?.split("-")[1] || 400000,
-      categories: searchParams.get("cat")?.split("-")?.map((val)=>decodeURIComponent(val)) || categories,
+      categories:
+        searchParams
+          .get("cat")
+          ?.split("-")
+          ?.map((val) => decodeURIComponent(val)) || defaultCategories,
     },
   });
+
+  const compareTwoArrays = (arr1, arr2) => {
+    const bool =
+      arr1.length === arr2.length && arr1.every((val) => arr2.includes(val));
+    return bool;
+  };
 
   const submitFilter = ({
     sortType,
@@ -31,15 +41,31 @@ const Filters = ({ closeFilterFn, categories }) => {
   }) => {
     dispatch(setPage(1));
     closeFilterFn ? closeFilterFn() : null;
+    const included = {
+      cats: false,
+      order: false,
+      stype: false,
+    };
+    if (!compareTwoArrays(defaultCategories, categories)) included.cats = true;
+    if (sortType !== "date_added") included.stype = true;
+    if (sortOrder !== "desc") included.order = true;
     router.push(
       `/shop${
         searchParams.get("search")?.length > 0 &&
         typeof searchParams.get("search") === "string"
           ? `?search=${searchParams.get("search")}&`
           : "?"
-      }cat=${encodeURIComponent(categories.map((cat)=>encodeURIComponent(cat)).join(
-        "-")
-      )}&sort=${sortType}&order=${sortOrder}&price=${minPrice}-${maxPrice}&page=1`
+      }${
+        included?.cats
+          ? `cat=${encodeURIComponent(
+              categories.map((val) => encodeURIComponent(val)).join("-")
+            )}`
+          : ""
+      }${
+        included?.stype ? `${included?.cats ? "&" : ""}sort=${sortType}` : ""
+      }${
+        included?.order ? `${included?.stype ? "&" : ""}order=${sortOrder}` : ""
+      }&price=${minPrice}-${maxPrice}&page=1`
     );
   };
 
@@ -72,11 +98,11 @@ const Filters = ({ closeFilterFn, categories }) => {
             </select>
           </label>
         </div>
-        {categories?.length > 0 && (
+        {defaultCategories?.length > 0 && (
           <>
             <h3>Categories</h3>
             <div className="category_options">
-              {categories.map((category) => {
+              {defaultCategories.map((category) => {
                 return (
                   <label key={category} htmlFor={category}>
                     <input
@@ -122,7 +148,11 @@ const Filters = ({ closeFilterFn, categories }) => {
         <Button
           rounded="6px"
           buttonType="submit"
-          extraStyles={{ fontSize: "1.125rem", fontWeight: 600, marginTop: "1rem" }}
+          extraStyles={{
+            fontSize: "1.125rem",
+            fontWeight: 600,
+            marginTop: "1rem",
+          }}
         >
           Apply Filters
         </Button>

@@ -19,7 +19,7 @@ const ClientShopPage = ({ initialShopData, categories, serverSideWindowSize }) =
       <div className="block relative md:grid md:grid-cols-[25%_75%]">
         {!isMobile && (
           <aside>
-            <Filters categories={categories.map(({title})=>title)} closeFilterFn={() =>{
+            <Filters defaultCategories={categories.map(({title})=>title)} closeFilterFn={() =>{
 				  logger.log("Closing filters on desktop")
               setOpenFilter(false)
             }} />
@@ -27,7 +27,7 @@ const ClientShopPage = ({ initialShopData, categories, serverSideWindowSize }) =
         )}
         {isMobile && showFilter && (
           <aside>
-            <Filters categories={categories.map(({title})=>title)} closeFilterFn={() =>{
+            <Filters defaultCategories={categories.map(({title})=>title)} closeFilterFn={() =>{
 				  logger.log("Closing filters on mobile")
               setOpenFilter(false)
             }} />

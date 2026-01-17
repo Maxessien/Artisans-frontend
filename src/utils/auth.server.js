@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { authApi } from "../axiosApiBoilerplates/authApi";
 import logger from "./logger";
+import { toast } from 'react-toastify';
 
 const getUserServerSide = async () => {
   try {
@@ -27,6 +28,7 @@ const getServerAuthToken = async () => {
     return null;
   }
 };
+
 
 export { getServerAuthToken, getUserServerSide };
 

@@ -1,41 +1,45 @@
 "use client";
+import { useRouter } from 'next/navigation';
 
-const PopularCategory = () => {
+const PopularCategory = ({initCategories}) => {
+  const router = useRouter()
   const categoriesData = [
     {
-      name: "Fashion and Apparel",
-      imageUrl: "fashion-category-bg.png",
+      title: "Fashion and Apparel",
+      image_url: "fashion-category-bg.png",
     },
     {
-      name: "Jewelries and Accessories",
-      imageUrl: "jeweleries-category-bg.png",
+      title: "Jewelries and Accessories",
+      image_url: "jeweleries-category-bg.png",
     },
     {
-      name: "Leather Shoes",
-      imageUrl:
+      title: "Leather Shoes",
+      image_url:
         "Stunning Handmade Mens brown leather dress shoes, penny loafer shoes for men, Mens shoes 2024 1.png",
     },
     {
-      name: "Textile Bags",
-      imageUrl: "green-bag.jpg",
+      title: "Textile Bags",
+      image_url: "green-bag.jpg",
     },
     {
-      name: "Hair Accessories",
-      imageUrl: "three-color-bows.jpg",
+      title: "Hair Accessories",
+      image_url: "three-color-bows.jpg",
     },
     {
-      name: "Art and Paintings",
-      imageUrl: "woman-art.jpg",
+      title: "Art and Paintings",
+      image_url: "woman-art.jpg",
     },
     {
-      name: "Pottery and Ceramics",
-      imageUrl: "traditional-vase.jpg",
+      title: "Pottery and Ceramics",
+      image_url: "traditional-vase.jpg",
     },
     {
-      name: "Musical Instruments",
-      imageUrl: "standing-talking-drum2.jpg",
+      title: "Musical Instruments",
+      image_url: "standing-talking-drum2.jpg",
     },
   ];
+
+  const categories = initCategories?.length > 0 ? initCategories : categoriesData
   return (
     <>
       <section className="w-full py-10 px-5 sm:px-10 md:px-13 lg:p-20 h-[340px] sm:h-[440px] md:h-[480px] lg:h-[520px]">
@@ -44,16 +48,16 @@ const PopularCategory = () => {
         </h2>
 
         <div className="overflow-x-auto flex gap-3 h-full py-3">
-          {categoriesData?.map(({ name, imageUrl }) => {
+          {categories?.map(({ title, image_url }) => {
             return (
-              <div className="relative aspect-square h-full">
+              <div onClick={()=>router.push(`/shop?cat=${encodeURIComponent(title)}`)} className="relative aspect-square h-full">
                 <img
                   className="h-full w-full"
-                  src={`designs/${imageUrl}`}
-                  alt={`${name} image`}
+                  src={`designs/${image_url}`}
+                  alt={`${title} image`}
                 />
                 <p className="absolute bottom-2 left-2 text-sm sm:text-base text-[var(--main-secondary-light)] font-normal">
-                  {name}
+                  {title}
                 </p>
               </div>
             );

@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import BottomNavigation from "../../../src/components/page_layouts/BottomNavigation";
 import ProfileCardsItems from "../../../src/components/profile_components/ProfileCardsItems";
 import { Cards } from "../../../src/components/reusable_components/CardsLayouts";
@@ -11,6 +12,7 @@ import {
   StarIcon,
   UserIcon,
 } from "../../../src/components/svg_components/ProfileSvg";
+import { logOut } from "../../../src/utils/auth.client";
 import { getUserServerSide } from "../../../src/utils/auth.server";
 import Button from "./../../../src/components/reusable_components/Buttons";
 
@@ -50,13 +52,13 @@ const ProfilePage = async () => {
           <ProfileCardsItems
             icon={<UserIcon />}
             title="Edit Profile"
-            href="edit"
+            href={`/${user.uid}/profile/edit`}
           />
           <LineSeperator />
           <ProfileCardsItems
             icon={<OrderPackageIcon />}
             title="My Orders"
-            href="edit"
+            href={`/${user.uid}/profile/orders`}
           />
         </Cards>
 
@@ -64,19 +66,19 @@ const ProfilePage = async () => {
           <ProfileCardsItems
             icon={<SellerPostsIcon />}
             title="My Posts"
-            href="edit"
+            href={`/${user.uid}/profile/edit`}
           />
           <LineSeperator />
           <ProfileCardsItems
             icon={<FollowersIcon />}
             title="Followers"
-            href="edit"
+            href={`/${user.uid}/profile/edit`}
           />
           <LineSeperator />
           <ProfileCardsItems
             icon={<StarIcon />}
             title="Ratings and Reviews"
-            href="edit"
+            href={`/${user.uid}/profile/edit`}
           />
         </Cards>
 
@@ -84,16 +86,19 @@ const ProfilePage = async () => {
           <ProfileCardsItems
             icon={<SettingsIcon />}
             title="Account Settings"
-            href="edit"
+            href={`/${user.uid}/profile/settings`}
           />
           <LineSeperator />
           <ProfileCardsItems
             icon={<HelpAndSupportIcon />}
             title="Help and Support"
-            href="edit"
+            href={`/${user.uid}/profile/help`}
           />
         </Cards>
-        <Button width="100%" rounded="6px">
+        <Button buttonFn={async()=>{
+          const {success} = await logOut()
+          if (success) redirect("/explore")
+        }} width="100%" rounded="6px">
           <LogoutIcon className="mr-2" /> Log Out
         </Button>
         <BottomNavigation />

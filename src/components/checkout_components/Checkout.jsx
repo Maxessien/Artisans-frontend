@@ -54,6 +54,7 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
       await authApi(idToken).post(`/orders/confirm`, {
         ref,
       });
+      toast.success("Order placed")
       router.replace(`/${userData.userId}/orders`);
     } catch (err) {
       logger.error("Paystack on success err", err);
@@ -79,7 +80,10 @@ const Checkout = ({ address = "23 Adeola Street, Ibadan" }) => {
       );
       await authApi(idToken).post("/orders/user", formattedBody);
       if (selected === "paystack") initPaystackPayment({ onSuccess, onClose });
-      if (selected === "delivery") router.replace(`/${userData.userId}/orders`);
+      if (selected === "delivery") {
+        toast.success("Order placed")
+        router.replace(`/${userData.userId}/orders`)
+      };
     } catch (err) {
       logger.error("Checkout err", err);
       toast.error("Couldn't complete payment try again later");

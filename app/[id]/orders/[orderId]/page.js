@@ -26,7 +26,7 @@ const OrderDetailsPage = async ({ params }) => {
     return (
       <>
         <OrderDetails
-          receiverInfo={{ address, display_name, email, phone_number }}
+          receiverInfo={{ address, name: display_name, email, phone: phone_number }}
           orderId={order_id}
           orderDate={date_added}
           deliveryDate={date_delivered}

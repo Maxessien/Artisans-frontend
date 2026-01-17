@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Button from './../reusable_components/Buttons';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import { signOut } from 'firebase/auth';
-import { auth } from "../../../firebase/fb_config";
+import { logOut } from "../../utils/auth.client";
 
 const NavListItem = ({
   title = "",
@@ -31,6 +30,7 @@ const NavListItem = ({
 
 const VendorNavigaton = () => {
   const {userData} = useSelector((state)=>state.userAuth)
+  const router =  useRouter()
   return (
     <aside className="w-full bg-(--text-secondary-light) shadow-[0px_0px_10px_-7px_black] p-3 space-y-3 h-screen overflow-y-auto rounded-md">
       <h2 className="text-lg text-(--text-primary) font-medium">Menu</h2>
@@ -48,7 +48,8 @@ const VendorNavigaton = () => {
         <h3 className="text-lg text-(--text-primary) font-medium">General</h3>
         <NavListItem title="Settings" location={`/${userData.userId}/vendor/settings`} />
         <Button buttonFn={async()=>{
-          await signOut(auth)
+          const {success} = logOut()
+          if (success) router.replace("/explore")
         }} type="secondary" width="100%" rounded="6px">Log out</Button>
       </section>
     </aside>
